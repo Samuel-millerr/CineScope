@@ -1,0 +1,8 @@
+@import url("../../styles/variables.css");
+
+h1 {
+    font-family: var(--montserrat);
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--detail-purple);
+}

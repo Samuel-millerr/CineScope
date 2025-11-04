@@ -1,0 +1,12 @@
+@import url("../../styles/variables.css");
+
+.input {
+    padding: 1rem;
+    font-size: 22px;
+    border-radius: 5px;
+}
+
+.input-black {
+    background-color: rgba(var(--color-primary), 0.9);
+    color: var(--detail-dark-input);
+}

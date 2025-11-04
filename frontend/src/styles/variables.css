@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../assets/fonts/Montserrat.ttf");
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins.ttf");
+}
+
+:root {
+    /* Cores principais */
+    --color-primary: 15, 16, 33; /*#0F1021*/
+    --color-secondary: #2A2A4E;
+    --color-tertiary: #1A1C3A;
+
+    /* Detalhes */
+    --detail-light: #F9FAFF;
+    --detail-purple: #8C88FF;
+    --detail-dark-input: #83838A;
+    --detail-light-input: #6b6b70d9;
+    --detail-red: #FF6054;
+    
+    /* Gradientes */
+    --detail-blue-gradient: linear-gradient(90deg, #443afdd9 0%, #5AA9FF 100%);
+    --detail-title-gradient: linear-gradient(90deg, #D1D4FF 0%, #5AA9FF 100%);
+
+    /* Fontes */
+    --montserrat: 'Montserrat', sans-serif;
+    --poppins: 'Poppins', sans-serif;
+}
+
