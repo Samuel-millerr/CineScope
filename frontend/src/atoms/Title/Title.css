@@ -1,0 +1,64 @@
+@import url("../../styles/global.css");
+
+.title {
+  position: relative;
+  display: inline-block;
+  font-family: var(--montserrat);
+  font-weight: 600;
+}
+
+.title-home {
+  font-size: 48px;
+}
+
+.title-home::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 4rem;
+  bottom: 0;
+  width: 15rem;
+  height: 0.4rem;
+  background: var(--detail-blue-gradient);
+  border-radius: 2px;
+}
+
+.title-about-us {
+  font-size: 56px;
+  background-image: var(--detail-title-gradient);
+  background-clip: text;
+  -webkit-background-clip: text; 
+  color: transparent;
+}
+
+.title-about-us::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 5rem;
+  bottom: 0;
+  width: 16rem;
+  height: 0.5rem;
+  background: var(--detail-blue-gradient);
+  border-radius: 2px;
+}
+
+.title-perfil {
+  font-size: 30px;
+  color: rgb(var(--detail-purple));
+}
+
+.title-perfil::after {
+  content: '';
+  position: absolute;
+  top: 2.5rem;
+  bottom: 0;
+  left: 250%;
+  transform: translateX(-50%);
+  width: 500%;
+  height: 0.2rem;
+  background: rgb(var(--detail-purple));
+  border-radius: 2px;
+}

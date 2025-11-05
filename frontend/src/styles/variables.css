@@ -17,6 +17,7 @@
     /* Detalhes */
     --detail-light: 249, 250, 255; /*#F9FAFF*/
     --detail-purple: 140, 136, 255; /* #8C88FF */
+    --detail-blue: 90, 169, 255;
     --detail-dark-input: #84848bd9;
     --detail-light-input: #6b6b70d9;
     --detail-red: #FF6054;
