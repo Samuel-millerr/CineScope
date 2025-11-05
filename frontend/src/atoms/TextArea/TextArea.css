@@ -1,44 +1,45 @@
-@import url("../../styles/variables.css");
+@import url("../../styles/global.css");
 
-/* Estilização base do input */
-.input {
+/* Estilização base da textarea */
+.textarea {
     padding: 1rem;
     font-size: 1.25rem;
     font-family: var(--montserrat);
-    font-weight: 500;
     min-width: 90%;
+    font-weight: 500;
     border-radius: 5px;
     border: 1.5px solid transparent;
     transition: border-color 0.2s ease, box-shadow 0.6s ease;
+    resize: none;
 }
 
-.input:hover {
+.textarea:hover {
   border-color: rgba(var(--detail-purple), 0.75);
 }
 
-.input:focus {
+.textarea:focus {
   outline: none;
   box-shadow: 0 0 3px 1px rgb(var(--detail-purple));
 }
 
-/* Estilização do input black */
-.input-black {
+/* Estilização da textarea black */
+.textarea-black {
     background-color: rgba(var(--primary-color), 0.9);
     color: rgb(var(--detail-light));
     border-color: rgba(var(--detail-light), 0.3);
 }
 
-.input-black::placeholder {
+.textarea-black::placeholder {
     color: var(--detail-dark-input);
 }
 
-/* Estilização do input white */
-.input-white {
+/* Estilização do textarea white */
+.textarea-white {
     background-color: rgba(var(--detail-light), 0.9);
     color: rgb(var(--primary-color));
     border-color: rgba(var(--primary-color), 0.3);
 }
 
-.input-white::placeholder {
+.textarea-white::placeholder {
     color: var(--detail-light-input);
 }

@@ -11,8 +11,9 @@ html {
 }
 
 body {
-  background-color: var(--color-primary);
-  color: var(--detail-light);
+  padding: 10rem;
+  background-color: rgb(var(--secondary-color));
+  color: rgb(var(--detail-light));
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }

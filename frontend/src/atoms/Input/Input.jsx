@@ -1,13 +1,6 @@
 import "./Input.css"
 
-export default function Input({color, placeholder}) {
-    let input; 
-
-    if (color === "white") {
-        input = <input className="input input-white" placeholder={placeholder}/>
-    } else if (color === "black") {
-        input = <input className="input input-black" placeholder={placeholder}/>
-    }
-
-    return input
+export default function Input({type = "text", name, variant, placeholder}) {
+    const classes = `input input-${variant}`;
+    return <input type={type} name={name} className={classes} placeholder={placeholder}/>
 }

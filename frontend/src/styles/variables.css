@@ -10,19 +10,19 @@
 
 :root {
     /* Cores principais */
-    --color-primary: 15, 16, 33; /*#0F1021*/
-    --color-secondary: #2A2A4E;
-    --color-tertiary: #1A1C3A;
+    --primary-color: 15, 16, 33; /*#0F1021*/
+    --secondary-color: 42, 42, 78; /*#2A2A4E*/;
+    --tertiary-color: 26, , 58; /*#1A1C3A*/
 
     /* Detalhes */
-    --detail-light: #F9FAFF;
-    --detail-purple: #8C88FF;
-    --detail-dark-input: #83838A;
+    --detail-light: 249, 250, 255; /*#F9FAFF*/
+    --detail-purple: 140, 136, 255; /* #8C88FF */
+    --detail-dark-input: #84848bd9;
     --detail-light-input: #6b6b70d9;
     --detail-red: #FF6054;
     
     /* Gradientes */
-    --detail-blue-gradient: linear-gradient(90deg, #443afdd9 0%, #5AA9FF 100%);
+    --detail-blue-gradient: linear-gradient(210deg, #443afdd9 0%, #5AA9FF 100%);
     --detail-title-gradient: linear-gradient(90deg, #D1D4FF 0%, #5AA9FF 100%);
 
     /* Fontes */
