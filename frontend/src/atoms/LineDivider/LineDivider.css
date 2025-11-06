@@ -1,0 +1,9 @@
+@import url("../../styles/global.css");
+
+.line-divider {
+  width: 65%;
+  height: 0.2rem;
+  border-radius: 1rem;
+  background-color: #7c4dff;
+  border: none;
+}

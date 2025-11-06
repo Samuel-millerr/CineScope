@@ -2,7 +2,8 @@
 
 /* Estilização base do input */
 .input {
-    padding: 1rem;
+    align-self: flex-start;
+    padding: 0.75rem;
     font-size: 1.25rem;
     font-family: var(--montserrat);
     font-weight: 500;

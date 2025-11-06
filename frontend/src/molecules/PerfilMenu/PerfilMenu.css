@@ -1,0 +1,29 @@
+@import url("../../styles/global.css");
+
+.perfil-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.125rem;
+    width: 23rem;
+    height: 33rem;
+    background-color: rgb(var(--secondary-color));
+    border-radius: 0.5rem;
+}
+
+.perfil-menu-title {
+    font-family: var(--montserrat);
+    font-weight: 500;
+    font-size: 24px;
+    cursor: pointer;
+    transition: ease 0.4s;
+}
+
+.perfil-menu-title:hover {
+    transform: scale(1.04);
+}
+
+.perfil-menu-title:active {
+    transform: scale(0.98);
+}

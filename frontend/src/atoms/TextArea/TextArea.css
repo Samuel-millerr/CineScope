@@ -2,10 +2,12 @@
 
 /* Estilização base da textarea */
 .textarea {
+    align-self: flex-start;
     padding: 1rem;
     font-size: 1.25rem;
     font-family: var(--montserrat);
     min-width: 90%;
+    min-height: 12rem;
     font-weight: 500;
     border-radius: 5px;
     border: 1.5px solid transparent;

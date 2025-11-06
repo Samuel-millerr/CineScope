@@ -1,0 +1,12 @@
+@import url("../../styles/global.css");
+
+.history-menu-text-conteiner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    gap: 3rem;
+    font-size: 1.625rem;
+    font-weight: 600;
+    font-family: var(--montserrat);
+}

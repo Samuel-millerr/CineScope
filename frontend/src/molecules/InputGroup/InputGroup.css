@@ -1,0 +1,9 @@
+@import url("../../styles/global.css");
+
+.input-label {
+    align-self: flex-start;
+    font-size: 1.75rem;
+    color: rgb(var(--detail-light));
+    font-family: var(--montserrat);
+    font-weight: 600;
+}

@@ -11,12 +11,24 @@ import Button from "./atoms/Button/Button.jsx"
 import SmallButton from "./atoms/SmallButton/SmallButton.jsx"
 import Chip from "./atoms/Chip/Chip.jsx";
 
+import GroupInput from "./molecules/InputGroup/InputGroup.jsx";
+import TextAreaGroup from "./molecules/TextAreaGroup/TextAreaGroup.jsx";
+import PerfilMenu from "./molecules/PerfilMenu/PerfilMenu.jsx";
+import HistoryMenuText from "./molecules/HistoryMenuText/HistoryMenuText.jsx";
+import HistoryMenu from "./molecules/HistoryMenu/HistoryMenu.jsx";
+
 function App() {
+    const edition_histories = [
+        {
+            "id": 1,
+            "date": "20/10/2006",
+            "time": "10:42",
+            "user": "Samuel"
+        }
+    ]
     return (
         <>
-            <Chip variant="purple" text_chip="Ação" />
-            <Chip variant="dark-blue" text_chip="Comédia" />
-            <Chip variant="crud" text_chip="Romance" removable={true} />
+            <HistoryMenu edition_histories={edition_histories}/>
         </>
     );
 }
