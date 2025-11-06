@@ -1,4 +1,4 @@
-import "./PerfilCard.css"
+import "./PerfilCard.css";
 
 export default function PerfilCard({number_statistic, name_statistic}) {
     return (

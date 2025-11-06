@@ -1,4 +1,4 @@
-import "./Title.css"
+import "./Title.css";
 
 export default function SubTitleHome({title, type}) {
     const classes = `title title-${type}`

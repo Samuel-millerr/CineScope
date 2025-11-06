@@ -12,15 +12,16 @@
     /* Cores principais */
     --primary-color: 15, 16, 33; /*#0F1021*/
     --secondary-color: 42, 42, 78; /*#2A2A4E*/;
-    --tertiary-color: 26, , 58; /*#1A1C3A*/
+    --tertiary-color: 26, 28, 58; /*#1A1C3A*/
 
     /* Detalhes */
     --detail-light: 249, 250, 255; /*#F9FAFF*/
     --detail-purple: 140, 136, 255; /* #8C88FF */
-    --detail-blue: 90, 169, 255;
+    --detail-blue: 90, 169, 255; /* #5AA9FF */
+    --detail-grey: 72, 72, 74; /* #48484A */
     --detail-dark-input: #84848bd9;
     --detail-light-input: #6b6b70d9;
-    --detail-red: #FF6054;
+    --detail-red: 255, 96, 84; /* #FF6054 */
     
     /* Gradientes */
     --detail-blue-gradient: linear-gradient(210deg, #443afdd9 0%, #5AA9FF 100%);

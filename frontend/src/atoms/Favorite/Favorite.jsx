@@ -1,14 +1,14 @@
-import FavoriteActive from "../../assets/icons/favorite/favorite-active-icon.svg"
-import FavoriteInactive from "../../assets/icons/favorite/favorite-inactive-icon.svg"
+import FavoriteActive from "../../assets/icons/favorite/favorite-active-icon.svg";
+import FavoriteInactive from "../../assets/icons/favorite/favorite-inactive-icon.svg";
 
-export default function Favorite({type}) {
+export default function Favorite({variant}) {
     let src;
 
-    if (type === "inactive") {
+    if (variant === "inactive") {
         src = FavoriteInactive;
-    } else if (type === "active") {
+    } else if (variant === "active") {
         src = FavoriteActive;
     }
 
-    return <img src={src} alt={`favorite-${type}`}/>
+    return <img src={src} alt={`favorite-${variant}`}/>
 }

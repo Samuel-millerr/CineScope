@@ -1,4 +1,4 @@
-import "./Input.css"
+import "./Input.css";
 
 export default function Input({type = "text", name, variant, placeholder}) {
     const classes = `input input-${variant}`;
