@@ -1,46 +1,22 @@
 import "./styles/global.css";
-import Star from "./atoms/Star/Star.jsx"
-import Favorite from "./atoms/Favorite/Favorite.jsx"
-import Logo from "./atoms/Logo/Logo.jsx"
-import Input from "./atoms/Input/Input.jsx"
-import TextArea from "./atoms/TextArea/TextArea.jsx"
-import SearchBar from "./atoms/SearchBar/SearchBar.jsx"
-import Title from "./atoms/Title/Title.jsx"
-import PerfilCard from "./atoms/PerfilCard/PerfilCard.jsx"
-import Button from "./atoms/Button/Button.jsx"
-import SmallButton from "./atoms/SmallButton/SmallButton.jsx"
-import Chip from "./atoms/Chip/Chip.jsx";
-
-import GroupInput from "./molecules/InputGroup/InputGroup.jsx";
-import TextAreaGroup from "./molecules/TextAreaGroup/TextAreaGroup.jsx";
-import PerfilMenu from "./molecules/PerfilMenu/PerfilMenu.jsx";
-import HistoryMenuText from "./molecules/HistoryMenuText/HistoryMenuText.jsx";
-import HistoryMenu from "./molecules/HistoryMenu/HistoryMenu.jsx";
+import CardActor from "./molecules/CardActor/CardActor";
+import Chip from "./atoms/Chip/Chip.jsx"
+import RequestCard from "./molecules/RequestCard/RequestCard.jsx";
+import AboutUsCard from "./molecules/AboutUsCard/AboutUsCard.jsx";
+import TransparencyIcon from "./assets/icons/transparency-icon.svg"
+import PerfilMovieCard from "./molecules/PerfilMovieCard/PerfilMovieCard.jsx";
+import RelatedMovieCard from "./molecules/RelatedMovieCard/RelatedMovieCard.jsx";
 
 function App() {
-    const edition_histories = [
-        {
-            "id": 1,
-            "date": "20/10/2006",
-            "time": "10:42",
-            "user": "Samuel"
-        },
-        {
-            "id": 2,
-            "date": "12/08/2006",
-            "time": "10:10",
-            "user": "Pedro"
-        },
-        {
-            "id": 3,
-            "date": "12/08/2006",
-            "time": "10:10",
-            "user": "Rafael"
-        }
-    ]
     return (
         <>  
-            <HistoryMenu edition_histories={edition_histories}/>
+            <RelatedMovieCard 
+                movie_poster={"https://img.elo7.com.br/product/zoom/2368C5D/big-poster-filme-marvel-venom-tamanho-90x60-cm-loot-op-010-geek.jpg"}
+                movie_name={"PiroquicusJunior"}
+                movie_review_number={4.8}
+                movie_year={"1994"}
+                movie_genre={"Ação"}
+            />
         </>
     );
 }

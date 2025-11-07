@@ -10,7 +10,7 @@
 
 .line-divider-transparent {
   height: 0.2rem;
-  width: 85%;
+  width: 95%;
   background-color: rgba(var(--detail-light), 0.15);
   border: none;
   border-radius: 1rem;

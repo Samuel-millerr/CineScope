@@ -12,7 +12,7 @@ html {
 
 body {
   padding: 1rem;
-  background-color: rgb(var(--primary-color));
+  background-color: rgb(var(--detail-blue));
   color: rgb(var(--detail-light));
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;

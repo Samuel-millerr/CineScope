@@ -3,7 +3,7 @@ import "./Chip.css";
 
 export default function Chip({
     variant,
-    text_chip,
+    chip_text,
     removable = false,
     onRemove,
     onClick
@@ -12,7 +12,7 @@ export default function Chip({
 
     function handleRemove(e) {
         e.stopPropagation();
-        if (onRemove) onRemove(text_chip)
+        if (onRemove) onRemove(chip_text)
     }
 
     return (
@@ -20,20 +20,20 @@ export default function Chip({
             className={classes} 
             role={onClick ? "button" : undefined} 
             tabIndex={onClick ? 0 : undefined}
-            onClick={() => onClick && onClick(text_chip)}
+            onClick={() => onClick && onClick(chip_text)}
             onKeyDown={(e) => {
-                if (onClick && (e.key === "Enter" || e.key === " ")) onClick(text_chip);
+                if (onClick && (e.key === "Enter" || e.key === " ")) onClick(chip_text);
             }}
-            aria-label={text_chip}
+            aria-label={chip_text}
         >
-            <span className="chip-text">{text_chip}</span>
+            <span className="chip-text">{chip_text}</span>
 
             {removable && (
                 <button
                     className="chip-remove"
                     onClick={handleRemove}
                     type="button"
-                    aria-label={`Remover ${text_chip}`}
+                    aria-label={`Remover ${chip_text}`}
                 >
                     x
                 </button>

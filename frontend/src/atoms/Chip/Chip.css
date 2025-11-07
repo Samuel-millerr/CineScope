@@ -11,8 +11,8 @@
     height: 1.75rem;
     padding: 0 0.75rem;
     border-radius: 2rem;
-    font-family: var(--montserrat);
-    font-weight: 500;
+    font-family: var(--poppins);
+    font-weight: 600;
     font-size: 1rem;
     line-height: 1;
     cursor: default;
@@ -71,4 +71,17 @@
   box-shadow: none;
   color: rgb(var(--tertiary-color));
   cursor: default;
+}
+
+/*Chip de status*/
+.chip-approved {
+  background-color: rgb(var(--detail-green));
+}
+
+.chip-pending {
+  background-color: rgb(var(--detail-yellow));
+}
+
+.chip-failed {
+  background-color: rgb(var(--detail-red));
 }

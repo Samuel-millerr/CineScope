@@ -1,12 +1,12 @@
 @import url("../../styles/global.css");
 
 .history-menu-text-conteiner {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-content: center;
-    gap: 3rem;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 7.5rem 5rem 7.5rem;
+    gap: 2rem;
     font-size: 1.5rem;
     font-weight: 500;
     font-family: var(--montserrat);
 }
+
