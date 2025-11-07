@@ -24,10 +24,22 @@ function App() {
             "date": "20/10/2006",
             "time": "10:42",
             "user": "Samuel"
+        },
+        {
+            "id": 2,
+            "date": "12/08/2006",
+            "time": "10:10",
+            "user": "Pedro"
+        },
+        {
+            "id": 3,
+            "date": "12/08/2006",
+            "time": "10:10",
+            "user": "Rafael"
         }
     ]
     return (
-        <>
+        <>  
             <HistoryMenu edition_histories={edition_histories}/>
         </>
     );

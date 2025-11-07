@@ -1,9 +1,17 @@
 @import url("../../styles/global.css");
 
-.line-divider {
+.line-divider-gradient {
   width: 65%;
   height: 0.2rem;
   border-radius: 1rem;
-  background-color: #7c4dff;
+  background: var(--detail-blue-gradient);
   border: none;
+}
+
+.line-divider-transparent {
+  height: 0.2rem;
+  width: 85%;
+  background-color: rgba(var(--detail-light), 0.15);
+  border: none;
+  border-radius: 1rem;
 }

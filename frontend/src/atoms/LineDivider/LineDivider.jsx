@@ -1,5 +1,6 @@
 import "./LineDivider.css";
 
-export default function LineDivider() {
-    return <hr className="line-divider" />
+export default function LineDivider({variant}) {
+    const classes = `line-divider-${variant}`
+    return <hr className={classes} />
 }
