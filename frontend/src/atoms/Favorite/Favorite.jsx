@@ -1,3 +1,4 @@
+import "./Favorite.css";
 import FavoriteActive from "../../assets/icons/favorite/favorite-active-icon.svg";
 import FavoriteInactive from "../../assets/icons/favorite/favorite-inactive-icon.svg";
 
@@ -10,5 +11,5 @@ export default function Favorite({variant}) {
         src = FavoriteActive;
     }
 
-    return <img src={src} alt={`favorite-${variant}`}/>
+    return <img src={src} className="favorite-icon" alt={`favorite-${variant}`}/>
 }

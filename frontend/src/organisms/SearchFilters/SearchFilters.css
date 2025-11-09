@@ -1,0 +1,28 @@
+@import url("../../styles/global.css");
+
+.search-filters-container {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    gap: 1rem;
+    width: 25rem;
+    background-color: rgb(var(--secondary-color));
+    padding: 1.75rem;
+    border-radius: 0.313rem;
+    font-family: var(--montserrat);
+}
+
+.search-filters-container h2{
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.search-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.search-form-container label{
+    margin-top: 0.65rem;
+}

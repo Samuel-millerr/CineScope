@@ -1,4 +1,4 @@
-import "./CardActor.css";
+import "./ActorCard.css";
 
 export default function CardActor({actor_image, actor_name}) {
     return (
