@@ -49,7 +49,7 @@
 .slide-track-process {
     position: absolute;
     height: 8px;
-    background-color: rgb(var(--primary-color));
+    background-color: #84848b;
     border-radius: 3px;
 }
 
@@ -69,10 +69,10 @@
 }
 
 .year-range-filter-slider::-webkit-slider-thumb {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: rgb(var(--primary-color));
+    background: #84848b;
     cursor: grab;
     pointer-events: auto;
     appearance: none;
@@ -85,8 +85,8 @@
 }
 
 .year-range-filter-slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     background: rgb(var(--detail-light));
     cursor: grab;

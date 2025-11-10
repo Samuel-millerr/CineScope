@@ -1,4 +1,5 @@
-import Star from "../../atoms/Star/Star.jsx"
+import "./RatingFilterLine.css";
+import Star from "../../atoms/Star/Star.jsx";
 
 export default function StarRatingLine ({rating, isSelected}) {
     const fullStars = rating;
