@@ -1,0 +1,19 @@
+@import url("../../styles/global.css");
+
+.PerfilLineInfo {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+    font-family: var(--montserrat);
+    padding: 0.5rem;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgb(var(--detail-light));
+}
+
+.PerfilLineInfo h6 {
+    font-size: 22px;
+    font-weight: 600;
+    color: rgb(var(--detail-purple));
+}

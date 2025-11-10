@@ -1,0 +1,28 @@
+@import url("../../styles/global.css");
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: rgb(var(--detail-light));
+  padding: 0.5rem 1rem;
+}
+
+.breadcrumb-item a {
+  color: rgb(var(--detail-light));
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  font-size: 28px;
+  margin: 0 0.5rem;
+  color: rgb(var(--detail-light));
+}
