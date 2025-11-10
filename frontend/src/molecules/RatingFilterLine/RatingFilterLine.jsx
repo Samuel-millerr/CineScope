@@ -1,7 +1,7 @@
 import "./RatingFilterLine.css";
 import Star from "../../atoms/Star/Star.jsx";
 
-export default function StarRatingLine ({rating, isSelected}) {
+export default function RatingFilterLine ({rating, isSelected}) {
     const fullStars = rating;
     const emptyStars = 5 - rating;
 

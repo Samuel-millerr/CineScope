@@ -1,4 +1,4 @@
-import "./NavBarLinks.css";
+import "./HeaderLinks.css";
 import Logo from "../../atoms/Logo/Logo.jsx";
 
 export default function NavBar() {

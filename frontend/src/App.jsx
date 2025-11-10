@@ -1,10 +1,11 @@
-import NavBar from "./molecules/NavBarLinks/NavBarLinks.jsx";
+import ComunityReview from "./molecules/ComunityReview/ComunityReview";
+import LinePerfilInfo from "./molecules/LinePerfilInfo/LinePerfilInfo";
 import "./styles/global.css";
 
 export default function App() {
   return (
     <>
-      <NavBar/>
+      <LinePerfilInfo title={"Vou lhe pegar alex"} text={"Delicius.jr"}/>
     </>
   );
 }

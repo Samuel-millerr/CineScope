@@ -1,0 +1,15 @@
+@import url("../../styles/global.css");
+
+.header-user-group {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    white-space: nowrap;
+}
+
+.header-user-group h4 {
+    padding-right: 1.1rem;
+    font-family: var(--poppins);
+    font-size: 28px;
+    font-weight: 500;
+}
