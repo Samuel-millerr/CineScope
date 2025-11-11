@@ -1,7 +1,7 @@
 import "./NavBar.css";
-import HeaderLinks from "../../molecules/HeaderLinks/HeaderLinks.jsx";
+import HeaderLinks from "../HeaderLinks/HeaderLinks.jsx"
 import SearchBar from "../../atoms/SearchBar/SearchBar.jsx";
-import HeaderUserGroup from "../../molecules/HeaderUserGroup/HeaderUserGroup.jsx";
+import HeaderUserGroup from "../HeaderUserGroup/HeaderUserGroup.jsx";
 
 
 export default function NavBar() {

@@ -3,7 +3,13 @@ import "./HomeMovieCard.css";
 import Favorite from "../../atoms/Favorite/Favorite.jsx";
 import Star from "../../atoms/Star/Star.jsx";
 
-export default function HomeMovieCard({ movie_poster, movie_name, movie_review_number, favorite_icon_variant = "inactive" }) {
+export default function HomeMovieCard({ 
+    movie_poster, 
+    movie_name, 
+    movie_review_number, 
+    favorite_icon_variant = "inactive" 
+}) {
+
     const [favorite, setFavorite] = useState(favorite_icon_variant);
 
     const handleFavoriteClick = (e) => {

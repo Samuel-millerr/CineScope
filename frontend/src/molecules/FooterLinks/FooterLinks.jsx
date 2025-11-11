@@ -1,11 +1,12 @@
-import "../HeaderLinks/HeaderLinks";
+import "../HeaderLinks/HeaderLinks.css";
+import { Link } from "react-router-dom";
 
 export default function FooterLinks() {
     return (
-        <nav className="nav-bar">
-            <ul>
-                <li>Sobre Nós</li>
-                <li>Contato</li>
+        <nav>
+            <ul className="site-links">
+                <li><Link to={"/about-us"}> Sobre Nós </Link></li>
+                <li><Link to={"/about-us"}> Contato </Link></li>
             </ul>
         </nav>
     )

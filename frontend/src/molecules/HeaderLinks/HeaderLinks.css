@@ -1,6 +1,6 @@
 @import url("../../styles/global.css");
 
-.header-links {
+.site-links {
     display: flex;
     align-items: center;
     gap: 1.75rem;
@@ -11,11 +11,24 @@
     color: rgb(var(--detail-light));
 }
 
-.header-links li {
+.site-links li {
     cursor: pointer;
     transition: 0.8s ease;
 }
 
-.header-links li:hover {
-    transform: scale(1.05);
+.site-links li:hover {
+    transform: translateY(-4px);
+}
+
+.site-links li a {
+    text-decoration: none;
+    color: rgb(var(--detail-light));
+}
+
+#cinescope-logo {
+    transition: none;
+}
+
+#cinescope-logo:hover {
+    transform: none;
 }

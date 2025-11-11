@@ -24,7 +24,7 @@
     
     /* Gradientes */
     --detail-blue-gradient: linear-gradient(210deg, #443afdd9 0%, #5AA9FF 100%);
-    --detail-title-gradient: linear-gradient(90deg, #D1D4FF 0%, #5AA9FF 100%);
+    --detail-title-gradient: linear-gradient(180deg, #D1D4FF 0%, #5AA9FF 100%);
 
     /* Fontes */
     --montserrat: 'Montserrat', sans-serif;

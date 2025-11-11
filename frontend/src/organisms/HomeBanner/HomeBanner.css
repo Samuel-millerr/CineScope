@@ -1,5 +1,7 @@
 @import url("../../styles/global.css");
 
+@import url("../../styles/global.css");
+
 .home-banner {
     display: flex;
     flex-direction: column;
@@ -8,17 +10,26 @@
     width: 100%;
     height: 39rem;
     gap: 3rem;
-    padding: 2rem 6rem 2rem 6rem;
+    padding: 2rem 6rem;
     font-family: var(--montserrat);
-    background-color: rgba(var(--primary-color), 0.65);
-    background: url("../../assets/images/backgroud-image-banner.png");
+    background: 
+        linear-gradient(rgba(var(--primary-color), 0.65), rgba(var(--primary-color), 0.65)),
+        url("../../assets/images/backgroud-image-banner.png");
     background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    background-attachment: scroll;
 }
 
 .home-banner h1 {
     font-size: 70px;
     font-weight: 700;
     margin-bottom: 0.75rem;
+    background: var(--detail-title-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 .home-banner p {

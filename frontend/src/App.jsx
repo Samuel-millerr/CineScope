@@ -1,14 +1,9 @@
-import "./styles/global.css";
-import Title from "./atoms/Title/Title.jsx";
-import NavBar from "./organisms/NavBar/NavBar.jsx"
-import HomeBanner from "./organisms/HomeBanner/HomeBanner.jsx";
+import AppRoutes from "./routes.jsx";
 
-
-export default function App() { 
+export default function App() {
   return (
     <>
-      <NavBar/>
-      <HomeBanner/>
+      <AppRoutes/>
     </>
   );
 }

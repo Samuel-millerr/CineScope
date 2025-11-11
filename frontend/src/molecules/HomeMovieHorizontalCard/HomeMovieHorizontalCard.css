@@ -44,14 +44,14 @@
 
 .home-movie-horizontal-card h4 {
     font-size: 36px;
-    font-weight: 700;
+    font-weight: 600;
     font-style: italic;
     color: rgb(var(--detail-purple));
     margin: 0;
 }
 
 .home-movie-horizontal-card p {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
     background-image: var(--detail-blue-gradient);
     background-clip: text;
@@ -64,9 +64,11 @@
     width: 28rem;
     height: 17rem;
 }
+
 .small h4 {
     font-size: 34px;
 }
+
 .small p {
-    font-size: 18px;
+    font-size: 20px;
 }
