@@ -1,0 +1,34 @@
+@import url("../../styles/global.css");
+
+.home-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 39rem;
+    gap: 3rem;
+    padding: 2rem 6rem 2rem 6rem;
+    font-family: var(--montserrat);
+    background-color: rgba(var(--primary-color), 0.65);
+    background: url("../../assets/images/backgroud-image-banner.png");
+    background-repeat: no-repeat;
+}
+
+.home-banner h1 {
+    font-size: 70px;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.home-banner p {
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.home-banner-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}

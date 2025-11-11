@@ -1,15 +1,13 @@
 import "./HeaderLinks.css";
 import Logo from "../../atoms/Logo/Logo.jsx";
 
-export default function NavBar() {
+export default function HeaderLinks() {
     return (
-        <nav className="nav-bar">
-            <ul>
-                <li><Logo/></li>
-                <li>Home</li>
-                <li>Minha Coleção</li>
-                <li>Pesquisa</li>
-            </ul>
-        </nav>
+        <ul className="header-links">
+            <li><Logo/></li>
+            <li>Home</li>
+            <li>Minha Coleção</li>
+            <li>Pesquisa</li>
+        </ul>
     )
 }

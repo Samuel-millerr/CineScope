@@ -4,16 +4,19 @@
 .button {
     font-size: 1.5rem;
     font-family: var(--montserrat);
-    padding: 1rem 1.5rem;
-    width: 14.375rem;
-    height: 3.675rem;
+    padding: 0.75rem 1.5rem;
     font-weight: 600;
     border-radius: 2rem;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
 }
 
+/* Efeitos de interação */
 .button:hover {
     transform: scale(1.03);
     opacity: 0.95;
@@ -22,7 +25,6 @@
 .button:active {
     transform: scale(0.98);
 }
-
 
 /* Variações */
 .button-blue-gradient {

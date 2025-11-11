@@ -59,7 +59,6 @@
 
 .search-movie-subtitle {
     font-family: var(--poppins);
-    background: linear-gradient(to right, red, orange); 
     background-image: var(--detail-blue-gradient);
     background-clip: text;
     -webkit-background-clip: text; 

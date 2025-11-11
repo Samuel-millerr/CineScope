@@ -10,7 +10,7 @@ export default function MyReviewsCard({movie_poster, title, comment, rating, set
             <div className="my-reviews-card-info">
                 <h5>{title}</h5>
                 <RatingFilterLine rating={rating} isSelect={setLineRating}/>
-                <p>{comment}</p>
+                <p>"{comment}"</p>
             </div>
         </article>
     )

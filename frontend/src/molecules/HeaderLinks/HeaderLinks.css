@@ -1,24 +1,21 @@
 @import url("../../styles/global.css");
 
-.nav-bar {
+.header-links {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    list-style: none;
     font-size: 28px;
     font-weight: 500;
     font-family: var(--poppins);
     color: rgb(var(--detail-light));
 }
 
-.nav-bar ul {
-    display: flex;
-    align-items: flex-end;
-    gap: 1.75rem;
-    list-style: none;
-}
-
-.nav-bar li {
+.header-links li {
     cursor: pointer;
     transition: 0.8s ease;
 }
 
-.nav-bar li:hover {
+.header-links li:hover {
     transform: scale(1.05);
 }
