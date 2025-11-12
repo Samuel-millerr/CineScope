@@ -27,7 +27,7 @@ export default function SearchFilters() {
             <LineDivider variant={"transparent"} />
             <GenreFilter
                 title={"Gênero"}
-                options={["Ação", "Aventura", "Cuziho", "Ação", "Aventura", "Cuziho"]}
+                options={["Ação", "Aventura", "Cuziho"]}
                 selectedOptions={selectedGenres}
                 onChange={setSelectedGenres}
             />

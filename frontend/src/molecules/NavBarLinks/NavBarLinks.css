@@ -8,7 +8,6 @@
     font-size: 28px;
     font-weight: 500;
     font-family: var(--poppins);
-    color: rgb(var(--detail-light));
 }
 
 .site-links li {
@@ -31,4 +30,8 @@
 
 #cinescope-logo:hover {
     transform: none;
+}
+
+#cinescope-logo a {
+    color: rgb(var(--detail-purple));
 }

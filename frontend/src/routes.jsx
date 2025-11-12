@@ -2,13 +2,16 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SingUpPage from "./pages/SingUpPage/SingUpPage.jsx";
+import SearchPage from "./pages/SearchPage/SearchPage.jsx";
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomePage/>}/>
       <Route path="/login" element={<LoginPage/>}/>
-      <Route path="/singUp" element={<SingUpPage/>}/>
+      <Route path="/singUp-first-step" element={<SingUpPage step="first"/>}/>
+      <Route path="/singUp-second-step" element={<SingUpPage step="second"/>}/>
+      <Route path="/search" element={<SearchPage/>}/>
     </Routes>
   );
 }

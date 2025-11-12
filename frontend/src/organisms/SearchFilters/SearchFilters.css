@@ -3,9 +3,9 @@
 .search-filters-container {
     display: flex;
     flex-direction: column;
-    align-content: flex-start;
     gap: 1rem;
-    width: 25rem;
+    width: 24rem;
+    height: min-content;
     background-color: rgb(var(--secondary-color));
     padding: 1.75rem;
     border-radius: 0.313rem;

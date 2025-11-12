@@ -1,8 +1,13 @@
 @import url("../../styles/global.css");
 
 h1 {
+    font-size: 48px;
+}
+
+h1 a{
     font-family: var(--montserrat);
     font-size: 48px;
-    font-weight: bold;
+    font-weight: 600;
     color: rgb(var(--detail-purple));
+    text-decoration: none;
 }

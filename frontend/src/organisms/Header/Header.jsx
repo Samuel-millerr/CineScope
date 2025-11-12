@@ -1,5 +1,5 @@
 import HomeBanner from "../HomeBanner/HomeBanner";
-import NavBar from "../../molecules/NavBar/NavBar.jsx";
+import NavBar from "../NavBar/NavBar.jsx";
 import "./Header.css";
 
 export default function Header() {

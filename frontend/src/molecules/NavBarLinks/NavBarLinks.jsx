@@ -1,8 +1,8 @@
-import "./HeaderLinks.css";
+import "./NavBarLinks.css";
 import { Link } from "react-router-dom";
 import Logo from "../../atoms/Logo/Logo.jsx";
 
-export default function HeaderLinks() {
+export default function NavBarLinks() {
     return (
         <ul className="site-links">
             <li id="cinescope-logo"><Link to={"/"}><Logo/></Link></li>

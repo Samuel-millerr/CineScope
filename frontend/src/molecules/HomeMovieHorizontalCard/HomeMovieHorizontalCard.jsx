@@ -8,7 +8,7 @@ export default function HomeMovieHorizontalCard({variant, movie_poster, movie_na
                 <img src={movie_poster} alt={`Foto do poster do filme ${movie_name}`} />
             </figure>
             <div>
-                <h4 className="movie-name">{movie_name}</h4>
+                <h5 className="movie-name">{movie_name}</h5>
                 <p>{movie_year} | {movie_genre}</p>    
             </div>
         </article>
