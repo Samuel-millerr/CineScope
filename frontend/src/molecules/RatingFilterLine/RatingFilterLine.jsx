@@ -1,9 +1,11 @@
 import "./RatingFilterLine.css";
 import Star from "../../atoms/Star/Star.jsx";
 
-export default function RatingFilterLine ({rating, isSelected}) {
-    const fullStars = rating;
-    const emptyStars = 5 - rating;
+export default function RatingFilterLine ({rating = "0.0", isSelected}) {
+    const roundedRating = Math.round(rating);
+
+    const fullStars = roundedRating;
+    const emptyStars = 5 - roundedRating;
 
     return (
         <div className={`rating-star-row ${isSelected ? 'selected' : ''}`}>

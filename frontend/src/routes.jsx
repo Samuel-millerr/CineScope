@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage/HomePage.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SingUpPage from "./pages/SingUpPage/SingUpPage.jsx";
 import SearchPage from "./pages/SearchPage/SearchPage.jsx";
+import MoviePage from "./pages/MoviePage/MoviePage.jsx";
 
 export default function AppRoutes() {
   return (
@@ -12,6 +13,7 @@ export default function AppRoutes() {
       <Route path="/singUp-first-step" element={<SingUpPage step="first"/>}/>
       <Route path="/singUp-second-step" element={<SingUpPage step="second"/>}/>
       <Route path="/search" element={<SearchPage/>}/>
+      <Route path="/movie" element={<MoviePage/>}/>
     </Routes>
   );
 }

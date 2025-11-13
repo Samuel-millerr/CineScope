@@ -1,0 +1,40 @@
+@import url("../../styles/global.css");
+
+.movie-info-footer {
+    width: 100%;
+    padding: 2.5rem 3rem; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--montserrat);
+    background-color: rgb(var(--secondary-color));
+    border-radius: 0.313rem;
+}
+
+.movie-info-footer > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 32px;
+}
+
+.movie-info-footer div h5 {
+    font-weight: 500;
+}
+
+.movie-info-footer > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.rating-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 5rem;
+    color: rgb(var(--detail-purple));
+    font-weight: 600;
+}

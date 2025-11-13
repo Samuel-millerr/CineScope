@@ -4,6 +4,7 @@ import SearchBanner from "../../organisms/SearchBanner/SearchBanner.jsx";
 import SearchFilters from "../../organisms/SearchFilters/SearchFilters.jsx";
 import SearchMoviesLine from "../../organisms/SearchMoviesLine/SearchMoviesLine.jsx";
 import Breadcrumb from "../../molecules/Breadcrumb/Breadcrumb.jsx";
+import Title from "../../atoms/Title/Title.jsx";
 
 export default function SearchPage() {
     const moviesMock = [
@@ -36,22 +37,17 @@ export default function SearchPage() {
                 <SearchBanner/>
                 <section className="search-page-query-conteiner">
                     <div>
-                        <Breadcrumb items={[
-                            {
-                                "label": "Home",
-                                "path": "/"
-                            }, 
-                            {
-                                "label": "Pesquisa", 
-                                "path": "/search" 
-                            }
-                            ]}/>
+                        <Breadcrumb items={{
+                                "Home": "/",
+                                "Pesquisa": "/search" 
+                            }}/>
                         <SearchFilters/>
                     </div>
                     <div>
+                        <Title variant={"search"} title={"Resultados"}/>
                         <SearchMoviesLine movies={moviesMock}/>
                         <SearchMoviesLine movies={moviesMock}/>
-                        <SearchMoviesLine movies={moviesMock}/>
+                        <SearchMoviesLine movies={moviesMock.slice(0, 2)}/>
                     </div>
                 </section>
             </main>

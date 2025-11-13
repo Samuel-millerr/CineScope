@@ -3,7 +3,7 @@ import UserIcon from "../../assets/icons/avatar-icon.svg";
 import RatingFilterLine from "../RatingFilterLine/RatingFilterLine.jsx";
 import { useState } from "react";
 
-export default function ComunityReview({user_icon = UserIcon, user_name, comment_text, comment_date, rating=5}) {
+export default function ComunityReview({user_icon = UserIcon, user_name, comment_text, comment_date, rating="0.0"}) {
     const [lineRating, setLineRating] = useState();
     
     return (

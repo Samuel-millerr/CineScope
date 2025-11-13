@@ -1,4 +1,3 @@
-import "./SearchMoviesLine.css";
 import SearchMovieCard from "../../molecules/SearchMovieCard/SearchMovieCard.jsx";
 
 export default function SearchMoviesLine({movies}) {
