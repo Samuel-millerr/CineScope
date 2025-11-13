@@ -2,14 +2,14 @@
 
 .movie-info-footer {
     width: 100%;
-    padding: 2.5rem 3rem; 
+    padding: 2.5rem 1.75rem; 
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     font-family: var(--montserrat);
     background-color: rgb(var(--secondary-color));
-    border-radius: 0.313rem;
+    border-radius: 0.6rem;
 }
 
 .movie-info-footer > div:first-child {
@@ -26,7 +26,7 @@
 .movie-info-footer > div:last-child {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
 .rating-container {

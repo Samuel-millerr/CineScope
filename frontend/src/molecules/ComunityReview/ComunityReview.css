@@ -4,9 +4,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 30%;
+    width: 100%;
     padding: 0.5rem;
-    gap: 0.8rem;
+    gap: 2rem;
     font-family: var(--montserrat);
     color: var(--montserrat);
     font-size: 22px;
@@ -26,7 +26,7 @@
 .comunity-review-info {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 1rem;
 }
 
 .purple-text {
@@ -36,3 +36,7 @@
     color: rgb(var(--detail-purple));
 }
 
+.comunity-review > p:last-child {
+    width: 26%;
+    text-align: end;
+}
