@@ -6,6 +6,7 @@ import ComunityReview from "../../molecules/ComunityReview/ComunityReview";
 import LineDivider from "../../atoms/LineDivider/LineDivider";
 import RelatedMovieCard from "../../molecules/RelatedMovieCard/RelatedMovieCard.jsx";
 import MyReview from "../../molecules/MyReview/MyReview.jsx";
+import ActorCard from "../../molecules/ActorCard/ActorCard.jsx";
 
 export default function MoviePage() {
     const movie_mock = {
@@ -51,6 +52,15 @@ export default function MoviePage() {
                 </section>
                 <section>
                     <h2></h2>
+                </section>
+                <section className="movie-page-actor-conteiner">
+                    <h4>Elenco Principal</h4>
+                    <div>
+                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond"/>
+                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond"/>
+                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond"/>
+                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond"/>
+                    </div>
                 </section>
             </main>
             <Footer />

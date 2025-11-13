@@ -74,6 +74,8 @@
 .credits {
     font-size: 0.9rem;
     line-height: 1.5;
+    position: relative;
+    padding-left: 1.25rem;
 }
 
 .credits p {
@@ -85,4 +87,14 @@
     font-weight: 600;
     color: rgb(var(--detail-light));
     margin-right: 0.5rem;
+}
+
+.credits::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--detail-blue-gradient);
 }

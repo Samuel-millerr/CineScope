@@ -4,9 +4,10 @@
 .textarea {
     align-self: flex-start;
     padding: 1rem;
+    margin-top: 0.25rem;
     font-size: 1.25rem;
     font-family: var(--montserrat);
-    min-width: 90%;
+    min-width: 100%;
     min-height: 12rem;
     font-weight: 500;
     border-radius: 5px;

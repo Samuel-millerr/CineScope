@@ -1,6 +1,10 @@
 import "./Button.css";
 
-export default function Button({type="submit", variant, text_button}) {
-    const classes = `button button-${variant}`;
-    return <button className={classes} type={type}>{text_button}</button>
+export default function Button({ type = "submit", variant, text_button, onClick }) {
+  const classes = `button button-${variant}`;
+  return (
+    <button className={classes} type={type} onClick={onClick}>
+      {text_button}
+    </button>
+  );
 }

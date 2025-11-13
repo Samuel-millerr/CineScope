@@ -2,27 +2,27 @@
 
 /* Chip padrão */
 .chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    box-sizing: border-box;
-    min-width: 7.5rem;
-    height: 1.75rem;
-    padding: 0 0.75rem;
-    border-radius: 2rem;
-    font-family: var(--poppins);
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1;
-    cursor: default;
-    user-select: none;
-    color: rgb(var(--tertiary-color));
-    box-shadow: 0 0 5px 1px rgb(var(--tertiary-color));
-    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  min-width: 7.5rem;
+  height: 2rem;
+  padding: 0 0.75rem;
+  border-radius: 2rem;
+  font-family: var(--poppins);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: default;
+  user-select: none;
+  color: rgb(var(--tertiary-color));
+  box-shadow: 0 0 5px 1px rgb(var(--tertiary-color));
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .chip-text {
@@ -30,7 +30,7 @@
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 0.25rem; 
+  padding-right: 0.25rem;
 }
 
 .chip-remove {
@@ -51,18 +51,18 @@
 }
 
 .chip-remove:hover {
-    transform: scale(1.08);
-    opacity: 0.85;
+  transform: scale(1.08);
+  opacity: 0.9;
 }
 
 /* Variações */
 .chip-purple {
-    background-color: rgb(var(--detail-purple));
+  background-color: rgb(var(--detail-purple));
 }
 
 .chip-dark-blue {
-    background-color: rgb(var(--secondary-color));
-    color: rgb(var(--detail-light));
+  background-color: rgb(var(--secondary-color));
+  color: rgb(var(--detail-light));
 }
 
 /* Chip de CRUD */

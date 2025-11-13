@@ -1,4 +1,3 @@
-// Chip.jsx
 import "./Chip.css";
 
 export default function Chip({
