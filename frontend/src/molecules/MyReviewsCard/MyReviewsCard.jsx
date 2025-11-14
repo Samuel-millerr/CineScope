@@ -1,16 +1,16 @@
 import "./MyReviewsCard.css";
 import RatingFilterLine from "../RatingFilterLine/RatingFilterLine.jsx"
 
-export default function MyReviewsCard({movie_poster, title, comment, rating, setLineRating}) {
+export default function MyReviewsCard({review, rating, setLineRating}) {
     return (
         <article className="my-reviews-card">
             <figure className="my-reviews-card-poster">
-                <img src={movie_poster}/>
+                <img src={review.movie_poster} alt={`Poster do filme ${review.movie_title}`}/>
             </figure>
             <div className="my-reviews-card-info">
-                <h5>{title}</h5>
+                <h5>{review.movie_title}</h5>
                 <RatingFilterLine rating={rating} isSelect={setLineRating}/>
-                <p>"{comment}"</p>
+                <p>"{review.movie_comment}"</p>
             </div>
         </article>
     )

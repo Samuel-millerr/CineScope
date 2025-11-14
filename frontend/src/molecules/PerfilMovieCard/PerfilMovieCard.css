@@ -1,6 +1,7 @@
 .perfil-movie-card {
     width: 11rem;
     height: 15rem;
+    margin-bottom: 6rem;
 }
 
 .perfil-movie-card figure {
@@ -29,7 +30,7 @@
 }
 
 .perfil-movie-card-footer h5{
-    font-size: 1.125rem;
+    font-size: 1.5rem;
+    font-weight: 600;
     font-family: var(--montserrat);
-    font-weight: 500;
 }

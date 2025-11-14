@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
 import "./SmallButton.css";
 
 export default function SmallButton({type="submit", variant, text_button}) {
     const classes = `small-button small-button-${variant}`;
-    return <button className={classes} type={type}>{text_button}</button>
+    if (variant === "red") {
+        return <button className={classes} type={type}>{text_button}</button>
+    } else if (variant === "grey") {
+        return <Link to={"/edit-movie"}><button className={classes} type={type}>{text_button}</button></Link>
+    }
 }

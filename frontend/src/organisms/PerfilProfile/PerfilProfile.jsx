@@ -1,18 +1,39 @@
 import "./PerfilProfile.css";
+import { useState } from "react";
+import { useEffect } from "react";
+import React from "react";
 import Title from "../../atoms/Title/Title.jsx";
 import PerfilLineInfo from "../../molecules/PerfiLineInfo/PerfilLineInfo.jsx";
 import LineDivider from "../../atoms/LineDivider/LineDivider.jsx";
 import PerfilCard from "../../atoms/PerfilCard/PerfilCard.jsx";
 
 export default function PerfilProfile() {
-    const { profile } = useOutletContext();
+    const [profileData, setProfileData] = useState(null);
 
-    if (!profile) {
-        return <div>Nenhum perfil encontrado.</div>;
+    useEffect(() => {
+        const fetchProfile = () => {
+            setProfileData({
+                "Nome:": "Usuário 01",
+                "Email": "usuario@email.com",
+                "Cadastro:": "Janeiro 2023"
+            });
+        };
+
+        fetchProfile();
+    }, []);
+
+    if (!profileData) {
+        return (
+            <section className="perfil-section-conteiner">
+                <div className="profile-main-container">
+                    Carregando informações do perfil...
+                </div>
+            </section>
+        );
     }
 
     return (
-        <section className="perfil-profile-conteiner">
+        <section className="perfil-section-conteiner perfil-profile-container">
             <div className="profile-header-container">
                 <div className="profile-banner"></div>
                 <div className="profile-details">
@@ -27,7 +48,7 @@ export default function PerfilProfile() {
                     <Title variant={"perfil"} title={"Informações Pessoais"} />
                     <div className="profile-info-text-conteiner">
                         {
-                            Object.entries(profile).map(([key, value]) =>
+                            Object.entries(profileData).map(([key, value]) =>
                                 <>
                                     <PerfilLineInfo
                                         key={key}

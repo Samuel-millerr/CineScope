@@ -1,18 +1,19 @@
 import "./PerfilMenu.css";
+import { Link } from "react-router-dom";
 import LineDivider from "../../atoms/LineDivider/LineDivider";
 
 export default function PerfilMenu(){
     return (
         <aside className="perfil-menu">
-            <h3 className="perfil-menu-title">Meu Perfil</h3>
+            <Link to={"/perfil"} className="perfil-menu-title">Meu Perfil</Link>
             <LineDivider variant={"gradient"}/>
-            <h3 className="perfil-menu-title">Minha Coleção</h3>
+            <Link to={"/perfil/my-collection"} className="perfil-menu-title">Minha Coleção</Link>
             <LineDivider variant={"gradient"}/>
-            <h3 className="perfil-menu-title">Minhas Avaliações</h3>
+            <Link to={"my-reviews"} className="perfil-menu-title">Minhas Avaliações</Link>
             <LineDivider variant={"gradient"}/>
-            <h3 className="perfil-menu-title">Adicione ou edite filmes</h3>
+            <Link to={"add-edit-movie"} className="perfil-menu-title">Adicione ou edite filmes</Link>
             <LineDivider variant={"gradient"}/>
-            <h2 className="perfil-menu-title">Minhas Requisições</h2>
+            <p className="perfil-menu-title">Minhas Requisições</p>
         </aside>
     )
 }

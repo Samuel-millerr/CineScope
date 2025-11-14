@@ -8,6 +8,9 @@ import MovieAddPage from "./pages/MovieAddPage/MovieAddPage.jsx";
 import MovieEditionPage from "./pages/MovieEditionPage/MovieEditionPage.jsx";
 import PerfilPage from "./pages/PerfilPage/PerfilPage.jsx";
 import PerfilProfile from "./organisms/PerfilProfile/PerfilProfile.jsx";
+import PerfilCollection from "./organisms/PerfilCollection/PerfilCollection.jsx";
+import PerfilMyReviews from "./organisms/PerfilMyReviews/PerfilMyReviews.jsx";
+import PerfilAddEditMovie from "./organisms/PerfilAddEditMovie/PerfilAddEditMovie.jsx";
 
 export default function AppRoutes() {
   return (
@@ -19,9 +22,12 @@ export default function AppRoutes() {
       <Route path="/search" element={<SearchPage />} />
       <Route path="/movie" element={<MoviePage />} />
       <Route path="/add-movie" element={<MovieAddPage />} />
-      <Route path="/edition-movie" element={<MovieEditionPage />} />
+      <Route path="/edit-movie" element={<MovieEditionPage />} />
       <Route path="/perfil" element={<PerfilPage />}>
         <Route index element={<PerfilProfile />} />
+        <Route path="my-collection" element={<PerfilCollection />} />
+        <Route path="my-reviews" element={<PerfilMyReviews />} />
+        <Route path="add-edit-movie" element={<PerfilAddEditMovie/>}/>
       </Route>
     </Routes>
   );

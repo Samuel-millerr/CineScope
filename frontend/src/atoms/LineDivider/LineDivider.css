@@ -13,3 +13,11 @@
   border: none;
   border-radius: 1rem;
 }
+
+.line-divider-purple {
+  width: 65%;
+  height: 0.2rem;
+  border-radius: 1rem;
+  background: var(--detail-blue-gradient);
+  border: none;
+}
