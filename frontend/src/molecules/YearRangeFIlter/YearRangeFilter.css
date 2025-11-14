@@ -1,5 +1,3 @@
-@import url("../../styles/global.css");
-
 .year-range-filter-container {
     font-family: var(--poppins);
     color: rgb(var(--detail-light));

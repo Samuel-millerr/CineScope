@@ -1,5 +1,3 @@
-@import url("../../styles/global.css");
-
 .home-movie-card {
     display: flex;
     flex-direction: column;

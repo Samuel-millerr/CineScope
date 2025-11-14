@@ -1,8 +1,7 @@
 import "./SelectGroup.css"
 import "../../molecules/InputGroup/InputGroup.css";
 
-export default function SelectGroup({ label, htmlFor, onChange, placeholder, options = []
-}) {
+export default function SelectGroup({ label, htmlFor, onChange, placeholder, options = [], value }) {
 
     return (
         <>
@@ -11,7 +10,7 @@ export default function SelectGroup({ label, htmlFor, onChange, placeholder, opt
                 id={htmlFor}
                 name={htmlFor}
                 onChange={onChange}
-                value=""
+                value="cuzinho"
                 className="select-group-input"
             >
                 <option value="" className="select-group-placeholder">{placeholder}</option>

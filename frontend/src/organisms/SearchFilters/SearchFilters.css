@@ -1,5 +1,3 @@
-@import url("../../styles/global.css");
-
 .search-filters-container {
     display: flex;
     flex-direction: column;

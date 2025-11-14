@@ -1,12 +1,8 @@
-
-@import url("../../styles/global.css");
-
 .form-movie {
   background-color: rgb(var(--secondary-color));
   padding: 2.5rem;
   border-radius: 10px;
-  max-width: 920px; 
-  margin: 2rem auto; 
+  width: 54rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -15,17 +11,16 @@
 .form-row {
   display: flex;
   gap: 1.5rem;
-  align-items: center; 
+  align-items: start; 
 }
 
 .form-row > * {
   flex: 1;
 }
 
-.form-row div:first-child {
+.form-row > div:first-child {
   display: flex;
   flex-direction: column;
-  
 }
 
 .chip-container {
@@ -45,4 +40,8 @@
   justify-content: flex-end; 
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.form-buttons > button:first-child {
+  margin-right: auto;
 }

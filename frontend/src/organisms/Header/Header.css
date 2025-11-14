@@ -1,5 +1,3 @@
-@import url("../../styles/global.css");
-
 .header {
     border-bottom: 8px solid rgba(var(--detail-light), 0.25);
 }

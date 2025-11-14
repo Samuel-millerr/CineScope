@@ -11,8 +11,8 @@ export default function Input({ variant, type = "text", htmlFor, placeholder, va
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      min={1900}
-      max={2025}
+      min={type === "number" ? 1900 : undefined}
+      max={type === "number" ? 2025 : undefined}
     />
   );
 }

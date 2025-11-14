@@ -1,5 +1,3 @@
-@import url("../../styles/global.css");
-
 .my-reviews-card {
     display: flex;
     background-color: rgb(var(--primary-color));

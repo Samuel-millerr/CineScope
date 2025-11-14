@@ -1,5 +1,3 @@
-@import url("../../styles/global.css");
-
 .movie-display {
     display: grid;
     grid-template-columns: 35% 65%;

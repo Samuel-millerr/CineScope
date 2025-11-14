@@ -1,5 +1,3 @@
-@import url("../../styles/global.css");
-
 .rating-filter-container {
     font-family: var(--poppins);
     color: rgb(var(--detail-light));
