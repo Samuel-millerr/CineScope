@@ -12,7 +12,7 @@
 }
 
 .perfil-collection-container h2::after {
-    width: 61rem;
+    width: 100%;
 }
 
 .perfil-collection-movies-line {

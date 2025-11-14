@@ -1,0 +1,74 @@
+.perfil-section-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.perfil-add-edit-movie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    min-height: 62rem;
+    padding: 2rem 3rem 2rem 3rem;
+}
+
+.perfil-add-edit-movie-container h2 {
+    align-self: self-start;
+}
+
+.perfil-add-edit-movie-container h2::after {
+    width: 100%;
+}
+
+.perfil-add-edit-movie-movies-line {
+    display: flex;
+    align-items: start;
+    align-self: start;
+    max-width: 100%;
+    flex-wrap: wrap;
+    margin-left: 1rem;
+    height: 44rem;
+    gap: 1rem;
+    justify-content: start;
+}
+
+.perfil-add-edit-movie-footer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.25rem 1rem 0.25rem 1rem;
+}
+
+.pagination {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    padding: 15px 0;
+    justify-content: center;
+}
+
+.pagination-btn {
+    font-size: 32px;
+    font-family: var(--poppins);
+    font-weight: 500;
+    color: rgb(var(--detail-purple));
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+
+.pagination-btn:hover {
+    transform: scale(1.1);
+}
+
+.pagination-btn.active {
+    transform: translateY(-2px);
+    text-decoration: underline;
+    font-weight: 600;
+}
