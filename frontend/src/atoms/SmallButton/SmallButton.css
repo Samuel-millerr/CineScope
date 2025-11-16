@@ -12,12 +12,12 @@
 }
 
 .small-button:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
     opacity: 0.95;
 }
 
 .small-button:active {
-    transform: scale(0.96);
+    transform: scale(0.98);
 }
 
 

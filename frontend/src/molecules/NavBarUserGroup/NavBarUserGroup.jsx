@@ -6,7 +6,7 @@ export default function HeaderUserGroup({text, user_icon=UserIcon}) {
     // Agrupamento de foto de nome do usuário
     return (
         <article className="nav-bar-user-group">
-            <h4>{text}</h4>
+            <p>{text}</p>
             <figure>
                 <Link to={"/perfil"}><img src={user_icon} alt="Ícone de Avatar"/></Link>
             </figure>

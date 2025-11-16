@@ -12,9 +12,9 @@ export default function PerfilMenu(){
             <LineDivider variant={"gradient"}/>
             <Link to={"my-reviews"} className="perfil-menu-title">Minhas Avaliações</Link>
             <LineDivider variant={"gradient"}/>
-            <Link to={"add-edit-movie"} className="perfil-menu-title">Adicione ou edite filmes</Link>
+            <Link to={"/perfil/add-edit-movie"} className="perfil-menu-title">Adicione ou edite filmes</Link>
             <LineDivider variant={"gradient"}/>
-            <Link to={"my-requests"} className="perfil-menu-title">Minhas Requisições</Link>
+            <Link to={"/perfil/my-requests"} className="perfil-menu-title">Minhas Requisições</Link>
         </aside>
     )
 }

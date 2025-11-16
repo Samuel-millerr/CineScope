@@ -39,7 +39,7 @@ export default function PerfilProfile() {
                 <div className="profile-banner"></div>
                 <div className="profile-details">
                     <figure className="profile-picture">
-                        <img />
+                        <img alt="Avatar do usuário"/>
                     </figure>
                     <h2 className="profile-username">Usuário 01</h2>
                 </div>

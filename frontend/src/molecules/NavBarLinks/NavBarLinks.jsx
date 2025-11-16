@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../atoms/Logo/Logo.jsx";
 
 export default function NavBarLinks() {
-    // Linls da navbar para permitir a navegação entre as telas
+    // Links da navbar para permitir a navegação entre as telas
     return (
         <ul className="site-links">
             <li id="cinescope-logo"><Link to={"/"}><Logo/></Link></li>
