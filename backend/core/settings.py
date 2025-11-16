@@ -23,6 +23,13 @@ class Config:
         "HTTP_422_UNPROCESSABLE_ENTITY": HTTPStatus.UNPROCESSABLE_ENTITY,
         "HTTP_500_INTERNAL_SERVER_EROR": HTTPStatus.INTERNAL_SERVER_ERROR
     }
+    
+    USER_NAME = "root"
+    USER_PASSWORD = "senai" # Altere a senha do sql aqui caso necessário
+
+    SQL_CREATE_TABLES = "./database/scripts/CREATE_TABLES_CINESCOPE.sql"
+    SQL_INSERT_DATA = "./database/scripts/INSERT_DATA_CINESCOPE.sql"
+
 
 config = Config
 

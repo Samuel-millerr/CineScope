@@ -32,4 +32,4 @@
 ---
 ### Links relacionados ao projeto
 - [Documentação](https://docs.google.com/document/d/11V8pJuzXSRzleTnESigniFd3OvPTKPRH/edit?usp=sharing&ouid=114042141443241443632&rtpof=true&sd=true)
-- [Prótotipo](https://www.figma.com/design/xdo3Ae98tBB79KigpAvNLZ/WebFlix?node-id=0-1&t=WuU9e5CMHu0nrbx8-1)
+- [Prótotipo](https://www.figma.com/design/xdo3Ae98tBB79KigpAvNLZ/cinescope?node-id=0-1&t=WuU9e5CMHu0nrbx8-1)

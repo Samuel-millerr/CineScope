@@ -14,7 +14,7 @@ class MovieHandler(BaseHandler):
     def get_movie_by_id(id_movie: int):
         with db.session() as session:
             session.execute("USE cinescope;")
-            session.execute("SELECT * FROM filme WHERE id_filme = %s;", (id_movie,))
+            session.execute("SELECT * FROM movie WHERE movie.id_movie = %s;", (id_movie,))
             return session.fetchone()
 
     def post_movie(self, handler):
@@ -22,7 +22,7 @@ class MovieHandler(BaseHandler):
 
         with db.session() as session:
             session.execute("USE cinescope;")
-            session.execute("SELECT * from filme WHERE filme.titulo = %s;", (body["titulo"],))
+            session.execute("SELECT * from movie WHERE LOWER(movie.movie_title) = LOWER(%s);", (body["titulo"],))
             result = session.fetchone()
 
         if not result:
@@ -30,11 +30,11 @@ class MovieHandler(BaseHandler):
                 session.execute("USE cinescope;")
                 
                 query = """
-                    INSERT INTO filme(titulo, orcamento, tempo_duracao, ano_publicacao, poster) 
+                    INSERT INTO movie(movie_title, duration_time, publication_year, movie_synopsis, movie_poster) 
                     VALUES
                         (%s, %s, %s, %s, %s);
                 """
-                session.execute(query, (body["titulo"], body["orcamento"], body["tempo_duracao"], body["ano_publicacao"], body["poster"],))
+                session.execute(query, (body["movie_title"], body["duration_time"], body["publication_year"], body["movie_synopsis"], body["movie_poster"],))
 
             handler.send_json_response({"message": "Movie successfully created"}, status["HTTP_201_CREATED"])
         else:
@@ -44,18 +44,18 @@ class MovieHandler(BaseHandler):
     def get_movies(self, handler):
         with db.session() as session:
             session.execute("USE cinescope;")
-            session.execute("SELECT * FROM filme;")
+            session.execute("SELECT * FROM movie;")
             result = session.fetchall()
 
         movies_json = []
         for res in result:
             movie = {
-                "id": int(res[0]),
-                "titulo": str(res[1]),
-                "orcamento": int(res[2]),
-                "tempo_duracao": str(res[3]),
-                "ano_publicacao": str(res[4]),
-                "poster": str(res[5])
+                "id_movie": int(res[0]),
+                "movie_title": str(res[1]),
+                "duration_time": str(res[2]),
+                "publication_year": int(res[3]),
+                "movie_synopsis": str(res[4]),
+                "movie_poster": str(res[5])
             }
 
             movies_json.append(movie)
@@ -67,11 +67,11 @@ class MovieHandler(BaseHandler):
         
         if result:
             movie_json = {
-                "id": int(result[0]),
+                "id_movie": int(result[0]),
                 "titulo": str(result[1]),
-                "orcamento": int(result[2]),
-                "tempo_duracao": str(result[3]),
-                "ano_publicacao": str(result[4]),
+                "duracao": str(result[2]),
+                "ano_publicacao": int(result[3]),
+                "sinopse": str(result[4]),
                 "poster": str(result[5])
             }
             
@@ -90,16 +90,16 @@ class MovieHandler(BaseHandler):
                 query = """
                     UPDATE filme 
                     SET 
-                        titulo = %s, 
-                        orcamento = %s,
-                        tempo_duracao = %s, 
-                        ano_publicacao = %s, 
-                        poster = %s
+                        movie_title = %s, 
+                        duration_time = %s,
+                        publication_year = %s, 
+                        movie_synopsis = %s, 
+                        movie_poster = %s
                     WHERE 
-                        id_filme = %s;
+                        id_movie = %s;
                 """
 
-                session.execute(query, (body["titulo"], body["orcamento"], body["tempo_duracao"], body["ano_publicacao"], body["poster"], id_movie,))
+                session.execute(query, (body["movie_title"], body["duration_time"], body["publication_year"], body["movie_synopsis"], body["movie_poster"], id_movie,))
 
             handler.send_json_response(body, status["HTTP_200_OK"])
         else:
@@ -112,7 +112,7 @@ class MovieHandler(BaseHandler):
         if result:
             with db.session() as session:
                 session.execute("USE cinescope;")
-                session.execute("DELETE FROM filme WHERE filme.id_filme = %s;", (id_movie,))  
+                session.execute("DELETE FROM movie WHERE movie.id_movie = %s;", (id_movie,))  
 
             handler.send_json_response({}, status["HTTP_204_NO_CONTENT"])
         else:
@@ -123,18 +123,18 @@ class MovieHandler(BaseHandler):
         query = f"%{query}%"
         with db.session() as session:
             session.execute("USE cinescope;")
-            session.execute("SELECT * FROM filme WHERE LOWER(titulo) LIKE %s;", (query,))
+            session.execute("SELECT * FROM movie WHERE LOWER(titulo) LIKE %s;", (query,))
             result = session.fetchall()
 
         movies_json = []
         for res in result:
             movie = {
-                "id": int(res[0]),
-                "titulo": str(res[1]),
-                "orcamento": int(res[2]),
-                "tempo_duracao": str(res[3]),
-                "ano_publicacao": str(res[4]),
-                "poster": str(res[5])
+                "id_movie": int(res[0]),
+                "movie_title": str(res[1]),
+                "duration_time": str(res[2]),
+                "publication_year": int(res[3]),
+                "movie_synopsis": str(res[4]),
+                "movie_poster": str(res[5])
             }
 
             movies_json.append(movie)

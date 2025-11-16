@@ -1,0 +1,340 @@
+INSERT INTO director (director_name)
+VALUES
+    ('Christopher Nolan'),
+    ('Steven Spielberg'),
+    ('Martin Scorsese'),
+    ('James Cameron'),
+    ('Quentin Tarantino'),
+    ('Ridley Scott'),
+    ('Peter Jackson'),
+    ('Denis Villeneuve'),
+    ('David Fincher'),
+    ('Guillermo del Toro'),
+    ('Alfonso Cuarón'),
+    ('Bong Joon-ho'),
+    ('Guy Ritchie'),
+    ('Tim Burton'),
+    ('Patty Jenkins'),
+    ('Greta Gerwig'),
+    ('Francis Ford Coppola'),
+    ('George Lucas'),
+    ('Clint Eastwood'),
+    ('Zack Snyder');
+
+INSERT INTO actor (actor_name, actor_photo)
+VALUES
+    ( 'Leonardo DiCaprio', 'https://img.com/dicaprio.jpg'),
+    ('Morgan Freeman', 'https://img.com/freeman.jpg'),
+    ('Scarlett Johansson', 'https://img.com/scarlett.jpg'),
+    ('Tom Hanks', 'https://img.com/hanks.jpg'),
+    ('Natalie Portman', 'https://img.com/portman.jpg'),
+    ('Christian Bale', 'https://img.com/bale.jpg'),
+    ('Robert Downey Jr.', 'https://img.com/rdj.jpg'),
+    ('Emma Stone', 'https://img.com/stone.jpg'),
+    ('Brad Pitt', 'https://img.com/pitt.jpg'),
+    ('Anne Hathaway', 'https://img.com/hathaway.jpg'),
+    ('Keanu Reeves', 'https://img.com/reeves.jpg'),
+    ('Jennifer Lawrence', 'https://img.com/jlaw.jpg'),
+    ('Johnny Depp', 'https://img.com/depp.jpg'),
+    ('Matt Damon', 'https://img.com/damon.jpg'),
+    ('Amy Adams', 'https://img.com/adams.jpg'),
+    ('Denzel Washington', 'https://img.com/denzel.jpg'),
+    ('Chris Evans', 'https://img.com/evans.jpg'),
+    ('Gal Gadot', 'https://img.com/gadot.jpg'),
+    ('Henry Cavill', 'https://img.com/cavill.jpg'),
+    ('Mark Ruffalo', 'https://img.com/ruffalo.jpg');
+
+INSERT INTO genre (genre)
+VALUES
+    ('Ação'),
+    ('Aventura'),
+    ('Drama'),
+    ('Comédia'),
+    ('Suspense'),
+    ('Terror'),
+    ('Romance'),
+    ('Sci-Fi'),
+    ('Fantasia'),
+    ('Mistério'),
+    ('Crime'),
+    ('Animação'),
+    ('Histórico'),
+    ('Biografia'),
+    ('Guerra'),
+    ('Musical'),
+    ('Western'),
+    ('Esporte'),
+    ('Thriller'),
+    ('Documentário');
+
+INSERT INTO movie ( movie_title, duration_time, publication_year, movie_synopsis, movie_poster)
+VALUES
+    (
+        'Inception',
+        '02:28:00',
+        2010,
+        'Um ladrão invade sonhos à procura de segredos corporativos.',
+        'https://img.com/inception.jpg'
+    ),
+    (
+        'Interstellar',
+        '02:49:00',
+        2014,
+        'Exploradores viajam através de um buraco de minhoca para salvar a humanidade.',
+        'https://img.com/interstellar.jpg'
+    ),
+    (
+        'The Dark Knight',
+        '02:32:00',
+        2008,
+        'Batman enfrenta o Coringa em Gotham.',
+        'https://img.com/darkknight.jpg'
+    ),
+    (
+        'The Matrix',
+        '02:16:00',
+        1999,
+        'Um hacker descobre a verdade sobre sua realidade.',
+        'https://img.com/matrix.jpg'
+    ),
+    (
+        'Avengers: Endgame',
+        '03:01:00',
+        2019,
+        'Os Vingadores enfrentam Thanos pela última vez.',
+        'https://img.com/endgame.jpg'
+    ),
+    (
+        'Titanic',
+        '03:14:00',
+        1997,
+        'Romance entre passageiros do navio mais famoso.',
+        'https://img.com/titanic.jpg'
+    ),
+    (
+        'The Godfather',
+        '02:55:00',
+        1972,
+        'A ascensão da família Corleone.',
+        'https://img.com/godfather.jpg'
+    ),
+    (
+        'Pulp Fiction',
+        '02:34:00',
+        1994,
+        'Histórias interligadas no submundo de Los Angeles.',
+        'https://img.com/pulpfiction.jpg'
+    ),
+    (
+        'La La Land',
+        '02:08:00',
+        2016,
+        'Um músico e uma aspirante a atriz se apaixonam.',
+        'https://img.com/lalaland.jpg'
+    ),
+    (
+        'Parasite',
+        '02:12:00',
+        2019,
+        'Famílias colidem em trama de desigualdade social.',
+        'https://img.com/parasite.jpg'
+    ),
+    (
+        'The Martian',
+        '02:24:00',
+        2015,
+        'Astronauta tenta sobreviver em Marte.',
+        'https://img.com/martian.jpg'
+    ),
+    (
+        'Joker',
+        '02:02:00',
+        2019,
+        'A origem do vilão mais famoso de Gotham.',
+        'https://img.com/joker.jpg'
+    ),
+    (
+        'Dune',
+        '02:35:00',
+        2021,
+        'Paul Atreides luta pelo controle de Arrakis.',
+        'https://img.com/dune.jpg'
+    ),
+    (
+        'The Shawshank Redemption',
+        '02:22:00',
+        1994,
+        'Prisioneiro busca liberdade e esperança.',
+        'https://img.com/shawshank.jpg'
+    ),
+    (
+        'Star Wars: A New Hope',
+        '02:01:00',
+        1977,
+        'A resistência enfrenta o império.',
+        'https://img.com/starwars4.jpg'
+    ),
+    (
+        'Wonder Woman',
+        '02:21:00',
+        2017,
+        'Diana enfrenta Ares durante a guerra.',
+        'https://img.com/ww.jpg'
+    ),
+    (
+        'Blade Runner 2049',
+        '02:44:00',
+        2017,
+        'Um blade runner descobre segredos proibidos.',
+        'https://img.com/br2049.jpg'
+    ),
+    (
+        'Fight Club',
+        '02:19:00',
+        1999,
+        'Homens criam um clube secreto.',
+        'https://img.com/fightclub.jpg'
+    ),
+    (
+        'Iron Man',
+        '02:06:00',
+        2008,
+        'Tony Stark cria sua armadura lendária.',
+        'https://img.com/ironman.jpg'
+    ),
+    (
+        'Harry Potter and the Sorcerer Stone',
+        '02:32:00',
+        2001,
+        'Um garoto descobre que é bruxo.',
+        'https://img.com/hp1.jpg'
+    );
+
+INSERT INTO movie_director (id_movie, id_director)
+VALUES
+    (1, 1),
+    (2, 1),
+    (3, 1),
+    (4, 8),
+    (5, 10),
+    (6, 4),
+    (7, 17),
+    (8, 5),
+    (9, 16),
+    (10, 12),
+    (11, 6),
+    (12, 9),
+    (13, 8),
+    (14, 3),
+    (15, 18),
+    (16, 15),
+    (17, 8),
+    (18, 9),
+    (19, 10),
+    (20, 7);
+
+INSERT INTO movie_actor (id_movie, id_actor)
+VALUES
+    (1, 1),
+    (1, 6),
+    (1, 9),
+    (2, 1),
+    (2, 14),
+    (2, 10),
+    (3, 6),
+    (3, 9),
+    (3, 19),
+    (4, 11),
+    (4, 19),
+    (4, 3),
+    (5, 7),
+    (5, 17),
+    (5, 20),
+    (6, 4),
+    (6, 3),
+    (6, 9),
+    (7, 14),
+    (7, 16),
+    (7, 9),
+    (8, 13),
+    (8, 9),
+    (8, 5),
+    (9, 8),
+    (9, 10),
+    (9, 15),
+    (10, 2),
+    (10, 18),
+    (10, 5),
+    (11, 14),
+    (11, 9),
+    (11, 5),
+    (12, 20),
+    (12, 3),
+    (12, 10),
+    (13, 19),
+    (13, 3),
+    (13, 15),
+    (14, 2),
+    (14, 16),
+    (14, 9),
+    (15, 11),
+    (15, 17),
+    (15, 2),
+    (16, 18),
+    (16, 3),
+    (16, 5),
+    (17, 6),
+    (17, 3),
+    (17, 10),
+    (18, 9),
+    (18, 14),
+    (18, 1),
+    (19, 7),
+    (19, 17),
+    (19, 20),
+    (20, 8),
+    (20, 3),
+    (20, 11);
+
+INSERT INTO movie_genre (id_movie, id_genre)
+VALUES
+    (1, 8),
+    (1, 5),
+    (2, 8),
+    (2, 3),
+    (3, 1),
+    (3, 11),
+    (4, 8),
+    (4, 5),
+    (5, 1),
+    (5, 8),
+    (6, 7),
+    (6, 3),
+    (7, 11),
+    (7, 3),
+    (8, 11),
+    (8, 4),
+    (9, 7),
+    (9, 16),
+    (10, 3),
+    (10, 5),
+    (11, 2),
+    (11, 8),
+    (12, 11),
+    (12, 3),
+    (13, 8),
+    (13, 2),
+    (14, 3),
+    (14, 11),
+    (15, 2),
+    (15, 9),
+    (16, 1),
+    (16, 2),
+    (17, 8),
+    (17, 5),
+    (18, 11),
+    (18, 3),
+    (19, 1),
+    (19, 8),
+    (20, 9),
+    (20, 2);

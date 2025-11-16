@@ -4,12 +4,7 @@ from mysql.connector import Error
 from contextlib import contextmanager
 from typing import Generator
 
-from create_tables import USER_NAME
-from create_tables import USER_PASSWORD
-
-""" CAMINHOS DOS SCRIPTS SQL """
-SQL_CREATE_TABLES = "database/scripts/CREATE_TABLES_cinescope.sql"
-SQL_INSERT_DATA = "database/scripts/INSERT_DATA_cinescope.sql"
+from core.settings import config
 
 class DatabaseService:
     """
@@ -32,8 +27,8 @@ class DatabaseService:
         try:
             conn = mysql.connector.connect(
                 host="localhost",
-                user=USER_NAME,
-                password=USER_PASSWORD
+                user=config.USER_NAME,
+                password=config.USER_PASSWORD
             )
             print("[DB] Conexão com o banco realizada com sucesso.")
             return conn
