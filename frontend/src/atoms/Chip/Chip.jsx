@@ -1,12 +1,7 @@
 import "./Chip.css";
 
-export default function Chip({
-    variant,
-    chip_text,
-    removable = false,
-    onRemove,
-    onClick
-}) {
+export default function Chip({ variant, chip_text, removable = false, onRemove, onClick }) {
+    // Chips do site, podem ser mudados para ter algum tipo de funcionalidade, caso necessário
     const classes = `chip chip-${variant}`;
 
     function handleRemove(e) {
@@ -15,9 +10,9 @@ export default function Chip({
     }
 
     return (
-        <div 
-            className={classes} 
-            role={onClick ? "button" : undefined} 
+        <div
+            className={classes}
+            role={onClick ? "button" : undefined}
             tabIndex={onClick ? 0 : undefined}
             onClick={() => onClick && onClick(chip_text)}
             onKeyDown={(e) => {
@@ -28,12 +23,7 @@ export default function Chip({
             <span className="chip-text">{chip_text}</span>
 
             {removable && (
-                <button
-                    className="chip-remove"
-                    onClick={handleRemove}
-                    type="button"
-                    aria-label={`Remover ${chip_text}`}
-                >
+                <button className="chip-remove" onClick={handleRemove} type="button" aria-label={`Remover ${chip_text}`}>
                     x
                 </button>
             )}

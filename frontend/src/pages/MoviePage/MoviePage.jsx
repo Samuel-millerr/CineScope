@@ -34,20 +34,20 @@ export default function MoviePage() {
                             comment_date={"2 dias"}
                             rating={"3.9"}
                         />
-                        <LineDivider variant={"transparent"}/>
+                        <LineDivider variant={"transparent"} />
                         <ComunityReview
                             user_name={"Samuel"}
                             comment_text={"Typesetting industry. When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries."}
                             comment_date={"244 dias"}
                         />
-                        <LineDivider variant={"transparent"}/>
-                        <MyReview/>
+                        <LineDivider variant={"transparent"} />
+                        <MyReview />
                     </article>
                     <aside className="movie-page-related-line">
                         <h3>Filmes Relacionados</h3>
-                        <RelatedMovieCard movie={movie_mock}/>
-                        <RelatedMovieCard movie={movie_mock}/>
-                        <RelatedMovieCard movie={movie_mock}/>
+                        <RelatedMovieCard movie={movie_mock} />
+                        <RelatedMovieCard movie={movie_mock} />
+                        <RelatedMovieCard movie={movie_mock} />
                     </aside>
                 </section>
                 <section>
@@ -56,10 +56,10 @@ export default function MoviePage() {
                 <section className="movie-page-actor-conteiner">
                     <h4>Elenco Principal</h4>
                     <div>
-                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond"/>
-                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond"/>
-                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond"/>
-                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond"/>
+                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond" />
+                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond" />
+                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond" />
+                        <ActorCard actor_image={"https://br.web.img3.acsta.net/pictures/20/04/13/17/39/1048187.jpg"} actor_name="Cu Reymond" />
                     </div>
                 </section>
             </main>

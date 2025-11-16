@@ -13,7 +13,7 @@ const mockData = {
     produtora: ["Warner Bros.", "Legendary Pictures", "A24", "Universal Pictures", "Sony Pictures", "Paramount Pictures", "Netflix"]
 };
 
-const initialState = {
+export const initialState = {
     titulo: "",
     ano: "",
     duracao: "",
@@ -59,8 +59,9 @@ const selectFields = [
     }
 ];
 
-export default function FormMovieCreateUpdate() {
-    const [formData, setFormData] = useState(initialState);
+export default function FormMovieCreateUpdate({formData, setFormData}) {
+    /* Componente de formulário para criação e edição de filmes, busca os dados necessarios do banco de dados e os insere nos selects e tem uma 
+    uma lógica de passagem de props para ser possível a visualização do poster do filme */
     const [currentSelects, setCurrentSelects] = useState(initialSelects);
 
     const handleFormChange = (e) => {

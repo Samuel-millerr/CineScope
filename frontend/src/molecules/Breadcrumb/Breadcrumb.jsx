@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import "./Breadcrumb.css";
 
 export default function Breadcrumb({ items }) {
+  /* Função para retornar um breadcrumb funcional. O componenete recebe uma lista de valores/dicionario/objeto
+  e faz um map para alinhalos em linha reta e passar o caminho específico que a parte do breadcrum precisa levar o usuário */
   const itemEntries = Object.entries(items);
   const totalItems = itemEntries.length;
 
@@ -9,7 +11,7 @@ export default function Breadcrumb({ items }) {
     <nav className="breadcrumb">
       {itemEntries.map(([label, path], index) => {
         const isLastItem = index === totalItems - 1;
-        
+
         return (
           <span key={label} className="breadcrumb-item">
             {isLastItem || !path ? (
@@ -17,7 +19,7 @@ export default function Breadcrumb({ items }) {
             ) : (
               <Link to={path}>{label}</Link>
             )}
-            
+
             {!isLastItem && <a className="breadcrumb-separator">›</a>}
           </span>
         );

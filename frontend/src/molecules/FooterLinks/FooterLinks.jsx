@@ -2,6 +2,7 @@ import "../NavBarLinks/NavBarLinks.css";
 import { Link } from "react-router-dom";
 
 export default function FooterLinks() {
+    // Componente para retornar os links do footer
     return (
         <nav>
             <ul className="site-links">

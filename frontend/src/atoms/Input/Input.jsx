@@ -1,6 +1,7 @@
 import "./Input.css";
 
 export default function Input({ variant, type = "text", htmlFor, placeholder, value, onChange }) {
+  // Componente para os inputs do site, pode ser alterado de acordo com o props 'variant'
   const classes = `input input-${variant}`;
   return (
     <input

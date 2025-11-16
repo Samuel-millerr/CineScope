@@ -31,6 +31,7 @@
   padding-right: 0.25rem;
 }
 
+/* Caso o chip for de remoção é adicionado e feita essa estilização */
 .chip-remove {
   flex: 0 0 auto;
   width: 1.5rem;
@@ -42,17 +43,18 @@
   background: transparent;
   color: inherit;
   font-size: 1.05rem;
-  line-height: 1; 
+  line-height: 1;
   cursor: pointer;
   padding-left: 0.5rem;
   transition: transform 0.1s ease, background 0.1s ease, opacity .1s ease;
 }
+
 .chip-remove:hover {
   transform: scale(1.08);
   opacity: 0.9;
 }
 
-/* Variações */
+/* Variações dos chips */
 .chip-purple {
   background-color: rgb(var(--detail-purple));
 }

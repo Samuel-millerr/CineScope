@@ -1,7 +1,8 @@
 import "./RatingFilter.css";
 import RatingFilterLine from "../RatingFilterLine/RatingFilterLine.jsx";
 
-export default function RatingFilter({title, selectedRatings, onChange}) {
+export default function RatingFilter({ title, selectedRatings, onChange }) {
+    // Componenete utilizado para demonstrar ao usuário as possíbilidades de filtro por avaliação
     const allRatings = [1, 2, 3, 4, 5];
 
     const handleChange = (rating) => {

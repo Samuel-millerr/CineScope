@@ -3,6 +3,7 @@ import StarHalf from "../../assets/icons/stars/star-half-icon.svg";
 import StarEmpty from "../../assets/icons/stars/star-empty-icon.svg";
 
 export default function Star({variant}) {
+    // Componenete criado com o unico objetivo de permitir a mudança de preenchimento das estrelas
     let src;
 
     if (variant === "full")  {

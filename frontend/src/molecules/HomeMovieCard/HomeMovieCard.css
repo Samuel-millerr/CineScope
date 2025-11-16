@@ -1,3 +1,4 @@
+/* Estilização básica do card de filme da tela home */
 .home-movie-card {
     display: flex;
     flex-direction: column;

@@ -1,6 +1,7 @@
 import "./TextArea.css";
 
 export default function TextArea({ variant, htmlFor, placeholder, value, onChange }) {
+  // Componente para as textareas do site, pode ser alterado de acordo com o props 'variant'
   const classes = `textarea textarea-${variant}`;
   return (
     <textarea

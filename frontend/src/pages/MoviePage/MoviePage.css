@@ -76,7 +76,7 @@
     margin-top: 2rem;
 }
 
-.movie-page-actor-conteiner div{
+.movie-page-actor-conteiner div {
     display: flex;
     flex-direction: row;
     gap: 1.3rem;

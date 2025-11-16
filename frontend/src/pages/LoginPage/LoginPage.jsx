@@ -9,7 +9,7 @@ export default function LoginPage() {
         <main className="auth-page">
             <section className="auth-page-container">
                 <div className="auth-page-container-header">
-                    <Logo/>
+                    <Logo />
                     <p>Faça login para gerenciar sua coleção de filmes.</p>
                 </div>
                 <form className="auth-form">

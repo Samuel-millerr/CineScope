@@ -31,23 +31,23 @@ export default function SearchPage() {
     return (
         <>
             <header>
-                <NavBar/>
+                <NavBar />
             </header>
             <main className="search-page-container">
-                <SearchBanner/>
+                <SearchBanner />
                 <section className="search-page-query-conteiner">
                     <div>
                         <Breadcrumb items={{
-                                "Home": "/",
-                                "Pesquisa": "/search" 
-                            }}/>
-                        <SearchFilters/>
+                            "Home": "/",
+                            "Pesquisa": "/search"
+                        }} />
+                        <SearchFilters />
                     </div>
                     <div>
-                        <Title variant={"search"} title={"Resultados"}/>
-                        <SearchMoviesLine movies={moviesMock}/>
-                        <SearchMoviesLine movies={moviesMock}/>
-                        <SearchMoviesLine movies={moviesMock.slice(0, 2)}/>
+                        <Title variant={"search"} title={"Resultados"} />
+                        <SearchMoviesLine movies={moviesMock} />
+                        <SearchMoviesLine movies={moviesMock} />
+                        <SearchMoviesLine movies={moviesMock.slice(0, 2)} />
                     </div>
                 </section>
             </main>

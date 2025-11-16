@@ -1,7 +1,8 @@
 import "./RatingFilterLine.css";
 import Star from "../../atoms/Star/Star.jsx";
 
-export default function RatingFilterLine ({rating = "0.0", isSelected}) {
+export default function RatingFilterLine({ rating = "0.0", isSelected }) {
+    // Linha de 'estrelas' ou seja as avaliações, para ficar mais simple é definido um arredondamento para aparecer na tela
     const roundedRating = Math.round(rating);
 
     const fullStars = roundedRating;

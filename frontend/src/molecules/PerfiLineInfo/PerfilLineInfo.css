@@ -1,4 +1,4 @@
-.PerfilLineInfo {
+.perfil-line-info {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -10,7 +10,7 @@
     color: rgb(var(--detail-light));
 }
 
-.PerfilLineInfo h6 {
+.perfil-line-info h6 {
     font-size: 22px;
     font-weight: 600;
     color: rgb(var(--detail-purple));

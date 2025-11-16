@@ -7,6 +7,7 @@ import RatingFilter from "../../molecules/RatingFilter/RatingFilter.jsx";
 import { useState } from "react";
 
 export default function SearchFilters() {
+    // Componente de busca pronto e completo com todos os filtros possíveis
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [yearRange, setYearRange] = useState({ min: 1990, max: 2025 });
     const [selectedRatings, setSelectedRatings] = useState([]);

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import LineDivider from "../../atoms/LineDivider/LineDivider";
 
 export default function PerfilMenu(){
+    // Menu de navegação lateral da tela de perfil
     return (
         <aside className="perfil-menu">
             <Link to={"/perfil"} className="perfil-menu-title">Meu Perfil</Link>
@@ -13,7 +14,7 @@ export default function PerfilMenu(){
             <LineDivider variant={"gradient"}/>
             <Link to={"add-edit-movie"} className="perfil-menu-title">Adicione ou edite filmes</Link>
             <LineDivider variant={"gradient"}/>
-            <p className="perfil-menu-title">Minhas Requisições</p>
+            <Link to={"my-requests"} className="perfil-menu-title">Minhas Requisições</Link>
         </aside>
     )
 }

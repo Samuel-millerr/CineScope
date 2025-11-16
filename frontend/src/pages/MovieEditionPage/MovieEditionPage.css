@@ -1,14 +1,24 @@
 .movie-edition-page-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: start;
+    width: 100%;
+    gap: 4rem;
 }
 
 .movie-edition-page-container > div:first-child {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 4.5rem 0 4.5rem 3rem;
+    padding: 4.5rem 0rem 1.5rem;
+    font-family: var(--montserrat);
+}
+
+.movie-edition-page-container > div:last-child {
+    display: flex;
+    flex-direction: column;
+    padding: 8.5rem 1.5rem 5rem;
+    gap: 0.5rem;
     font-family: var(--montserrat);
 }
 
@@ -29,9 +39,4 @@
 
 .movie-edition-page-container > div:first-child nav {
     text-align: left;
-}
-
-.movie-edition-page-container > aside:last-child {
-    margin-top: 13rem;
-    justify-self: start;
 }

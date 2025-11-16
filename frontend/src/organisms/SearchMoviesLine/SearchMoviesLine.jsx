@@ -1,14 +1,13 @@
 import SearchMovieCard from "../../molecules/SearchMovieCard/SearchMovieCard.jsx";
 
 export default function SearchMoviesLine({movies}) {
+    // Componente para organizar os filmes da página de busca
     return (
         <article className="home-page-line-movies">
             {movies.map((movie, index) => (
                 <SearchMovieCard
                     key={index}
-                    movie_poster={movie.movie_poster}
-                    movie_name={movie.movie_name}
-                    movie_review_number={movie.movie_review_number}
+                    movie={movie}
                 />
             ))}
         </article>

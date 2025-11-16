@@ -1,3 +1,4 @@
+/* Estilização básica da review de comunidade */
 .comunity-review {
     display: flex;
     flex-direction: row;
@@ -34,7 +35,7 @@
     color: rgb(var(--detail-purple));
 }
 
-.comunity-review > p:last-child {
+.comunity-review>p:last-child {
     width: 26%;
     text-align: end;
 }

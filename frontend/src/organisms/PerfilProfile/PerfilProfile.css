@@ -1,3 +1,4 @@
+/* Estilização do componente PerfilProfile */
 .profile-header-container {
     width: 100%;
     position: relative;
@@ -9,6 +10,7 @@
     flex-direction: column;
     align-items: center;
     gap: 7.75rem;
+    padding-bottom: 2rem;
 }
 
 .profile-main-container {
@@ -80,4 +82,15 @@
     width: 100%;
     flex-wrap: wrap;
     gap: 0.5rem;
+}
+
+.profile-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 70%;
+}
+
+.profile-footer button {
+    align-self: flex-end;
 }

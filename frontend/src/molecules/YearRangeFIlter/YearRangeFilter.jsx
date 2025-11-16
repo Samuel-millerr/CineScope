@@ -1,21 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
 import './YearRangeFilter.css';
+import { useState, useEffect, useCallback } from 'react';
 
 export default function YearRangeFilter({ title, min, max, onChange }) {
+    // Componente para o filtro do tipo slider na aba de filtros da tela de pesquisa
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
 
-    // Calcula a posição da barra de progresso
     const minPosPercent = ((minVal - min) / (max - min)) * 100;
     const maxPosPercent = ((maxVal - min) / (max - min)) * 100;
 
-    // Atualiza o estado pai quando os valores mudam
-    // Usa useCallback para evitar re-renderizações desnecessárias
     const handleChange = useCallback(() => {
         onChange({ min: minVal, max: maxVal });
     }, [minVal, maxVal, onChange]);
 
-    // Chama o onChange quando os valores param de mudar
     useEffect(() => {
         const timer = setTimeout(() => {
             handleChange();
@@ -24,13 +21,11 @@ export default function YearRangeFilter({ title, min, max, onChange }) {
     }, [minVal, maxVal, handleChange]);
 
     const handleMinChange = (e) => {
-        // Garante que o mínimo não ultrapasse o máximo
         const value = Math.min(Number(e.target.value), maxVal - 1);
         setMinVal(value);
     };
 
     const handleMaxChange = (e) => {
-        // Garante que o máximo não seja menor que o mínimo
         const value = Math.max(Number(e.target.value), minVal + 1);
         setMaxVal(value);
     };

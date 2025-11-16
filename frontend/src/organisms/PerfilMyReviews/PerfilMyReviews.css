@@ -1,3 +1,4 @@
+/* Estilização do PerfilMyReviews */
 .perfil-reviews-container {
     display: flex;
     flex-direction: column;
@@ -12,7 +13,7 @@
 }
 
 .perfil-reviews-container h2::after {
-    width: 61rem;
+    width: 100%;
 }
 
 .perfil-reviews-column {

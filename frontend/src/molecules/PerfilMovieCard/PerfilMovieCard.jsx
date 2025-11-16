@@ -2,6 +2,7 @@ import "./PerfilMovieCard.css";
 import SmallButton from "../../atoms/SmallButton/SmallButton.jsx"
 
 export default function PerfilMovieCard({type="submit", button_variant, text_button, movie}) {
+    // Card utilizado em algumas abas do perfil para demonstração de filmes
     return (
         <article className="perfil-movie-card">
             <figure>

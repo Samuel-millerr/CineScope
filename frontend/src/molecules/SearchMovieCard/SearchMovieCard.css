@@ -1,3 +1,4 @@
+/* Estilização do card da tela de pesquisa */
 .search-movie-card {
     display: flex;
     flex-direction: column;
@@ -59,7 +60,7 @@
     font-family: var(--poppins);
     background-image: var(--detail-blue-gradient);
     background-clip: text;
-    -webkit-background-clip: text; 
+    -webkit-background-clip: text;
     color: transparent;
     font-size: 20px;
     font-weight: 500;

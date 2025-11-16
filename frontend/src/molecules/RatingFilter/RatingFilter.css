@@ -1,3 +1,4 @@
+/* Estilização dos filtros por avaliação */
 .rating-filter-container {
     font-family: var(--poppins);
     color: rgb(var(--detail-light));
@@ -47,6 +48,6 @@
     transition: background-color 0.2s ease;
 }
 
-.rating-filter-checkbox:checked + label::before {
+.rating-filter-checkbox:checked+label::before {
     background-color: rgb(var(--detail-light));
 }

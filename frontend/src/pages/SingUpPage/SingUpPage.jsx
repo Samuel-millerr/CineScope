@@ -17,7 +17,7 @@ export default function SingUpPage({ step = "first" }) {
                         <InputGroup htmlFor={"user"} type={"text"} label={"E-mail"} placeholder={"Ex: seu.email@gmail.com"} variant={"white"} />
                         <InputGroup htmlFor={"password"} type={"password"} label={"Senha"} placeholder={"Digite sua senha"} variant={"white"} />
                         <InputGroup htmlFor={"confirmPassword"} type={"password"} label={"Confirme sua senha"} placeholder={"Confirme sua senha"} variant={"white"} />
-                        <Link to={"/singUp-second-step"}><Button text_button={"Continuar"} variant={"blue-gradient"}/></Link>
+                        <Link to={"/singUp-second-step"}><Button type={"button"} text_button={"Continuar"} variant={"blue-gradient"}/></Link>
                     </form>
                     <p>Já é parte da comunidade? <Link to={"/login"}> Faça Login </Link></p>
                 </section>

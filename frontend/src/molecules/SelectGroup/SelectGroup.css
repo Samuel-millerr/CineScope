@@ -1,3 +1,4 @@
+/* Estilização básica do componente select */
 .select-group-label {
     align-self: flex-start;
     font-size: 1.5rem;
@@ -18,7 +19,7 @@
     border: 1.5px solid rgba(var(--detail-light), 0.25);
     background-color: rgba(var(--primary-color), 0.9);
     color: var(--detail-dark-input);
-    transition: 
+    transition:
         border-color 0.25s ease,
         box-shadow 0.4s ease,
         background-color 0.3s ease;
@@ -33,6 +34,6 @@
 }
 
 .select-group-input:focus {
-  outline: none;
-  box-shadow: 0 0 3px 1px rgb(var(--detail-purple));
+    outline: none;
+    box-shadow: 0 0 3px 1px rgb(var(--detail-purple));
 }

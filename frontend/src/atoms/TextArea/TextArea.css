@@ -15,12 +15,12 @@
 }
 
 .textarea:hover {
-  border-color: rgba(var(--detail-purple), 0.75);
+    border-color: rgba(var(--detail-purple), 0.75);
 }
 
 .textarea:focus {
-  outline: none;
-  box-shadow: 0 0 3px 1px rgb(var(--detail-purple));
+    outline: none;
+    box-shadow: 0 0 3px 1px rgb(var(--detail-purple));
 }
 
 /* Estilização da textarea black */

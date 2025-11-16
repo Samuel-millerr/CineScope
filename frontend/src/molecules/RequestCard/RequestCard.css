@@ -1,50 +1,70 @@
+/* Estilização do RequestCard */
 .request-card {
     display: grid;
-    width: 26rem;
-    height: 16rem;
-    grid-template-columns: 12.5rem 12.5rem;
     place-items: center;
-    font-family: var(--montserrat);
+    grid-template-columns: 8rem 1fr;
+    width: 20rem;
+    height: 17rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
     background-color: rgb(var(--primary-color));
-    border-radius: 0.5rem;
+    font-family: var(--montserrat);
+    gap: 1rem;
+    box-shadow: 0 4px 10px rgba(var(--terciary-color) 0.20);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.request-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
 }
 
 .request-image-container {
     width: 100%;
-    max-width: 25rem;
     height: 100%;
-    height: 16rem;
-    padding: 1.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
 
 .request-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 0.156rem;
-    box-shadow: 0 0 3px 2px rgba(var(--detail-light), 0.25);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(var(--detail-light), 0.3);
+    transition: transform 0.25s ease;
 }
 
-.request-card h3 {
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.request-card p {
-    font-size: 18px;
-    font-weight: 500;
+.request-card:hover .request-image {
+    transform: scale(1.03);
 }
 
 .request-info-container {
     display: flex;
     flex-direction: column;
-    gap: 0.40rem;
-    padding: 0.5rem;
+    justify-content: center;
+    gap: 0.45rem;
 }
 
-.request-info-container h4{
+.request-card h3 {
+    font-size: 26px;
+    font-weight: 700;
+    color: rgb(var(--detail-light));
+    line-height: 1.2;
+}
+
+.request-card p {
+    font-size: 20px;
+    opacity: 0.9;
+    margin-bottom: 0.25rem;
+}
+
+.request-info-container h4 {
     font-size: 16px;
-    font-weight: 500;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    opacity: 0.85;
 }
 
 .request-sub-info {

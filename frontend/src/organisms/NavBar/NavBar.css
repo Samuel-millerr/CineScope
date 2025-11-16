@@ -7,5 +7,5 @@
     margin: 0 auto;
     padding: 1.75rem 1.25rem 1.8rem 1.25rem;
     background-color: rgba(var(--primary-color), 0.9);
-    border-bottom: 3px solid rgba(var(--detail-light), 0.15) ;
+    border-bottom: 3px solid rgba(var(--detail-light), 0.15);
 }

@@ -8,7 +8,7 @@
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    display: inline-flex; 
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     white-space: nowrap;
@@ -24,7 +24,7 @@
     transform: scale(0.98);
 }
 
-/* Variações */
+/* Variações dos Botões */
 .button-blue-gradient {
     background: var(--detail-blue-gradient);
     color: rgb(var(--detail-light));

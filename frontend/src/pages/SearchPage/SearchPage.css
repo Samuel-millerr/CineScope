@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     gap: 7rem;
-    padding: 5rem 0 ;
+    padding: 5rem 0;
     width: 100%;
 }
 
@@ -16,7 +16,7 @@
     width: 100%;
 }
 
-.search-page-query-conteiner > div:last-child {
+.search-page-query-conteiner>div:last-child {
     display: flex;
     flex-direction: column;
     gap: 2rem;

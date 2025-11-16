@@ -3,6 +3,7 @@ import "../../atoms/Star/Star.jsx"
 import Star from "../../atoms/Star/Star.jsx"
 
 export default function RelatedMovieCard({movie}) {
+    // Card de filmes relacionados a algum dentro da tela de filme específico
     return (
         <article className="related-movie-card">
             <figure className="related-movie-poster">

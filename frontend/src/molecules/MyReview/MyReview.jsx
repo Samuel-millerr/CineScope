@@ -1,11 +1,12 @@
 import "./MyReview.css";
+import { useState } from "react";
 import RatingFilterLine from "../RatingFilterLine/RatingFilterLine.jsx";
 import TextArea from "../../atoms/TextArea/TextArea.jsx";
-import { useState } from "react";
 import Button from "../../atoms/Button/Button.jsx";
 
 export default function MyReview() {
     const [ratingLine, setRatingLine] = useState();
+    // Componente para permitir a inserção de um comentário do usuário cadastrado
     return (
         <article className="my-review">
             <h4> Deixe sua avaliação </h4>

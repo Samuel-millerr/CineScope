@@ -4,6 +4,7 @@ import RatingFilterLine from "../RatingFilterLine/RatingFilterLine.jsx";
 import { useState } from "react";
 
 export default function ComunityReview({user_icon = UserIcon, user_name, comment_text, comment_date, rating="0.0"}) {
+    // Componente para a página indivídual do filme, onde é demonstrado uma avaliação específica
     const [lineRating, setLineRating] = useState();
     
     return (

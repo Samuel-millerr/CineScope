@@ -1,6 +1,7 @@
+/* Estilização do footer do display de filmes */
 .movie-info-footer {
     width: 100%;
-    padding: 2.5rem 1.75rem; 
+    padding: 2.5rem 1.75rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -10,7 +11,7 @@
     border-radius: 0.6rem;
 }
 
-.movie-info-footer > div:first-child {
+.movie-info-footer>div:first-child {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -21,7 +22,7 @@
     font-weight: 500;
 }
 
-.movie-info-footer > div:last-child {
+.movie-info-footer>div:last-child {
     display: flex;
     flex-direction: column;
     gap: 1rem;

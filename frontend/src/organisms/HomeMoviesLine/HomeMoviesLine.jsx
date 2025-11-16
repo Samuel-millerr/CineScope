@@ -3,16 +3,14 @@ import HomeMovieCard from "../../molecules/HomeMovieCard/HomeMovieCard.jsx";
 import HomeMovieHorizontalCard from "../../molecules/HomeMovieHorizontalCard/HomeMovieHorizontalCard.jsx";
 
 export default function HomeMoviesLine({ movies, variant = "four" }) {
+    // Card utilizado para fazer um layout simples de filme, pode conter entre 3 ou 4 filmes na linha
     if (variant === "four") {
         return (
             <article className="home-page-line-movies">
                 {movies.map((movie, index) => (
                     <HomeMovieCard
                         key={index}
-                        movie_poster={movie.movie_poster}
-                        movie_name={movie.movie_name}
-                        movie_review_number={movie.movie_review_number}
-                        favorite_icon_variant={movie.favorite_icon_variant}
+                        movie={movie}
                     />
                 ))}
             </article>
@@ -29,10 +27,7 @@ export default function HomeMoviesLine({ movies, variant = "four" }) {
                         <HomeMovieHorizontalCard
                             key={index}
                             variant={card_variant}
-                            movie_poster={movie.movie_poster}
-                            movie_name={movie.movie_name}
-                            movie_year={movie.movie_year}
-                            movie_genre={movie.movie_genre}
+                            movie={movie}
                         />
                     );
                 })}

@@ -1,13 +1,14 @@
 import "./PerfilProfile.css";
 import { useState } from "react";
 import { useEffect } from "react";
-import React from "react";
 import Title from "../../atoms/Title/Title.jsx";
 import PerfilLineInfo from "../../molecules/PerfiLineInfo/PerfilLineInfo.jsx";
 import LineDivider from "../../atoms/LineDivider/LineDivider.jsx";
 import PerfilCard from "../../atoms/PerfilCard/PerfilCard.jsx";
+import Button from "../../atoms/Button/Button.jsx";
 
 export default function PerfilProfile() {
+    // Componente principal da tela de perfil
     const [profileData, setProfileData] = useState(null);
 
     useEffect(() => {
@@ -70,6 +71,10 @@ export default function PerfilProfile() {
                         <PerfilCard name_statistic={"Tempo Assistido"} />
                     </div>
                 </article>
+                <div className="profile-footer">
+                    <LineDivider variant={"purple"} />
+                    <Button text_button={"Sair da Conta"} variant={"red"} />
+                </div>
             </div>
         </section>
     )

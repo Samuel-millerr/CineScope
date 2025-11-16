@@ -2,6 +2,7 @@ import "./MyReviewsCard.css";
 import RatingFilterLine from "../RatingFilterLine/RatingFilterLine.jsx"
 
 export default function MyReviewsCard({review, rating, setLineRating}) {
+    // Componente para armazenar as reviews do usuário logado 
     return (
         <article className="my-reviews-card">
             <figure className="my-reviews-card-poster">

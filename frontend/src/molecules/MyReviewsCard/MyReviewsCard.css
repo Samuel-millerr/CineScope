@@ -1,3 +1,4 @@
+/* Estilização do card de reviews */
 .my-reviews-card {
     display: flex;
     background-color: rgb(var(--primary-color));

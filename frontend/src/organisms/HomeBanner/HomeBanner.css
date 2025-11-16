@@ -8,11 +8,11 @@
     gap: 3rem;
     padding: 2rem 6rem;
     font-family: var(--montserrat);
-    background: 
+    background:
         linear-gradient(rgba(var(--primary-color), 0.65), rgba(var(--primary-color), 0.65)),
         url("../../assets/images/backgroud-image-banner.png");
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     background-attachment: scroll;
 }

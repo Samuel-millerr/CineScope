@@ -1,3 +1,4 @@
+/* Estilização do formulário para a criação e edição de filmes */
 .form-movie {
   background-color: rgb(var(--secondary-color));
   padding: 2.5rem;
@@ -11,20 +12,20 @@
 .form-row {
   display: flex;
   gap: 1.5rem;
-  align-items: start; 
+  align-items: start;
 }
 
-.form-row > * {
+.form-row>* {
   flex: 1;
 }
 
-.form-row > div:first-child {
+.form-row>div:first-child {
   display: flex;
   flex-direction: column;
 }
 
 .chip-container {
-  display: flex;  
+  display: flex;
   flex-wrap: wrap;
   min-height: 5rem;
   gap: 0.5rem;
@@ -37,11 +38,11 @@
 
 .form-buttons {
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
   gap: 1rem;
   margin-top: 1rem;
 }
 
-.form-buttons > button:first-child {
+.form-buttons>button:first-child {
   margin-right: auto;
 }

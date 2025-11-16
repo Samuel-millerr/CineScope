@@ -21,7 +21,7 @@
 }
 
 
-/* Variações */
+/* Variações do botão */
 .small-button-grey {
     background-color: rgb(var(--detail-grey));
     color: rgb(var(--detail-light));

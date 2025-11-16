@@ -1,6 +1,7 @@
 import "./ActorCard.css";
 
 export default function ActorCard({actor_image, actor_name}) {
+    // Componenete para o card de ator presente na página indívidual de cada filme
     return (
         <article className="card-actor-conteiner">
             <figure className="actor-image-container">

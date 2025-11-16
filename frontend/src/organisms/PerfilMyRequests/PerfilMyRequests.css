@@ -1,0 +1,27 @@
+/* Estilização do PerfilMyRequests */
+.perfil-requests-movie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    min-height: 33rem;
+    padding: 2rem 1.5rem 2rem 1.5rem;
+}
+
+.perfil-requests-movie-container h2 {
+    align-self: self-start;
+}
+
+.perfil-requests-movie-container h2::after {
+    width: 100%;
+}
+
+.perfil-my-requests-line-conteiner {
+    display: flex;
+    align-items: start;
+    align-self: start;
+    flex-wrap: wrap;
+    margin-left: 1rem;
+    gap: 1rem;
+    justify-content: start;
+}

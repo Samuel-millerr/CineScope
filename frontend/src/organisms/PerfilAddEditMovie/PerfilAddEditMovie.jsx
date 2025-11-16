@@ -8,6 +8,7 @@ import LineDivider from "../../atoms/LineDivider/LineDivider";
 import Button from "../../atoms/Button/Button.jsx";
 
 export default function PerfilAddEditMovie() {
+    // Componente do perfil que permite o usuário visualizar e adicionar filmes, possui uma lógica de páginação
     const [movies, setMovies] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const moviesPerPage = 10;

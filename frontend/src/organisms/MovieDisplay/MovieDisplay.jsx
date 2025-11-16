@@ -1,9 +1,10 @@
-import MovieInfoFooter from "../MovieInfoFooter/MovieInfoFooter";
 import "./MovieDisplay.css";
+import MovieInfoFooter from "../MovieInfoFooter/MovieInfoFooter";
 import Chip from "../../atoms/Chip/Chip.jsx";
 import Breadcrumb from "../../molecules/Breadcrumb/Breadcrumb.jsx";
 
 export default function MovieDisplay({ movie }) {
+    // Display de filme individual
     return (
         <section className="movie-display">
             <Breadcrumb items={{
