@@ -1,118 +1,105 @@
-CREATE TABLE nacionalidade(
-	id_nacionalidade INTEGER AUTO_INCREMENT UNIQUE,
-    nacionalidade VARCHAR(100) NOT NULL UNIQUE
+DROP DATABASE IF EXISTS cinescope;
+CREATE DATABASE cinescope;
+
+USE cinescope;
+
+CREATE TABLE director(
+	id_director INTEGER AUTO_INCREMENT UNIQUE,
+    director_name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE diretor(
-	id_diretor INTEGER AUTO_INCREMENT UNIQUE,
-    nome VARCHAR(100) NOT NULL,
-    sobrenome VARCHAR(100) NOT NULL,
-    genero ENUM("Masculino", "Feminino", "Não Binario") NOT NULL,
-	id_nacionalidade INTEGER NOT NULL,
-    FOREIGN KEY (id_nacionalidade) REFERENCES nacionalidade(id_nacionalidade)
+CREATE TABLE actor (
+	id_actor INTEGER AUTO_INCREMENT UNIQUE,
+    actor_name VARCHAR(255) NOT NULL UNIQUE,
+    actor_photo VARCHAR(510) NOT NULL
 );
 
-CREATE TABLE ator(
-	id_ator INTEGER AUTO_INCREMENT UNIQUE,
-    nome VARCHAR(100) NOT NULL,
-    sobrenome VARCHAR(100) NOT NULL,
-    genero ENUM("Masculino", "Feminino", "Não Binario") NOT NULL,
-	id_nacionalidade INTEGER NOT NULL,
-    FOREIGN KEY (id_nacionalidade) REFERENCES nacionalidade(id_nacionalidade)
+CREATE TABLE genre (
+	id_genre INTEGER AUTO_INCREMENT UNIQUE,
+    genre VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE linguagem(
-	id_linguagem INTEGER AUTO_INCREMENT UNIQUE,
-    linguagem VARCHAR(100) NOT NULL UNIQUE
+CREATE TABLE movie (
+	id_movie INTEGER AUTO_INCREMENT UNIQUE,
+    movie_title VARCHAR(255) NOT NULL UNIQUE, 
+    duration_time TIME NOT NULL,
+    publication_year YEAR NOT NULL,
+    movie_synopsis TEXT NOT NULL,
+    movie_poster VARCHAR(510)
 );
 
-CREATE TABLE genero(
-	id_genero INTEGER AUTO_INCREMENT UNIQUE, 
-    genero VARCHAR(100) NOT NULL UNIQUE
+CREATE TABLE movie_director(
+	id_movie_director INTEGER AUTO_INCREMENT UNIQUE,
+    id_movie INTEGER NOT NULL,
+    id_director INTEGER NOT NULL,
+    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE,
+    FOREIGN KEY (id_director) REFERENCES director(id_director) ON DELETE CASCADE
 );
 
-CREATE TABLE pais(
-	id_pais INTEGER AUTO_INCREMENT UNIQUE,
-    pais VARCHAR(100) NOT NULL UNIQUE
+CREATE TABLE movie_actor(
+	id_movie_actor INTEGER AUTO_INCREMENT UNIQUE,
+    id_movie INTEGER NOT NULL,
+    id_actor INTEGER NOT NULL,
+    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE,
+    FOREIGN KEY (id_actor) REFERENCES actor(id_actor) ON DELETE CASCADE
 );
 
-CREATE TABLE produtora(
-	id_produtora INTEGER AUTO_INCREMENT UNIQUE,
-    nome VARCHAR(100) NOT NULL UNIQUE,
-    id_pais INTEGER NOT NULL,
-    FOREIGN KEY (id_pais) REFERENCES pais(id_pais)
+CREATE TABLE movie_genre (
+	id_movie_actor INTEGER AUTO_INCREMENT UNIQUE,
+    id_movie INTEGER NOT NULL,
+    id_genre INTEGER NOT NULL,
+    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE,
+    FOREIGN KEY (id_genre) REFERENCES genre(id_genre) ON DELETE CASCADE
 );
 
-CREATE TABLE filme(
-	id_filme INTEGER AUTO_INCREMENT UNIQUE,
-    titulo VARCHAR(100) NOT NULL UNIQUE, 
-    orcamento INTEGER NOT NULL, 
-    tempo_duracao TIME NOT NULL,
-    ano_publicacao YEAR NOT NULL,
-    poster VARCHAR(510) NOT NULL
-);
-
-CREATE TABLE filme_diretor(
-	id_filme_diretor INTEGER AUTO_INCREMENT UNIQUE,
-    id_filme INTEGER NOT NULL,
-    id_diretor INTEGER NOT NULL,
-    FOREIGN KEY (id_filme) REFERENCES filme(id_filme) ON DELETE CASCADE,
-    FOREIGN KEY (id_diretor) REFERENCES diretor(id_diretor) ON DELETE CASCADE
-);
-
-CREATE TABLE filme_ator(
-	id_filme_ator INTEGER AUTO_INCREMENT UNIQUE,
-    id_filme INTEGER NOT NULL,
-    id_ator INTEGER NOT NULL,
-    FOREIGN KEY (id_filme) REFERENCES filme(id_filme) ON DELETE CASCADE,
-    FOREIGN KEY (id_ator) REFERENCES ator(id_ator) ON DELETE CASCADE
-);
-
-CREATE TABLE filme_linguagem(
-	id_filme_linguagem INTEGER AUTO_INCREMENT UNIQUE,
-    id_filme INTEGER NOT NULL,
-    id_linguagem INTEGER NOT NULL,
-    FOREIGN KEY (id_filme) REFERENCES filme(id_filme) ON DELETE CASCADE,
-    FOREIGN KEY (id_linguagem) REFERENCES linguagem(id_linguagem) ON DELETE CASCADE
-);
-
-CREATE TABLE filme_genero(
-	id_filme_genero INTEGER AUTO_INCREMENT UNIQUE,
-    id_filme INTEGER NOT NULL, 
-    id_genero INTEGER NOT NULL,
-    FOREIGN KEY (id_filme) REFERENCES filme(id_filme) ON DELETE CASCADE,
-    FOREIGN KEY (id_genero) REFERENCES genero(id_genero) ON DELETE CASCADE
-);
-
-CREATE TABLE filme_pais(
-	id_filme_pais INTEGER AUTO_INCREMENT UNIQUE, 
-    id_filme INTEGER NOT NULL,
-    id_pais INTEGER NOT NULL,
-    FOREIGN KEY (id_filme) REFERENCES filme(id_filme) ON DELETE CASCADE,
-    FOREIGN KEY (id_pais) REFERENCES pais(id_pais) ON DELETE CASCADE
-);
-
-CREATE TABLE filme_produtora(
-	id_filme_produto INTEGER AUTO_INCREMENT UNIQUE,
-    id_filme INTEGER NOT NULL,
-    id_produtora INTEGER  NOT NULL,
-    FOREIGN KEY (id_filme) REFERENCES filme(id_filme) ON DELETE CASCADE,
-    FOREIGN KEY (id_produtora) REFERENCES produtora(id_produtora) ON DELETE CASCADE
-);
-
-CREATE TABLE usuario(
-    id_usuario INTEGER AUTO_INCREMENT UNIQUE,
-    nome VARCHAR(255) NOT NULL UNIQUE,
+CREATE TABLE user (
+    id_user INTEGER AUTO_INCREMENT UNIQUE,
+    user VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    user_role ENUM("Comum", "Adminstrador") NOT NULL,
+    user_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    senha VARCHAR(12) NOT NULL,
-    role ENUM("comum", "administrador")
+    address VARCHAR(255) NOT NULL,
+    created_at DATE
 );
 
-CREATE TABLE requisicoes(
-    id_requisicoes INTEGER AUTO_INCREMENT UNIQUE,
-    id_usuario INTEGER NOT NULL,
-    tipo_requisicao ENUM("Adicionar Filme", "Editar Filme") NOT NULL,
-    requisicoes_status ENUM("Aprovado", "Pendente", "Reprovado") NOT NULL,
-    data_requisicao DATETIME NOT NULL,
-    data_resposta DATETIME
-)
+CREATE TABLE review (
+	id_review INTEGER AUTO_INCREMENT UNIQUE, 
+    id_movie INTEGER NOT NULL,
+    id_user INTEGER NOT NULL,
+    review_text TEXT NOT NULL,
+    review_rating DECIMAL(2,1) NOT NULL,
+    review_date DATE NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE
+);
+
+CREATE TABLE request (
+    id_request INTEGER AUTO_INCREMENT UNIQUE,
+    id_user INTEGER NOT NULL,
+    id_movie INTEGER NULL,
+    request_type ENUM("Adicão", "Edição") NOT NULL,
+    request_date DATE NOT NULL,
+    request_status ENUM("Aprovado", "Pendente", "Reprovado") NOT NULL,
+    request_body JSON NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE
+);
+
+CREATE TABLE user_collection (
+	id_collection INTEGER AUTO_INCREMENT UNIQUE,
+    id_movie INTEGER NOT NULL,
+    id_user INTEGER NOT NULL,
+    added_at DATE NOT NULL,
+	FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE
+);
+
+CREATE TABLE watched_movies (
+	id_watched_movies INTEGER AUTO_INCREMENT UNIQUE,
+	id_movie INTEGER NOT NULL,
+    id_user INTEGER NOT NULL,
+    watched_at DATE NOT NULL,
+	FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE
+);

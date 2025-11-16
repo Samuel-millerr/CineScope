@@ -11,7 +11,7 @@ class AuthHandler(BaseHandler):
         body = handler.parse_json_body()
 
         with db.session() as session:
-            session.execute("USE webflix;")
+            session.execute("USE cinescope;")
             session.execute("SELECT * FROM usuario WHERE LOWER(usuario.nome) = %s", (body["nome"].lower(),))
             result = session.fetchone()
 
@@ -24,7 +24,7 @@ class AuthHandler(BaseHandler):
         }
         
         if not result:
-            return self.send_json_response({"error": "User not found"}, status=status["HTTP_401_UNAUTHORIZED"])
+            return self.send_json_response({"error": "User not found"}, status=status["HTTP_404_NOT_FOUND"])
 
         if not auth.verify_password(body["senha"], user["senha"]):
             return self.send_json_response({"error": "User or password wrongs"}, status=status["HTTP_401_UNAUTHORIZED"])
@@ -37,13 +37,13 @@ class AuthHandler(BaseHandler):
         body = handler.parse_json_body()
 
         with db.session() as session:
-            session.execute("USE webflix;")
+            session.execute("USE cinescope;")
             session.execute("SELECT * FROM usuario WHERE LOWER(usuario.nome) = %s", (body["nome"].lower(),))
             result = session.fetchone()
 
         if not result:
             with db.session() as session:
-                session.execute("USE webflix;")
+                session.execute("USE cinescope;")
                 query = """
                 INSERT INTO usuario(nome, email, senha, tipo_usuario)
                 VALUES

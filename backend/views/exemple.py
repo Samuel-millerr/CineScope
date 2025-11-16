@@ -23,8 +23,8 @@ class MyHandle(SimpleHTTPRequestHandler):
     def get_movies(self):
         cursor = DB_CONNECTION.cursor()
 
-        cursor.execute("USE webflix;")
-        cursor.execute("SELECT * FROM webflix.filme")
+        cursor.execute("USE cinescope;")
+        cursor.execute("SELECT * FROM cinescope.filme")
         result = cursor.fetchall()
 
         filmes_json = []
@@ -47,7 +47,7 @@ class MyHandle(SimpleHTTPRequestHandler):
     def post_movies(self, data: dict):
         cursor = DB_CONNECTION.cursor()
 
-        cursor.execute("USE webflix;")
+        cursor.execute("USE cinescope;")
         cursor.execute("SELECT * FROM filme;")
         filmes_database = cursor.fetchall()
 
@@ -162,7 +162,7 @@ class MyHandle(SimpleHTTPRequestHandler):
             if cursor:
                 if password_form == confirm_password_form:
                     valid_user = True
-                    cursor.execute("USE webflix")
+                    cursor.execute("USE cinescope")
                     cursor.execute(f"INSERT INTO usuarios(usuario, senha) VALUES ("{user_form}", "{password_form}");")
                     cursor.close()
                     DB_CONNECTION.commit()

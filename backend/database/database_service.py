@@ -4,9 +4,12 @@ from mysql.connector import Error
 from contextlib import contextmanager
 from typing import Generator
 
+from create_tables import USER_NAME
+from create_tables import USER_PASSWORD
+
 """ CAMINHOS DOS SCRIPTS SQL """
-SQL_CREATE_TABLES = "database/scripts/CREATE_TABLES_WEBFLIX.sql"
-SQL_INSERT_DATA = "database/scripts/INSERT_DATA_WEBFLIX.sql"
+SQL_CREATE_TABLES = "database/scripts/CREATE_TABLES_cinescope.sql"
+SQL_INSERT_DATA = "database/scripts/INSERT_DATA_cinescope.sql"
 
 class DatabaseService:
     """
@@ -29,8 +32,8 @@ class DatabaseService:
         try:
             conn = mysql.connector.connect(
                 host="localhost",
-                user="root",
-                password="senai"
+                user=USER_NAME,
+                password=USER_PASSWORD
             )
             print("[DB] Conexão com o banco realizada com sucesso.")
             return conn

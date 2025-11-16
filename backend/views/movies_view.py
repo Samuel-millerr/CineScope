@@ -13,7 +13,7 @@ class MovieHandler(BaseHandler):
     @staticmethod
     def get_movie_by_id(id_movie: int):
         with db.session() as session:
-            session.execute("USE webflix;")
+            session.execute("USE cinescope;")
             session.execute("SELECT * FROM filme WHERE id_filme = %s;", (id_movie,))
             return session.fetchone()
 
@@ -21,13 +21,13 @@ class MovieHandler(BaseHandler):
         body = handler.parse_json_body()
 
         with db.session() as session:
-            session.execute("USE webflix;")
+            session.execute("USE cinescope;")
             session.execute("SELECT * from filme WHERE filme.titulo = %s;", (body["titulo"],))
             result = session.fetchone()
 
         if not result:
             with db.session() as session:
-                session.execute("USE webflix;")
+                session.execute("USE cinescope;")
                 
                 query = """
                     INSERT INTO filme(titulo, orcamento, tempo_duracao, ano_publicacao, poster) 
@@ -43,7 +43,7 @@ class MovieHandler(BaseHandler):
 
     def get_movies(self, handler):
         with db.session() as session:
-            session.execute("USE webflix;")
+            session.execute("USE cinescope;")
             session.execute("SELECT * FROM filme;")
             result = session.fetchall()
 
@@ -86,7 +86,7 @@ class MovieHandler(BaseHandler):
 
         if result:
             with db.session() as session:
-                session.execute("USE webflix;")
+                session.execute("USE cinescope;")
                 query = """
                     UPDATE filme 
                     SET 
@@ -111,7 +111,7 @@ class MovieHandler(BaseHandler):
 
         if result:
             with db.session() as session:
-                session.execute("USE webflix;")
+                session.execute("USE cinescope;")
                 session.execute("DELETE FROM filme WHERE filme.id_filme = %s;", (id_movie,))  
 
             handler.send_json_response({}, status["HTTP_204_NO_CONTENT"])
@@ -122,7 +122,7 @@ class MovieHandler(BaseHandler):
         query = query.split("=")[1]
         query = f"%{query}%"
         with db.session() as session:
-            session.execute("USE webflix;")
+            session.execute("USE cinescope;")
             session.execute("SELECT * FROM filme WHERE LOWER(titulo) LIKE %s;", (query,))
             result = session.fetchall()
 

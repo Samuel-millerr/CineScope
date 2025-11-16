@@ -8,13 +8,15 @@ from database.database_service import SQL_CREATE_TABLES, SQL_INSERT_DATA
 from time import sleep
 
 def create_tables():
+    USER_NAME = input("Digite a senha do seu usuário SQL da sua maquina: ").strip()
+    USER_PASSWORD = input("Digite a senha da sua conexão SQL da sua maquina: ").strip()
     with db.session() as session:
         print("Conexão com o banco de dados sendo realizada...")
         sleep(1)
 
-        session.execute("DROP DATABASE IF EXISTS webflix;")
-        session.execute("CREATE DATABASE webflix;")
-        session.execute("USE webflix;")
+        session.execute("DROP DATABASE IF EXISTS cinescope;")
+        session.execute("CREATE DATABASE cinescope;")
+        session.execute("USE cinescope;")
 
         print("Criando as tabelas do banco de dados...")
         sleep(2)
