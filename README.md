@@ -15,7 +15,7 @@ Desenvolver de forma completa uma plataforma de avaliação e criação de filme
 ## 🔑 Acesso
 1. Faça o clone do repositório na área de trabalho
 ```
-git clone https://github.com/Samuel-millerr/virtuose.git
+git clone https://github.com/Samuel-millerr/CineScope.git
 ```
 2. Entre na pasta do projeto 
 ```
@@ -35,9 +35,12 @@ py -m venv .venv
 pip install -r requirements.txt
 py main.py
 ```
-3. Realize a instalação e inicialização do frontend
+#### Dentro do projeto existem dois tipos de paths importantes para ser utilizados
+- Backend | host:8000 - Contém a documentação de todos os endpoints da API
+- Frontend | host:3000 - Contém o acesso geral ao CineScope
 ```
-
+http://localhost:8000/api
+http://localhost:3000
 ```
 
 ## Autores
@@ -45,12 +48,10 @@ py main.py
  
 ## 🛠 Ferramentas Utilizadas
 <div aling = "center">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" height = "45" alt="git logo"/>
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" height = "40" alt="figma logo"/>
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" height = "45" alt="react logo"/>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" height = "40" alt="git logo"/>
-
-                   
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" height = "45" alt="git logo"/>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" height = "40" alt="git logo"/>                   
 </div>
 
 ## 🔑 Documentos de Referência
