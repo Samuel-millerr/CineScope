@@ -1,5 +1,4 @@
 import "./AboutUsPage.css";
-import NavBar from "../../organisms/NavBar/NavBar";
 import Footer from "../../organisms/Footer/Footer";
 import Title from "../../atoms/Title/Title";
 import AboutUsCard from "../../molecules/AboutUsCard/AboutUsCard.jsx";
@@ -67,7 +66,6 @@ const ContactSection = () => (
 export default function SobreNos() {
     return (
         <>
-            <NavBar />
             <main className="about-us-container">
                 <HeroSection />
                 <ValuesSection />

@@ -1,4 +1,8 @@
 /* Estilização do card da tela de pesquisa */
+.search-card-link {
+    text-decoration: none;
+}
+
 .search-movie-card {
     display: flex;
     flex-direction: column;

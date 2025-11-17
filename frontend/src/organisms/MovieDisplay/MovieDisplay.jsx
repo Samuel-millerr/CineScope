@@ -4,7 +4,6 @@ import Chip from "../../atoms/Chip/Chip.jsx";
 import Breadcrumb from "../../molecules/Breadcrumb/Breadcrumb.jsx";
 
 export default function MovieDisplay({ movie }) {
-    // Display de filme individual
     return (
         <section className="movie-display">
             <Breadcrumb items={{
@@ -14,29 +13,28 @@ export default function MovieDisplay({ movie }) {
             }} />
 
             <figure className="movie-display-poster">
-                <img src={movie.movie_poster} alt={`Poster do filme ${movie.movie_name}`} />
+                <img src={movie.movie_poster} alt={`Poster do filme ${movie.movie_title}`} />
             </figure>
 
             <article className="movie-display-info">
                 <div>
-                    <h1>{movie.movie_name}</h1>
+                    <h1>{movie.movie_title}</h1>
 
                     <div className="chips-container">
-                        <Chip variant={"dark-blue"} chip_text={movie.movie_year}></Chip>
-                        <Chip variant={"dark-blue"} chip_text={movie.movie_genre}></Chip>
-                        <Chip variant={"dark-blue"} chip_text={movie.movie_duration}></Chip>
+                        <Chip variant={"dark-blue"} chip_text={movie.publication_year}></Chip>
+                        <Chip variant={"dark-blue"} chip_text={movie.genre}></Chip>
+                        <Chip variant={"dark-blue"} chip_text={movie.duration_time}></Chip>
                     </div>
                 </div>
                 <div>
                     <h2>Sinopse</h2>
-                    <p className="synopsis-text">{movie.movie_summary}</p>
+                    <p className="synopsis-text">{movie.movie_synopsis}</p>
                 </div>
                 <div className="credits">
-                    <p><strong>Diretor:</strong> {movie.movie_director}</p>
-                    <p><strong>Produtora:</strong> {movie.movie_producer}</p>
+                    <p><strong>Diretor:</strong> {movie.directors}</p>
                 </div>
 
-                <MovieInfoFooter />
+                <MovieInfoFooter ratingNumber={movie.avg_rating}/>
             </article>
         </section>
     )

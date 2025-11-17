@@ -2,9 +2,10 @@
 .search-filters-container {
     display: flex;
     flex-direction: column;
+    position: static;
+    top: 1.5rem;
     gap: 1rem;
     width: 24rem;
-    height: min-content;
     background-color: rgb(var(--secondary-color));
     padding: 1.75rem;
     border-radius: 0.313rem;

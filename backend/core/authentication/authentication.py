@@ -11,7 +11,7 @@ class Authentication:
     @staticmethod
     def generate_token(user: dict):
         payload = {
-            "id_usuario": user["id_usuario"],
+            "id_user": user["id_user"],
             "role": user["role"],
             "exp": datetime.utcnow() + timedelta(hours=1)
         }

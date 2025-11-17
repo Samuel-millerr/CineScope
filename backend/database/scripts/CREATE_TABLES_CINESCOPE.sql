@@ -56,13 +56,11 @@ CREATE TABLE user (
     id_user INTEGER AUTO_INCREMENT UNIQUE,
     user VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    user_role ENUM("Comum", "Adminstrador") NOT NULL,
+    user_role ENUM("Comum", "Administrador") NOT NULL DEFAULT "Comum",
     user_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
     created_at DATE
 );
-
 CREATE TABLE review (
 	id_review INTEGER AUTO_INCREMENT UNIQUE, 
     id_movie INTEGER NOT NULL,

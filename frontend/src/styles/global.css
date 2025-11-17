@@ -27,3 +27,13 @@ body {
   margin: 0 auto;
   padding: 0 1rem;
 }
+
+.error-states {
+  align-self: center;
+  justify-self: center;
+  padding: 3rem 1rem;
+  font-size: 28px;
+  color: rgb(var(--detail-light));
+  font-weight: 500;
+  font-family: var(--montserrat);
+}

@@ -2,11 +2,11 @@
 .card-actor-conteiner {
     display: inline-block;
     position: relative;
-    width: 14rem;
-    height: 17rem;
+    width: 16rem;
+    height: 18rem;
     border-radius: 0.3rem;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 5px rgba(var(--tertiary-color), 0.15);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
@@ -33,7 +33,7 @@
     font-family: var(--montserrat);
     font-weight: 700;
     font-size: 1.5rem;
-    padding: 0.5rem 0;
+    padding: 0.5rem 0.5rem 0.75rem 0.5rem;
     box-sizing: border-box;
 }
 

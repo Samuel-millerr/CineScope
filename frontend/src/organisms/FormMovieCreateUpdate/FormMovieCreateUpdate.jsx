@@ -7,10 +7,9 @@ import Button from "../../atoms/Button/Button.jsx";
 import SelectGroup from "../../molecules/SelectGroup/SelectGroup.jsx";
 
 const mockData = {
-    genero: ["Ficção Científica", "Aventura", "Ação", "Drama", "Comédia", "Terror", "Suspense", "Fantasia"],
-    diretor: ["Denis Villeneuve", "Christopher Nolan", "Greta Gerwig", "Martin Scorsese", "Quentin Tarantino", "Bong Joon-ho"],
-    elenco: ["Timothée Chalamet", "Zendaya", "Florence Pugh", "Austin Butler", "Anya Taylor-Joy", "Cillian Murphy", "Robert Downey Jr."],
-    produtora: ["Warner Bros.", "Legendary Pictures", "A24", "Universal Pictures", "Sony Pictures", "Paramount Pictures", "Netflix"]
+    genero: ["Ação", "Aventura", "Drama", "Comédia", "Suspense", "Terror", "Romance", "Sci-Fi", "Fantasia", "Mistério", "Crime", "Animação", "Histórico", "Guerra", "Musical", "Esporte", "Thriller", "Documentário"],
+    diretor: ["Christopher Nolan", "Steven Spielberg", "Martin Scorsese", "James Cameron", "Quentin Tarantino", "Ridley Scott", "Peter Jackson", "Denis Villeneuve", "David Fincher", "Guillermo del Toro", "Alfonso Cuarón", "Bong Joon-ho", "Guy Ritchie", "Tim Burton", "Patty Jenkins", "Greta Gerwig", "Francis Ford Coppola", "George Lucas", "Clint Eastwood", "Zack Snyder", "Lana Wachowski", "Anthony Russo", "Damien Chazelle", "Todd Phillips", "Frank Darabont", "Jon Favreau", "Chris Columbus"],
+    elenco: ["Leonardo DiCaprio", "Morgan Freeman", "Scarlett Johansson", "Tom Hanks", "Natalie Portman", "Christian Bale", "Robert Downey Jr.", "Emma Stone", "Brad Pitt", "Anne Hathaway", "Keanu Reeves", "Jennifer Lawrence", "Johnny Depp", "Matt Damon", "Amy Adams", "Denzel Washington", "Chris Evans", "Gal Gadot", "Henry Cavill", "Mark Ruffalo", "Matthew McConaughey", "Heath Ledger", "Michael Caine", "Laurence Fishburne", "Carrie-Anne Moss", "Chris Hemsworth", "Kate Winslet", "Al Pacino", "Marlon Brando", "John Travolta", "Samuel L. Jackson", "Uma Thurman", "Ryan Gosling", "Song Kang-ho", "Joaquin Phoenix", "Robert De Niro", "Timothée Chalamet", "Zendaya", "Tim Robbins", "Mark Hamill", "Harrison Ford", "Carrie Fisher", "Chris Pine", "Edward Norton", "Daniel Radcliffe", "Emma Watson", "Rupert Grint", "Joseph Gordon-Levitt", "Jessica Chastain"]
 };
 
 export const initialState = {
@@ -22,14 +21,12 @@ export const initialState = {
     elenco: [],
     sinopse: "",
     posterUrl: "",
-    produtora: []
 };
 
 const initialSelects = {
     genero: "",
     diretor: "",
     elenco: "",
-    produtora: ""
 };
 
 const selectFields = [
@@ -50,12 +47,6 @@ const selectFields = [
         label: "Elenco",
         placeholder: "Selecione um(a) ator/atriz...",
         options: mockData.elenco
-    },
-    {
-        name: "produtora",
-        label: "Produtora",
-        placeholder: "Selecione uma produtora...",
-        options: mockData.produtora
     }
 ];
 

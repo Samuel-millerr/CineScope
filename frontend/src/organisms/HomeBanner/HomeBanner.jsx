@@ -1,5 +1,6 @@
 import "./HomeBanner.css";
 import Button from "../../atoms/Button/Button.jsx"
+import { Link } from "react-router-dom";
 
 export default function HomeBanner() {
     return (
@@ -11,7 +12,7 @@ export default function HomeBanner() {
             </p>
             <div className="home-banner-container">
                 <a href="https://www.youtube.com/watch?v=SaHZHU-44XA" target="blank"><Button variant={"blue-gradient"} text_button={"Assistir Trailer"} /></a>
-                <Button variant={"transparent"} text_button={"Mais informações"} />
+                <Link to={"/movie/7"}> <Button variant={"transparent"} text_button={"Mais informações"} /> </Link>
             </div>
         </section>
     )

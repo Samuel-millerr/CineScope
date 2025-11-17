@@ -4,14 +4,12 @@ import Breadcrumb from "../../molecules/Breadcrumb/Breadcrumb";
 import Footer from "../../organisms/Footer/Footer";
 import FormMovieCreateUpdate, { initialState } from "../../organisms/FormMovieCreateUpdate/FormMovieCreateUpdate";
 import PosterPreview from "../../molecules/PosterPreview/PosterPreview";
-import NavBar from "../../organisms/NavBar/NavBar";
 
 export default function MovieAddPage() {
     const [formData, setFormData] = useState(initialState);
 
     return (
         <>
-            <NavBar />
             <main className="movie-add-page-container">
                 <div>
                     <h1>Cadastre o Filme</h1>

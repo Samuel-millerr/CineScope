@@ -1,14 +1,39 @@
-/* Estilização básica do componenete */
 .nav-bar-user-group{
     display: flex;
     align-items: center;
     flex-direction: row;
     white-space: nowrap;
+    gap: 0.6rem;
+    text-decoration: none;
 }
 
-.nav-bar-user-group p {
+
+.nav-user-name {
     padding-right: 1.1rem;
     font-family: var(--poppins);
-    font-size: 28px;
-    font-weight: 500;
+    font-size: 26px;
+    font-weight: 600;
+    color: rgb(var(--detail-light));
+}
+
+.nav-user-avatar-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.nav-user-avatar {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.7);
+    transition: transform .2s ease, border-color .2s ease;
+    cursor: pointer;
+}
+
+.nav-user-avatar:hover {
+    transform: scale(1.06);
+    border-color: var(--primary-color);
 }

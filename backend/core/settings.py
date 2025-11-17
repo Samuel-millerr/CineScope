@@ -30,6 +30,4 @@ class Config:
     SQL_CREATE_TABLES = "./database/scripts/CREATE_TABLES_CINESCOPE.sql"
     SQL_INSERT_DATA = "./database/scripts/INSERT_DATA_CINESCOPE.sql"
 
-
 config = Config
-

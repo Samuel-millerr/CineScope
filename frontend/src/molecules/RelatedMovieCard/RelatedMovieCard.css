@@ -1,4 +1,9 @@
 /* Estilização do card de filmes relacionados */
+.related-movie-link {
+    text-decoration: none;
+    color: rgb(var(--detail-light));
+}
+
 .related-movie-card {
     display: grid;
     grid-template-columns: 10rem 18rem;
@@ -14,7 +19,6 @@
 
 .related-movie-card:hover {
     transform: scale(1.03);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     background-color: rgba(var(--secondary-color), 0.9);
 }
 

@@ -28,7 +28,7 @@ export default function AdmListTable({
                         )
                     }
                 </div>
-                <p className="no-data-message"> Nenhum dado para exibir ou encontrado com a busca. </p>
+                <p className="error-states"> Nenhum dado para exibir ou encontrado com a busca. </p>
             </section>
         );
     }
@@ -41,13 +41,13 @@ export default function AdmListTable({
                 <div className="table-search-input">
                     <input type="text" placeholder="Procurar..." value={searchTerm} onChange={(e) => onSearchChange(e.target.value)} />
                 </div>
-                    {
-                        title_table === "Filmes Cadastrados" && (
-                            <Link to={"/add-movie"}>
-                                <Button text_button={"Adicionar Filme"} variant={"purple"} />
-                            </Link>
-                        )
-                    }
+                {
+                    title_table === "Filmes Cadastrados" && (
+                        <Link to={"/add-movie"}>
+                            <Button text_button={"Adicionar Filme"} variant={"purple"} />
+                        </Link>
+                    )
+                }
             </div>
 
             <table className="data-table">

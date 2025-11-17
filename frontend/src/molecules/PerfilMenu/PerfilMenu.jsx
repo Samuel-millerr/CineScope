@@ -8,8 +8,6 @@ export default function PerfilMenu(){
         <aside className="perfil-menu">
             <Link to={"/perfil"} className="perfil-menu-title">Meu Perfil</Link>
             <LineDivider variant={"gradient"}/>
-            <Link to={"/perfil/my-collection"} className="perfil-menu-title">Minha Coleção</Link>
-            <LineDivider variant={"gradient"}/>
             <Link to={"my-reviews"} className="perfil-menu-title">Minhas Avaliações</Link>
             <LineDivider variant={"gradient"}/>
             <Link to={"/perfil/add-edit-movie"} className="perfil-menu-title">Adicione ou edite filmes</Link>

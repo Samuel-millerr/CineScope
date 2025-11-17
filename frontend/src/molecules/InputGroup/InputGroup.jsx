@@ -1,7 +1,7 @@
 import "./InputGroup.css";
 import Input from "../../atoms/Input/Input.jsx";
 
-export default function GroupInput({ variant, label, type = "text", htmlFor, placeholder, value, onChange }) {
+export default function InputGroup({ variant, label, type = "text", htmlFor, placeholder, value, onChange }) {
     // Componenete de grupo de inputs label+input
     return (
         <div className="input-group">

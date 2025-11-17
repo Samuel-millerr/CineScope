@@ -20,7 +20,7 @@ class BaseHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps(data).encode("utf-8"))
     
-    def send_token(self, data,token, status=200):
+    def send_token(self, data, token, status=200):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
         self.send_header("Authorization", f"Bearer {token}")
@@ -70,4 +70,13 @@ class BaseHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(content.encode("utf-8"))
         except FileNotFoundError:
             self.send_error(404, f"Arquivo não {path} encontrado")
-        
+    
+    def end_headers(self):
+        self.send_header("Access-Control-Allow-Origin", "*") 
+        super().end_headers()
+
+    def do_OPTIONS(self):
+        self.send_response(200, "ok")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        self.end_headers()

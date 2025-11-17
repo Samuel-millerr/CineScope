@@ -4,12 +4,13 @@ import { useEffect } from "react";
 import Title from "../../atoms/Title/Title.jsx";
 import PerfilLineInfo from "../../molecules/PerfiLineInfo/PerfilLineInfo.jsx";
 import LineDivider from "../../atoms/LineDivider/LineDivider.jsx";
-import PerfilCard from "../../atoms/PerfilCard/PerfilCard.jsx";
 import Button from "../../atoms/Button/Button.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function PerfilProfile() {
     // Componente principal da tela de perfil
     const [profileData, setProfileData] = useState(null);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProfile = () => {
@@ -26,12 +27,23 @@ export default function PerfilProfile() {
     if (!profileData) {
         return (
             <section className="perfil-section-conteiner">
-                <div className="profile-main-container">
+                <div className="error-states">
                     Carregando informações do perfil...
                 </div>
             </section>
         );
     }
+
+    const handleExitAccount = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userType");
+        localStorage.removeItem("userName");
+        
+        const decisao = confirm("Deseja realmente realizar o logout?")
+        if (decisao) {
+            setTimeout(() => navigate("/"), 1200);
+        }
+    };
 
     return (
         <section className="perfil-section-conteiner perfil-profile-container">
@@ -61,19 +73,9 @@ export default function PerfilProfile() {
                             )}
                     </div>
                 </article>
-                <article className="profile-statistics">
-                    <Title variant={"perfil"} title={"Minhas Estatisticas"} />
-                    <div className="profile-cards-conteiner">
-                        <PerfilCard name_statistic={"Filmes Assistidos"} />
-                        <PerfilCard name_statistic={"Filmes Avaliados"} />
-                        <PerfilCard name_statistic={"Na sua Coleção"} />
-                        <PerfilCard name_statistic={"Média de Notas"} />
-                        <PerfilCard name_statistic={"Tempo Assistido"} />
-                    </div>
-                </article>
                 <div className="profile-footer">
                     <LineDivider variant={"purple"} />
-                    <Button text_button={"Sair da Conta"} variant={"red"} />
+                    <Button text_button={"Sair da Conta"} variant={"red"} onClick={handleExitAccount}/>
                 </div>
             </div>
         </section>
