@@ -10,9 +10,11 @@ export default function MyReview() {
     return (
         <article className="my-review">
             <h4> Deixe sua avaliação </h4>
-            <RatingFilterLine rating={"0.0"} isSelected={setRatingLine}/>
-            <TextArea variant={"black"} placeholder={"Escreva sua avaliação aqui..."} htmlFor={"comment"}/>
-            <Button variant={"purple"} text_button={"Publicar"}/>
+            <form>
+                <RatingFilterLine rating={"0.0"} isSelected={setRatingLine}/>
+                <TextArea variant={"black"} placeholder={"Escreva sua avaliação aqui..."} htmlFor={"comment"}/>
+                <Button variant={"purple"} text_button={"Publicar"}/>
+            </form>
         </article>
     )
 }

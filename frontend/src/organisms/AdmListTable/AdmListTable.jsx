@@ -2,16 +2,8 @@ import { Link } from "react-router-dom";
 import Button from "../../atoms/Button/Button.jsx";
 import "./AdmListTable.css";
 
-export default function AdmListTable({
-    title_table,
-    columns,
-    data,
-    searchTerm,
-    onSearchChange,
-    currentPage,
-    totalPages,
-    onPageChange
-}) {
+export default function AdmListTable({ title_table, columns, data, searchTerm, onSearchChange, currentPage, totalPages, onPageChange }) {
+    // Componente da tela de administrador para demonstrar as tableas
     if (!data || data.length === 0) {
         return (
             <section className="table-container">

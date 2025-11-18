@@ -2,8 +2,8 @@ import "./GenreFilter.css";
 
 export default function GenreFilter({ title, options, selectedOptions, onChange }) {
     // Agrupamento de filtros de gênero da parte de pesquisa
-
     const handleChange = (option) => {
+        // Ao escolher a opção específica o sistema recebe isso e adiciona em uma lista
         const newSelection = selectedOptions.includes(option)
             ? selectedOptions.filter((item) => item !== option)
             : [...selectedOptions, option];

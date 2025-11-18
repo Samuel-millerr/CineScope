@@ -101,6 +101,7 @@ export default function MoviePage() {
                         ) : (
                             <p>Nenhuma crítica ainda.</p>
                         )}
+                        <LineDivider variant={"purple"} />
                         <MyReview />
                     </article>
                     <aside className="movie-page-related-line">

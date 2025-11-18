@@ -9,6 +9,7 @@ import Button from "../../atoms/Button/Button.jsx";
 import { fetchMoviesSimpleInfo } from "../../services/movieService";
 
 export default function PerfilAddEditMovie() {
+    // Aba de visualização de todos os filmes do site para permitir o usuário adicionar ou editar um filme
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -47,7 +48,7 @@ export default function PerfilAddEditMovie() {
                         key={movie.id_movie}
                         button_variant={"grey"}
                         text_button={"Editar"}
-                        movie={movie}   // 🔥 enviando filme REAL
+                        movie={movie}
                     />
                 ))}
             </div>

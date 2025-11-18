@@ -5,6 +5,7 @@ export default function Chip({ variant, chip_text, removable = false, onRemove, 
     const classes = `chip chip-${variant}`;
 
     function handleRemove(e) {
+        // Função simples para evitar a propagação da função, função utilizada para remover o chip de crud
         e.stopPropagation();
         if (onRemove) onRemove(chip_text)
     }

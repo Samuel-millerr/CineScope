@@ -65,6 +65,7 @@ const ContactSection = () => (
 
 export default function SobreNos() {
     return (
+        // Conjunto dos elementos da página sobre nós
         <>
             <main className="about-us-container">
                 <HeroSection />

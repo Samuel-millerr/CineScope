@@ -2,7 +2,7 @@
 .history-menu-text-conteiner {
     display: grid;
     place-items: center;
-    grid-template-columns: 7.5rem 5rem 7.5rem;
+    grid-template-columns: 7.5rem 7.5rem;
     gap: 2rem;
     font-size: 1.5rem;
     font-weight: 500;

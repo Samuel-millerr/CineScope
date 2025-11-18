@@ -113,7 +113,6 @@ export default function MovieEditionPage() {
                         [movieId ? "Editar Filme" : "Adicionar Filme"]: "#"
                     }} />
 
-                    {/* Só monta o form quando os selects estão carregados */}
                     {selectsLoaded && (
                         <FormMovieCreateUpdate
                             formData={formData}
@@ -133,7 +132,6 @@ export default function MovieEditionPage() {
                     <PosterPreview posterUrl={formData.posterUrl} />
                 </div>
             </main>
-
             <Footer />
         </>
     );

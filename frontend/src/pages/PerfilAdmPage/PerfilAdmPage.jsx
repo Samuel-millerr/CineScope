@@ -14,10 +14,10 @@ import ApprovedIcon from "../../assets/icons/admin-icons/approved-icon.svg";
 import ReprovedIcon from "../../assets/icons/admin-icons/reproved-icon.svg";
 
 import { fetchMoviesAdmList } from "../../services/movieService";
-import { 
-    fetchPendingRequests, 
-    approveRequest, 
-    denyRequest 
+import {
+    fetchPendingRequests,
+    approveRequest,
+    denyRequest
 } from "../../services/requestService";
 
 const ITEMS_PER_PAGE = 10;
@@ -27,28 +27,14 @@ export default function AdminDashboard() {
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
 
-    // ---- FILMES ----
     const [apiMovieData, setApiMovieData] = useState([]);
     const [loadingMovies, setLoadingMovies] = useState(false);
     const [errorMovies, setErrorMovies] = useState(null);
 
-    // ---- REQUISIÇÕES ----
     const [apiRequestData, setApiRequestData] = useState([]);
     const [loadingRequests, setLoadingRequests] = useState(false);
     const [errorRequests, setErrorRequests] = useState(null);
 
-    // ---- USUÁRIOS (mock por enquanto) ----
-    const allUserData = [
-        { id: "#U01", usuario: "alice.silva", nomeCompleto: "Alice Silva", dataCadastro: "01/03/2023", email: "alice@exemplo.com" },
-        { id: "#U02", usuario: "bruno.costa", nomeCompleto: "Bruno Costa", dataCadastro: "05/03/2023", email: "bruno@exemplo.com" },
-        { id: "#U03", usuario: "carla.dias", nomeCompleto: "Carla Dias", dataCadastro: "10/03/2023", email: "carla@exemplo.com" },
-        { id: "#U04", usuario: "daniel.gomes", nomeCompleto: "Daniel Gomes", dataCadastro: "15/03/2023", email: "daniel@exemplo.com" },
-        { id: "#U05", usuario: "elisa.fernandes", nomeCompleto: "Elisa Fernandes", dataCadastro: "20/03/2023", email: "elisa@exemplo.com" }
-    ];
-
-    // ================================================================================
-    //                 CARREGAMENTO DE FILMES
-    // ================================================================================
     useEffect(() => {
         if (activeView !== "filmes") return;
 
@@ -77,9 +63,6 @@ export default function AdminDashboard() {
         loadMovies();
     }, [activeView]);
 
-    // ================================================================================
-    //                 CARREGAMENTO DE REQUISIÇÕES
-    // ================================================================================
     const loadRequests = async () => {
         setLoadingRequests(true);
         setErrorRequests(null);
@@ -112,16 +95,13 @@ export default function AdminDashboard() {
         }
     }, [activeView]);
 
-    // ================================================================================
-    //                 AÇÕES DO ADMIN - APROVAR/NEGAR
-    // ================================================================================
     const handleApproveRequest = async (id) => {
         if (!window.confirm("Permitir publicação deste filme?")) return;
 
         try {
             await approveRequest(id);
             alert("Filme aprovado e publicado!");
-            loadRequests(); // refresh
+            loadRequests();
         } catch (err) {
             alert(err.message);
         }
@@ -133,15 +113,12 @@ export default function AdminDashboard() {
         try {
             await denyRequest(id);
             alert("Solicitação recusada.");
-            loadRequests(); // refresh
+            loadRequests();
         } catch (err) {
             alert(err.message);
         }
     };
 
-    // ================================================================================
-    //                 COLUNAS
-    // ================================================================================
     const movieColumns = [
         { label: "Filme ID", accessor: "id" },
         { label: "Filme", accessor: "filme" },
@@ -207,9 +184,6 @@ export default function AdminDashboard() {
         }
     ];
 
-    // ================================================================================
-    //                 FILTRO & PAGINAÇÃO
-    // ================================================================================
     let dataToFilter;
     let columnsToShow;
     let titleForTable;
@@ -249,14 +223,11 @@ export default function AdminDashboard() {
     const currentTableData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
 
-    // ================================================================================
-    //                 RENDER
-    // ================================================================================
     return (
         <>
             <main className="perfil-page-container">
 
-                <PerfilMenuAdm 
+                <PerfilMenuAdm
                     activeView={activeView}
                     onNavigate={setActiveView}
                 />
@@ -279,7 +250,6 @@ export default function AdminDashboard() {
                 />
 
             </main>
-
             <Footer />
         </>
     );

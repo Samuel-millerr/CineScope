@@ -1,6 +1,7 @@
 /* Estilização do subcomponente do perfil */
 .perfil-section-container {
     width: 100%;
+    height: auto;
     padding: 20px;
     display: flex;
     flex-direction: column;

@@ -3,6 +3,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+    /*
+    Gerencia o estado global de autenticação.
+    - Carrega token, tipo de usuário e dados do usuário do localStorage.
+    - login(): salva dados no localStorage e atualiza o estado.
+    - logout(): limpa o localStorage e reseta a autenticação.
+    - Fornece `{ auth, login, logout }` para toda a aplicação via contexto.
+    */
     const [auth, setAuth] = useState({
         token: null,
         role: null,

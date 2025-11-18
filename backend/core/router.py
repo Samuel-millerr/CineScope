@@ -56,9 +56,8 @@ class Router:
             RequestHandler.get_requests(self, handler)
         elif path["path"].startswith("/api/reviews") and path["id"]:
             ReviewHandler.get_reviews_by_movie(self, handler, path["id"])
+
             
-
-
     def handler_put(self, handler):
         path = handler.parse_path(handler.path)
         if path["path"].startswith("/api/movies") and path["id"]:

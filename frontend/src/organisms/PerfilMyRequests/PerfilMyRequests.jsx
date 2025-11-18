@@ -7,16 +7,10 @@ export default function PerfilMyRequests() {
     // Componente que permite a visualização das requisições de edição e adicão feitas pelo usuário
     const [requests, setRequests] = useState([]);
     useEffect(() => {
-        const fetchRequests = () => {
-            const fetchedRequests = Array.from({ length: 10 }).map(() => (
-                {
-                    movie_name: "Duna",
-                    movie_image: "https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-02290-bad6c8a814c0d7a2da17181238447778-480-0.jpg",
-                    request_date: "2025",
-                    request_type: "Edição",
-                    request_status: "Aprovado",
-                }
-            ));
+        const loadUser = () => {
+            try {
+                url = "http://"
+            }
             setRequests(fetchedRequests);
         };
         fetchRequests();

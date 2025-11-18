@@ -52,7 +52,6 @@ export default function SearchPage() {
             return movies;
         }
 
-        // 3. Lógica de filtragem principal
         return movies.filter(movie => {
             if (searchTerm.trim() !== "") {
                 const titleMatches = movie.movie_title?.toLowerCase()?.includes(searchTerm.toLowerCase().trim());
@@ -86,7 +85,7 @@ export default function SearchPage() {
                     return false;
                 }
             }
-            
+
             if (actor.trim() !== "") {
                 const hasActor = movie.actors?.toLowerCase()?.includes(actor.toLowerCase().trim());
                 if (!hasActor) {

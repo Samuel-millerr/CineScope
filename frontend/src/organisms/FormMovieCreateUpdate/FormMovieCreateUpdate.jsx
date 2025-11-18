@@ -7,6 +7,7 @@ import Button from "../../atoms/Button/Button.jsx";
 import SelectGroup from "../../molecules/SelectGroup/SelectGroup.jsx";
 
 export const initialState = {
+    // Estado inicial do formulário de adição e edição de filmes
     titulo: "",
     ano: "",
     duracao: "",
@@ -17,7 +18,7 @@ export const initialState = {
     posterUrl: "",
 };
 
-// decodificador simples de JWT payload (não verifica assinatura)
+// Decodificador simples de JWT payload 
 function parseJwt(token) {
     try {
         const payload = token.split('.')[1];
@@ -28,18 +29,13 @@ function parseJwt(token) {
     }
 }
 
-export default function FormMovieCreateUpdate({
-    formData,
-    setFormData,
-    isEditing = false,
-    movieId = null,
-    selectsLoaded = false
-}) {
+export default function FormMovieCreateUpdate({ formData, setFormData, isEditing = false, movieId = null, selectsLoaded = false}) {
     const [genres, setGenres] = useState([]);
     const [actors, setActors] = useState([]);
     const [directors, setDirectors] = useState([]);
 
     const [currentSelects, setCurrentSelects] = useState({
+        // Use states para armazenar as informações selecionadas
         genero: "",
         diretor: "",
         elenco: "",
@@ -47,8 +43,8 @@ export default function FormMovieCreateUpdate({
 
     const [isAdmin, setIsAdmin] = useState(false);
 
-    // carrega options se não vierem de pai
     useEffect(() => {
+        // Faz a busca de todos os gêneros, atores e diretores para coloca-los no select
         async function loadOptions() {
             try {
                 const [gRes, aRes, dRes] = await Promise.all([
@@ -64,12 +60,7 @@ export default function FormMovieCreateUpdate({
                 console.error("Erro ao carregar selects:", err);
             }
         }
-
-        // se parent já carregou selects (selectsLoaded true) talvez não seja necessário, 
-        // mas carregar localmente é seguro e idempotente.
         loadOptions();
-
-
     
         const token = localStorage.getItem("token");
         if (token) {
@@ -80,15 +71,10 @@ export default function FormMovieCreateUpdate({
         }
     }, []);
 
-    // trata mudanças nos selects e inputs
     const handleFormChange = (e) => {
         const { name, value } = e.target;
-
-        // Se for select de N:N (array no formData)
         if (Array.isArray(formData[name])) {
             if (!value) return;
-
-            // valor pode vir como string (id) -> converte para Number
             const numericValue = Number(value);
 
             setFormData(prev => ({
@@ -98,16 +84,14 @@ export default function FormMovieCreateUpdate({
                     : [...prev[name], numericValue]
             }));
 
-            // zera o select controlado
             setCurrentSelects(prev => ({ ...prev, [name]: "" }));
             return;
         }
-
-        // Campos simples
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleRemoveItem = (field, value) => {
+        // Função para remover o item chip
         setFormData(prev => ({
             ...prev,
             [field]: prev[field].filter(item => item !== value)
@@ -115,11 +99,11 @@ export default function FormMovieCreateUpdate({
     };
 
     const handleClear = () => {
+        // Função para limpar o formulário
         setFormData(initialState);
         setCurrentSelects({ genero: "", diretor: "", elenco: "" });
     };
 
-    // SUBMIT (POST or PUT)
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -138,6 +122,7 @@ export default function FormMovieCreateUpdate({
         };
 
         const method = isEditing ? "PUT" : "POST";
+        // Verifica se o filme está sendo editado e passa
         const url = isEditing
             ? `http://localhost:8000/api/movies/${movieId}`
             : "http://localhost:8000/api/movies";
@@ -166,7 +151,6 @@ export default function FormMovieCreateUpdate({
         }
     };
 
-    // Render
     return (
         <form className="form-movie" onSubmit={handleSubmit}>
 
@@ -199,7 +183,6 @@ export default function FormMovieCreateUpdate({
                 />
             </div>
 
-            {/* GÊNERO */}
             <div className="form-row">
                 <SelectGroup
                     label="Gênero"
@@ -211,6 +194,7 @@ export default function FormMovieCreateUpdate({
                 />
                 <div className="chip-container">
                     {formData.genero.map(id => {
+                        // Map feito para passar para o grupo dos chips as questões selecionadas
                         const g = genres.find(x => x.id_genre === id);
                         return (
                             <Chip
@@ -225,7 +209,6 @@ export default function FormMovieCreateUpdate({
                 </div>
             </div>
 
-            {/* DIRETOR */}
             <div className="form-row">
                 <SelectGroup
                     label="Diretor"
@@ -251,7 +234,6 @@ export default function FormMovieCreateUpdate({
                 </div>
             </div>
 
-            {/* ELENCO */}
             <div className="form-row">
                 <SelectGroup
                     label="Elenco"
@@ -278,7 +260,6 @@ export default function FormMovieCreateUpdate({
                 </div>
             </div>
 
-            {/* SINOPSE */}
             <TextAreaGroup
                 label="Sinopse"
                 htmlFor="sinopse"
@@ -288,7 +269,6 @@ export default function FormMovieCreateUpdate({
                 placeholder={"Descreva a trama do filme..."}
             />
 
-            {/* POSTER */}
             <InputGroup
                 label="URL do Poster"
                 htmlFor="posterUrl"
@@ -298,7 +278,6 @@ export default function FormMovieCreateUpdate({
                 placeholder={"Ex: http://img_movie.png"}
             />
 
-            {/* BUTTONS */}
             <div className="form-buttons">
                 <Button variant="transparent" text_button="Limpar" onClick={handleClear} type="button" />
                 <Button variant="purple" text_button={isEditing ? "Salvar Alterações" : "Criar Filme"} type="submit" />

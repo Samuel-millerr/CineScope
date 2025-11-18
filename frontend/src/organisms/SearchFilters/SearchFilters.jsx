@@ -7,17 +7,7 @@ import YearRangeFilter from "../../molecules/YearRangeFIlter/YearRangeFilter.jsx
 import InputGroup from "../../molecules/InputGroup/InputGroup.jsx";
 import RatingFilter from "../../molecules/RatingFilter/RatingFilter.jsx";
 
-export default function SearchFilters({
-    selectedGenres,
-    setSelectedGenres,
-    setYearRange,
-    selectedRatings,
-    setSelectedRatings,
-    director,
-    setDirector,
-    actor,
-    setActor
-}) {
+export default function SearchFilters({ selectedGenres, setSelectedGenres, setYearRange, selectedRatings, setSelectedRatings, director, setDirector, actor, setActor }) {
     // Componente de busca pronto e completo com todos os filtros possíveis
     const [genres, setGenres] = useState([]);
     const [isLoading, setIsLoading] = useState(true);

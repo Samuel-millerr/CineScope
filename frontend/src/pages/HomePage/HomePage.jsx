@@ -65,7 +65,7 @@ export default function HomePage() {
                     <HomeMoviesLine movies={fourth_slice} variant="four" />
                     <HomeMoviesLine movies={fifty_slice} variant="four" />
                 </section>
-                <HomeFooterInfo login={false} />
+                <HomeFooterInfo/>
             </main>
             <Footer />
         </>
