@@ -4,16 +4,16 @@ from core.authentication.permissions import permission
 from core.settings import config
 import json as json
 
+from views.auth_view import AuthHandler
+
 status = config.status
 
 class RequestHandler(BaseHandler):
-
     def get_requests(self, handler):
         with db.session() as session:
             session.execute("USE cinescope;")
             session.execute("""
-                SELECT r.id_request, r.id_user, r.request_type, r.request_date,
-                       r.request_status, r.request_body, u.user_name
+                SELECT r.id_request, r.id_user, r.request_type, r.request_date, r.request_status, r.request_body, u.user_name
                 FROM request r
                 JOIN user u ON u.id_user = r.id_user
                 WHERE r.request_status = 'Pendente';
@@ -33,10 +33,38 @@ class RequestHandler(BaseHandler):
             })
 
         handler.send_json_response(requests_json, status["HTTP_200_OK"])
+    
+    def get_requests_by_user(self, handler, user):
+        id_user = AuthHandler.get_user_id(user)
 
+        query = """
+            SELECT 
+                request.request_date,
+                request.request_type,
+                request.request_status,
+                request.request_body
+            FROM request
+            WHERE request.id_user = %s;
+        """
+
+        with db.session() as session:
+            session.execute("USE cinescope;")
+            session.execute(query, (id_user["id_user"],))
+            result = session.fetchall()
+
+        requests_json = []
+        for row in result:
+            requests_json.append({
+                "request_date": row[0].isoformat(),
+                "request_type": row[1],
+                "request_status": row[2],
+                "request_body": row[3]
+            })
+
+        handler.send_json_response(requests_json, status["HTTP_200_OK"])
+            
     @permission("administrador")
     def allow_request(self, handler, id_request: int):
-
         with db.session() as session:
             session.execute("USE cinescope;")
 
@@ -54,11 +82,6 @@ class RequestHandler(BaseHandler):
             request_type, id_movie, body_json = result
             body = json.loads(body_json)
 
-            # ==========================
-            # PROCESSAR SOLICITAÇÃO
-            # ==========================
-
-            # ===== ADIÇÃO =====
             if request_type == "Adição":
                 session.execute("""
                     INSERT INTO movie(movie_title, duration_time, publication_year,
@@ -75,7 +98,6 @@ class RequestHandler(BaseHandler):
                 session.execute("SELECT LAST_INSERT_ID();")
                 id_movie = session.fetchone()[0]
 
-        # ===== EDIÇÃO =====
             else:
                 session.execute("""
                     UPDATE movie SET
@@ -94,12 +116,10 @@ class RequestHandler(BaseHandler):
                     id_movie
                 ))
 
-                # limpar N:N
                 session.execute("DELETE FROM movie_genre WHERE id_movie=%s;", (id_movie,))
                 session.execute("DELETE FROM movie_actor WHERE id_movie=%s;", (id_movie,))
                 session.execute("DELETE FROM movie_director WHERE id_movie=%s;", (id_movie,))
 
-            # re-insert relations
             for g in body.get("genres", []):
                 session.execute("INSERT INTO movie_genre VALUES(NULL, %s, %s);", (id_movie, g))
             for a in body.get("actors", []):

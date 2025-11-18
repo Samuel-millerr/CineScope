@@ -27,36 +27,31 @@ class Router:
 
     def handler_get(self, handler):
         path = handler.parse_path(handler.path)
-
+        
         if path["path"] == "/api":
             handler.list_api_directory()
-
         elif path["path"] == "/api/movies" and not path["query"]:
             MovieHandler.get_movies(self, handler)
-
         elif path["path"].startswith("/api/movies") and path["id"] and not path["query"]:
             MovieHandler.get_movie(self, handler, path["id"])
-
         elif path["path"].startswith("/api/movies") and path["query"]:
             MovieHandler.filter_movies(self, handler, path["query"])
-
         elif path["path"] == "/api/actors" and not path["query"]:
             ActorHandler.get_actors(self, handler)
-
         elif path["path"].startswith("/api/actors") and path["query"]:
             ActorHandler.filter_actors(self, handler, path["query"])
-
         elif path["path"] == "/api/genres":
             GenreHandler.get_genres(self, handler)
-        
         elif path["path"] == "/api/directors":
             DirectorHandler.get_directors(self, handler)
-
         elif path["path"] == "/api/requests":
             RequestHandler.get_requests(self, handler)
         elif path["path"].startswith("/api/reviews") and path["id"]:
             ReviewHandler.get_reviews_by_movie(self, handler, path["id"])
-
+        elif path["path"].startswith("/api/users"):
+            AuthHandler.get_info_user(self, handler, path["path"])
+        elif path["path"].startswith("/api/reviews_user"):
+            RequestHandler.get_requests_by_user(self, handler, path["path"])
             
     def handler_put(self, handler):
         path = handler.parse_path(handler.path)

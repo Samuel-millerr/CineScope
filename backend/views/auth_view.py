@@ -4,6 +4,8 @@ from core.authentication.authentication import Authentication
 from core.settings import config
 from database.database_service import DatabaseService as db
 import datetime
+import locale
+locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 
 status = config.status
 
@@ -72,23 +74,39 @@ class AuthHandler(BaseHandler):
             session.execute(query, params)
 
         return handler.send_json_response({"message": "User created"}, status["HTTP_201_CREATED"])
-
-    def get_info_user(self, handler, id_user: int):
+    
+    @staticmethod 
+    def get_user_id(user):
         query = """
-            SELECT user.user_name, user.email, user. created_at
+            SELECT user.id_user
             FROM user
-            WHERE user.id_user = %s;
+            WHERE user.user = %s;
         """
 
         with db.session() as session:
             session.execute("USE cinescope;")
-            session.execute(query, (id_user,))
+            session.execute(query, (user.split("/")[3],))
+            id_user = {"id_user": session.fetchone()[0]}
+        
+        return id_user
+        
+
+    def get_info_user(self, handler, user: int):
+        query = """
+            SELECT user.user_name, user.email, user. created_at
+            FROM user
+            WHERE user.user = %s;
+        """
+
+        with db.session() as session:
+            session.execute("USE cinescope;")
+            session.execute(query, (user.split("/")[3],))
             result = session.fetchone()
 
         user_json = {
             "user_name": result[0],
             "email": result[1],
-            "date_created": result[2]
+            "date_created": result[2].strftime("%d de %B de %Y")
         }
-        
-        return handler.send_json_response(user_json, status["HTTP_OK_200"])
+
+        return handler.send_json_response(user_json, status["HTTP_200_OK"])

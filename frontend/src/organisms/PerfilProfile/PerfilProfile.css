@@ -73,6 +73,10 @@
     gap: 0.2rem;
 }
 
+.profile-info-text-conteiner div {
+    width: 100%;
+}
+
 .profile-footer {
     display: flex;
     flex-direction: column;

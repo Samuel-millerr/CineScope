@@ -4,15 +4,42 @@ import Title from "../../atoms/Title/Title";
 import RequestCard from "../../molecules/RequestCard/RequestCard.jsx";
 
 export default function PerfilMyRequests() {
-    // Componente que permite a visualização das requisições de edição e adicão feitas pelo usuário
     const [requests, setRequests] = useState([]);
+
     useEffect(() => {
-        const loadUser = () => {
+        const fetchRequests = async () => {
             try {
-                url = "http://"
+                const response = await fetch("http://localhost:8000/api/reviews_user/AlexPuta");
+                if (!response.ok) throw new Error("Erro ao buscar requisições");
+
+                let data = await response.json();
+
+                // Transformando request_body de string JSON para objeto
+                data = data.map(req => {
+                    let body = req.request_body;
+                    if (typeof body === "string") {
+                        try {
+                            body = JSON.parse(body);
+                        } catch (err) {
+                            console.error("Erro ao parsear request_body:", err);
+                            body = {};
+                        }
+                    }
+
+                    return {
+                        ...req,
+                        movie_name: body.movie_title || "Sem título",
+                        movie_image: body.movie_poster || "Sem imagem",
+                        request_body: body
+                    };
+                });
+
+                setRequests(data);
+            } catch (error) {
+                console.error("Erro ao carregar as requisições:", error);
             }
-            setRequests(fetchedRequests);
         };
+
         fetchRequests();
     }, []);
 
@@ -21,14 +48,18 @@ export default function PerfilMyRequests() {
             <Title variant={"perfil"} title={"Adicione ou edite filmes já cadastrados"} />
 
             <div className="perfil-my-requests-line-conteiner">
-                {requests.map((movie, index) => (
-                    <RequestCard
-                        key={index}
-                        button_variant={"grey"}
-                        text_button={"Editar"}
-                        request={movie}
-                    />
-                ))}
+                {requests.length > 0 ? (
+                    requests.map((movie, index) => (
+                        <RequestCard
+                            key={index}
+                            button_variant={"grey"}
+                            text_button={"Editar"}
+                            request={movie}
+                        />
+                    ))
+                ) : (
+                    <p className="error-states">Nenhuma requisição encontrada.</p>
+                )}
             </div>
         </section>
     );
