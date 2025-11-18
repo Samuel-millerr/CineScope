@@ -49,12 +49,12 @@ py create_tables.py
 py main.py
 ```
 
-***Credenciais***
+***Credenciais***  
 Para utilizar o sistema já tem padronizado duas diferentes contas, uma para o administrador e outra para o usuário comum:
-> E-mail: administrador@gmail.com
+> E-mail: administrador@gmail.com  
 > Senha: 123456
   
-> E-mail: comum@gmail.com
+> E-mail: comum@gmail.com  
 > Senha: 123456
 
 ## 🧰 Tecnologias Utilizadas
