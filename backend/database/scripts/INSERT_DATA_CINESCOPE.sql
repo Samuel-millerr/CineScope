@@ -364,7 +364,7 @@ VALUES
 
 INSERT INTO user (user, password, user_role, user_name, email, created_at)
 VALUES 
-    ("samuca", "1234", "Administrador", "Samuel Miller Soares", "samuel.m.soares10@aluno.senai.br", "2025-11-16");
+    ("Adm", "1234", "Administrador", "Samuel Miller Soares", "adm_email@gmail.senai.br", "2025-11-16");
 
 INSERT INTO review (id_movie, id_user, review_text, review_rating, review_date)
 VALUES

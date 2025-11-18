@@ -8,6 +8,7 @@ export const fetchMoviesSimpleInfo = async () => {
     }
 
     const data = await response.json();
+    console.log(data)
     return data;
 }
 
@@ -19,6 +20,7 @@ export const fetchMovieById = async (id_movie) => {
     }
 
     const data = await response.json();
+    console.log(data)
     return data;
 }
 
@@ -30,6 +32,7 @@ export const fetchMoviesRelated = async (genre, movie_title) => {
     }
 
     const data = await response.json();
+    console.log(data)
     return data;
 }
 
@@ -44,19 +47,3 @@ export const fetchMoviesAdmList = async () => {
     return data;
 }
 
-export const createMovie = async (movieData) => {
-    const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(movieData)
-    });
-
-    if (!response.ok) {
-        throw new Error("Falha ao criar o filme no servidor.");
-    }
-
-    const data = await response.json();
-    return data;
-};

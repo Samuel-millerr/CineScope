@@ -1,11 +1,8 @@
-"""
-Funções gerais do jwt para permitir a autenticação e validação de qual usuário está sendo utilizado
-"""
-
-import jwt as jwt
+import jwt
 from datetime import datetime, timedelta
 
 SECRET_KEY = "senha_super_secreta"
+ALGORITHM = "HS256"
 
 class Authentication:
     @staticmethod
@@ -13,27 +10,18 @@ class Authentication:
         payload = {
             "id_user": user["id_user"],
             "role": user["role"],
+            "email": user["email"],
+            "iat": datetime.utcnow(),
             "exp": datetime.utcnow() + timedelta(hours=1)
         }
-        token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
-        return token
+
+        return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
     @staticmethod
     def verify_token(token: str):
         try:
-            dados = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-            return dados
+            return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         except jwt.ExpiredSignatureError:
-            print("[AUTH] Token Expirado")
-            return None
+            return {"error": "Token expirado", "status": 401}
         except jwt.InvalidTokenError:
-            print("[AUTH] Token Inválido")
-            return None
-        
-    @staticmethod
-    def verify_password(password_form: str, password_db: str):
-        password_form = password_form.strip()
-        password_db = password_db.strip()
-
-        if password_form == password_db: return True
-        return False
+            return {"error": "Token inválido", "status": 401}

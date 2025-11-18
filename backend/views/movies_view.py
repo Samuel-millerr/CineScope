@@ -1,6 +1,8 @@
 """ 
 Handler para permitir a criação, atualização, adição e remoção de filmes do banco de dados. 
 """
+import json as json
+
 from core.handlers.base_handler import BaseHandler
 from core.settings import config
 from core.authentication.permissions import permission
@@ -20,54 +22,79 @@ class MovieHandler(BaseHandler):
 
     def post_movie(self, handler):
         body = handler.parse_json_body()
+        token_data = handler.token_data
+        user_role = token_data.get("role")
+        user_id = token_data.get("id_user")
+
+        if user_role.lower() == "comum":
+            request_query = """
+                INSERT INTO request(id_user, id_movie, request_type, request_date, request_status, request_body)
+                VALUES (%s, NULL, 'Adição', NOW(), 'Pendente', %s);
+            """
+
+            with db.session() as session:
+                session.execute("USE cinescope;")
+                session.execute(request_query, (user_id, json.dumps(body)))
+
+            handler.send_json_response(
+                {"message": "Solicitação enviada para aprovação"},
+                status["HTTP_201_CREATED"]
+            )
+            return
 
         with db.session() as session:
             session.execute("USE cinescope;")
-            session.execute("SELECT * from movie WHERE LOWER(movie.movie_title) = LOWER(%s);", (body["titulo"],))
+            session.execute(
+                "SELECT * from movie WHERE LOWER(movie.movie_title) = LOWER(%s);",
+                (body["movie_title"],)
+            )
             result = session.fetchone()
 
         if not result:
             with db.session() as session:
                 session.execute("USE cinescope;")
-                
+
                 query_movie = """
-                    INSERT INTO movie(movie_title, duration_time, publication_year, movie_synopsis, movie_poster) 
-                    VALUES
-                        (%s, %s, %s, %s, %s);
+                    INSERT INTO movie(movie_title, duration_time, publication_year, movie_synopsis, movie_poster)
+                    VALUES (%s, %s, %s, %s, %s);
                 """
-                session.execute(query_movie, (body["movie_title"], body["duration_time"], body["publication_year"], body["movie_synopsis"], body["movie_poster"],))
+
+                session.execute(query_movie, (
+                    body["movie_title"],
+                    body["duration_time"],
+                    body["publication_year"],
+                    body["movie_synopsis"],
+                    body["movie_poster"],
+                ))
 
                 session.execute("SELECT LAST_INSERT_ID();")
                 id_movie = session.fetchone()[0]
 
-                genres = body.get("genres", [])
-                for id_genre in genres:
-                    query_genre = """
-                        INSERT INTO movie_genre (id_movie, id_genre)
-                        VALUES (%s, %s);
-                    """
-                    session.execute(query_genre, (id_movie, id_genre))
-        
-                actors = body.get("actors", [])
-                for id_actor in actors:
-                    query_actor = """
-                        INSERT INTO movie_actor (id_movie, id_actor)
-                        VALUES (%s, %s);
-                    """
-                    session.execute(query_actor, (id_movie, id_actor))
-                    
-                directors = body.get("directors", [])
-                for id_director in directors:
-                    query_director = """
-                        INSERT INTO movie_director(id_movie, id_director)
-                        VALUES (%s, %s);
-                    """
-                    session.execute(query_director, (id_movie, id_director))
-                    
-            handler.send_json_response({"message": "Movie successfully created"}, status["HTTP_201_CREATED"])
-        else:
-            handler.send_json_response({"error": "Movie alredy exist"}, status["HTTP_409_CONFLICT"])
+                for id_genre in body.get("genres", []):
+                    session.execute(
+                        "INSERT INTO movie_genre (id_movie, id_genre) VALUES (%s, %s);",
+                        (id_movie, id_genre)
+                    )
 
+                for id_actor in body.get("actors", []):
+                    session.execute(
+                        "INSERT INTO movie_actor (id_movie, id_actor) VALUES (%s, %s);",
+                        (id_movie, id_actor)
+                    )
+
+                for id_director in body.get("directors", []):
+                    session.execute(
+                        "INSERT INTO movie_director (id_movie, id_director) VALUES (%s, %s);",
+                        (id_movie, id_director)
+                    )
+
+            handler.send_json_response(
+                {"message": "Movie successfully created"},
+                status["HTTP_201_CREATED"]
+            )
+
+        else:
+            handler.send_json_response({"error": "Movie already exists"}, status["HTTP_409_CONFLICT"])
 
     def get_movies(self, handler):
         with db.session() as session:
@@ -110,28 +137,82 @@ class MovieHandler(BaseHandler):
     def put_movie(self, handler, id_movie: int):
         body = handler.parse_json_body()
 
-        result = MovieHandler.get_movie_by_id(id_movie)
+        # 🔹 decodifica token diretamente do header
+        auth_header = handler.headers.get("Authorization")
+        if not auth_header or not auth_header.startswith("Bearer "):
+            handler.send_json_response({"error": "Não autorizado"}, status["HTTP_401_UNAUTHORIZED"])
+            return
 
-        if result:
+        token = auth_header.split(" ")[1]
+        # decodificador simples de JWT payload, sem verificação de assinatura
+        import base64, json
+        try:
+            payload_encoded = token.split(".")[1]
+            payload_decoded = base64.urlsafe_b64decode(payload_encoded + "==")
+            token_data = json.loads(payload_decoded)
+        except Exception:
+            handler.send_json_response({"error": "Token inválido"}, status["HTTP_401_UNAUTHORIZED"])
+            return
+
+        user_role = token_data.get("role")
+        user_id = token_data.get("id_user")
+
+        # Verifica se o filme existe
+        result = MovieHandler.get_movie_by_id(id_movie)
+        if not result:
+            handler.send_json_response({"error": "Movie not found"}, status["HTTP_404_NOT_FOUND"])
+            return
+
+        # Usuário comum → cria solicitação
+        if user_role.lower() == "comum":
+            request_query = """
+                INSERT INTO request(id_user, id_movie, request_type, request_date, request_status, request_body)
+                VALUES (%s, %s, 'Edição', NOW(), 'Pendente', %s);
+            """
             with db.session() as session:
                 session.execute("USE cinescope;")
-                query = """
-                    UPDATE filme 
-                    SET 
-                        movie_title = %s, 
-                        duration_time = %s,
-                        publication_year = %s, 
-                        movie_synopsis = %s, 
-                        movie_poster = %s
-                    WHERE 
-                        id_movie = %s;
-                """
+                session.execute(request_query, (user_id, id_movie, json.dumps(body)))
 
-                session.execute(query, (body["movie_title"], body["duration_time"], body["publication_year"], body["movie_synopsis"], body["movie_poster"], id_movie,))
+            handler.send_json_response(
+                {"message": "Solicitação de edição enviada para aprovação"},
+                status["HTTP_201_CREATED"]
+            )
+            return
 
-            handler.send_json_response(body, status["HTTP_200_OK"])
-        else:
-            handler.send_json_response({"error": "Movie not found"}, status["HTTP_404_NOT_FOUND"])
+        # Admin → edita diretamente
+        with db.session() as session:
+            session.execute("USE cinescope;")
+
+            # Atualiza dados principais
+            query_update = """
+                UPDATE movie 
+                SET movie_title = %s, duration_time = %s, publication_year = %s,
+                    movie_synopsis = %s, movie_poster = %s
+                WHERE id_movie = %s;
+            """
+            session.execute(query_update, (
+                body["movie_title"],
+                body["duration_time"],
+                body["publication_year"],
+                body["movie_synopsis"],
+                body["movie_poster"],
+                id_movie
+            ))
+
+            # Limpa relações antigas
+            session.execute("DELETE FROM movie_genre WHERE id_movie = %s;", (id_movie,))
+            session.execute("DELETE FROM movie_actor WHERE id_movie = %s;", (id_movie,))
+            session.execute("DELETE FROM movie_director WHERE id_movie = %s;", (id_movie,))
+
+            # Insere novas relações
+            for g in body.get("genres", []):
+                session.execute("INSERT INTO movie_genre(id_movie, id_genre) VALUES (%s, %s);", (id_movie, g))
+            for a in body.get("actors", []):
+                session.execute("INSERT INTO movie_actor(id_movie, id_actor) VALUES (%s, %s);", (id_movie, a))
+            for d in body.get("directors", []):
+                session.execute("INSERT INTO movie_director(id_movie, id_director) VALUES (%s, %s);", (id_movie, d))
+
+            handler.send_json_response({"message": "Filme atualizado com sucesso!"}, status["HTTP_200_OK"])
 
     @permission("administrador")
     def delete_movie(self, handler, id_movie: int, token: str = None):
@@ -140,7 +221,7 @@ class MovieHandler(BaseHandler):
         if result:
             with db.session() as session:
                 session.execute("USE cinescope;")
-                session.execute("DELETE FROM movie WHERE movie.id_movie = %s;", (id_movie,))  
+                session.execute("DELETE FROM movie WHERE movie.id_movie = %s;", (id_movie,))
 
             handler.send_json_response({}, status["HTTP_204_NO_CONTENT"])
         else:

@@ -13,9 +13,11 @@ class AppHandler(BaseHandler):
     router = Router()
     
     def do_POST(self):
+        self.authenticate()
         self.router.handler_post(self)
 
     def do_GET(self):
+        self.authenticate()
         self.router.handler_get(self)
     
     def do_PUT(self):

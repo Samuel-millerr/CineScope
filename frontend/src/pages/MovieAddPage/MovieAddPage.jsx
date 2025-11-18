@@ -2,7 +2,7 @@ import "./MovieAddPage.css";
 import { useState } from "react";
 import Breadcrumb from "../../molecules/Breadcrumb/Breadcrumb";
 import Footer from "../../organisms/Footer/Footer";
-import FormMovieCreateUpdate, { initialState } from "../../organisms/FormMovieCreateUpdate/FormMovieCreateUpdate";
+import FormMovieCreateUpdate, {initialState} from "../../organisms/FormMovieCreateUpdate/FormMovieCreateUpdate";
 import PosterPreview from "../../molecules/PosterPreview/PosterPreview";
 
 export default function MovieAddPage() {

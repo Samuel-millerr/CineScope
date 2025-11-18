@@ -83,21 +83,3 @@ CREATE TABLE request (
     FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE
 );
-
-CREATE TABLE user_collection (
-	id_collection INTEGER AUTO_INCREMENT UNIQUE,
-    id_movie INTEGER NOT NULL,
-    id_user INTEGER NOT NULL,
-    added_at DATE NOT NULL,
-	FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE,
-    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE
-);
-
-CREATE TABLE watched_movies (
-	id_watched_movies INTEGER AUTO_INCREMENT UNIQUE,
-	id_movie INTEGER NOT NULL,
-    id_user INTEGER NOT NULL,
-    watched_at DATE NOT NULL,
-	FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE,
-    FOREIGN KEY (id_movie) REFERENCES movie(id_movie) ON DELETE CASCADE
-);

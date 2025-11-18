@@ -6,50 +6,73 @@ from views.auth_view import AuthHandler
 from views.movies_view import MovieHandler
 from views.actors_view import ActorHandler
 from views.genres_views import GenreHandler
+from views.director_view import DirectorHandler
+from views.request_view import RequestHandler
+from views.reviews_view import ReviewHandler
 
 class Router:
-    def handler_post(self, handler):
-        server_path = handler.path
-        parse_path = handler.parse_path(server_path)
 
-        if parse_path["path"] == "/api/movies":
+    def handler_post(self, handler):
+        path = handler.parse_path(handler.path)
+
+        if path["path"] == "/api/movies":
             MovieHandler.post_movie(self, handler)
-        elif parse_path["path"] == "/api/auth/login":           
+
+        elif path["path"] == "/api/auth/login":
             AuthHandler.login(self, handler)
-        elif parse_path["path"] == "/api/auth/sing_up":
+
+        elif path["path"] == "/api/auth/sing_up":
             AuthHandler.sing_up(self, handler)
 
+
     def handler_get(self, handler):
-        server_path = handler.path
-        parse_path = handler.parse_path(server_path)
-        
-        if parse_path["path"] == ("/api"):
+        path = handler.parse_path(handler.path)
+
+        if path["path"] == "/api":
             handler.list_api_directory()
-        elif parse_path["path"] == ("/api/movies") and not parse_path["query"]:
+
+        elif path["path"] == "/api/movies" and not path["query"]:
             MovieHandler.get_movies(self, handler)
-        elif parse_path["path"].startswith("/api/movies") and parse_path["id"] and not parse_path["query"]:
-            MovieHandler.get_movie(self, handler, parse_path["id"])
-        elif parse_path["path"].startswith("/api/movies") and parse_path["query"]:
-            MovieHandler.filter_movies(self, handler, parse_path["query"])
-        elif parse_path["path"] == ("/api/actors") and not parse_path["query"]:
+
+        elif path["path"].startswith("/api/movies") and path["id"] and not path["query"]:
+            MovieHandler.get_movie(self, handler, path["id"])
+
+        elif path["path"].startswith("/api/movies") and path["query"]:
+            MovieHandler.filter_movies(self, handler, path["query"])
+
+        elif path["path"] == "/api/actors" and not path["query"]:
             ActorHandler.get_actors(self, handler)
-        elif parse_path["path"].startswith("/api/actors") and parse_path["query"]:
-            ActorHandler.filter_actors(self, handler, parse_path["query"])
-        elif parse_path["path"] == ("/api/genres") and not parse_path["query"]:
+
+        elif path["path"].startswith("/api/actors") and path["query"]:
+            ActorHandler.filter_actors(self, handler, path["query"])
+
+        elif path["path"] == "/api/genres":
             GenreHandler.get_genres(self, handler)
+        
+        elif path["path"] == "/api/directors":
+            DirectorHandler.get_directors(self, handler)
+
+        elif path["path"] == "/api/requests":
+            RequestHandler.get_requests(self, handler)
+        elif path["path"].startswith("/api/reviews") and path["id"]:
+            ReviewHandler.get_reviews_by_movie(self, handler, path["id"])
+            
+
 
     def handler_put(self, handler):
-        server_path = handler.path 
-        parse_path = handler.parse_path(server_path)
+        path = handler.parse_path(handler.path)
+        if path["path"].startswith("/api/movies") and path["id"]:
+            MovieHandler.put_movie(self, handler, path["id"])
+            
+        elif path["path"].startswith("/api/requests/allow") and path["id"]:
+            RequestHandler.allow_request(self, handler, path["id"])
 
-        if parse_path["path"].startswith("/api/movies") and parse_path["id"]:
-            MovieHandler.put_movie(self, handler, parse_path["id"]) 
+        elif path["path"].startswith("/api/requests/deny") and path["id"]:
+            RequestHandler.deny_request(self, handler, path["id"])
+
 
     def handler_delete(self, handler):
-        server_path = handler.path 
-        parse_path = handler.parse_path(server_path)
-        token = handler.parse_headers()
+        path = handler.parse_path(handler.path)
 
-        if parse_path["path"].startswith("/api/movies") and parse_path["id"]:
-            MovieHandler.delete_movie(self, handler, parse_path["id"], token)
-    
+        if path["path"].startswith("/api/movies") and path["id"]:
+            MovieHandler.delete_movie(self, handler, path["id"])

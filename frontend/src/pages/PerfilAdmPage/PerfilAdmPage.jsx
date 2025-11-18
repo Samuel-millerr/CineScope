@@ -1,9 +1,11 @@
 import "./PerfilAdmPage.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import PerfilMenuAdm from "../../molecules/PerfilMenuAdm/PerfilMenuAdm.jsx";
 import Footer from "../../organisms/Footer/Footer.jsx";
 import AdmListTable from "../../organisms/AdmListTable/AdmListTable.jsx";
+
 import EditIcon from "../../assets/icons/admin-icons/edit-icon.svg";
 import EyeIcon from "../../assets/icons/admin-icons/eye-icon.svg";
 import TrashIcon from "../../assets/icons/admin-icons/trash-icon.svg";
@@ -12,47 +14,134 @@ import ApprovedIcon from "../../assets/icons/admin-icons/approved-icon.svg";
 import ReprovedIcon from "../../assets/icons/admin-icons/reproved-icon.svg";
 
 import { fetchMoviesAdmList } from "../../services/movieService";
+import { 
+    fetchPendingRequests, 
+    approveRequest, 
+    denyRequest 
+} from "../../services/requestService";
 
-
-const allRequestData = [
-    { id: "#R01", filme: "O Poderoso Chefão", solicitante: "bruno.costa", dataRequisicao: "14/11/2025", status: "Pendente" },
-    { id: "#R02", filme: "A Origem", solicitante: "alice.silva", dataRequisicao: "13/11/2025", status: "Aprovado" },
-    { id: "#R03", filme: "Pulp Fiction", solicitante: "carla.dias", dataRequisicao: "12/11/2025", status: "Recusado" },
-    { id: "#R04", filme: "Interestelar", solicitante: "bruno.costa", dataRequisicao: "11/11/2025", status: "Pendente" },
-    { id: "#R05", filme: "O Resgate do Soldado Ryan", solicitante: "daniel.gomes", dataRequisicao: "10/11/2025", status: "Aprovado" },
-];
-
-const allUserData = [
-    { id: "#U01", usuario: "alice.silva", nomeCompleto: "Alice Silva", dataCadastro: "01/03/2023", email: "alice@exemplo.com" },
-    { id: "#U02", usuario: "bruno.costa", nomeCompleto: "Bruno Costa", dataCadastro: "05/03/2023", email: "bruno@exemplo.com" },
-    { id: "#U03", usuario: "carla.dias", nomeCompleto: "Carla Dias", dataCadastro: "10/03/2023", email: "carla@exemplo.com" },
-    { id: "#U04", usuario: "daniel.gomes", nomeCompleto: "Daniel Gomes", dataCadastro: "15/03/2023", email: "daniel@exemplo.com" },
-    { id: "#U05", usuario: "elisa.fernandes", nomeCompleto: "Elisa Fernandes", dataCadastro: "20/03/2023", email: "elisa@exemplo.com" },
-];
 const ITEMS_PER_PAGE = 10;
 
 export default function AdminDashboard() {
-    const [activeView, setActiveView] = useState("filmes")
+    const [activeView, setActiveView] = useState("filmes");
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [filteredData, setFilteredData] = useState([]);
 
+    // ---- FILMES ----
     const [apiMovieData, setApiMovieData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [loadingMovies, setLoadingMovies] = useState(false);
+    const [errorMovies, setErrorMovies] = useState(null);
 
-    const handleDeleteMovie = (movieId) => {
-        if (window.confirm(`Tem certeza que deseja deletar o filme ${movieId}?`)) {
-            alert(`Deletar Filme: ${movieId}`);
+    // ---- REQUISIÇÕES ----
+    const [apiRequestData, setApiRequestData] = useState([]);
+    const [loadingRequests, setLoadingRequests] = useState(false);
+    const [errorRequests, setErrorRequests] = useState(null);
+
+    // ---- USUÁRIOS (mock por enquanto) ----
+    const allUserData = [
+        { id: "#U01", usuario: "alice.silva", nomeCompleto: "Alice Silva", dataCadastro: "01/03/2023", email: "alice@exemplo.com" },
+        { id: "#U02", usuario: "bruno.costa", nomeCompleto: "Bruno Costa", dataCadastro: "05/03/2023", email: "bruno@exemplo.com" },
+        { id: "#U03", usuario: "carla.dias", nomeCompleto: "Carla Dias", dataCadastro: "10/03/2023", email: "carla@exemplo.com" },
+        { id: "#U04", usuario: "daniel.gomes", nomeCompleto: "Daniel Gomes", dataCadastro: "15/03/2023", email: "daniel@exemplo.com" },
+        { id: "#U05", usuario: "elisa.fernandes", nomeCompleto: "Elisa Fernandes", dataCadastro: "20/03/2023", email: "elisa@exemplo.com" }
+    ];
+
+    // ================================================================================
+    //                 CARREGAMENTO DE FILMES
+    // ================================================================================
+    useEffect(() => {
+        if (activeView !== "filmes") return;
+
+        setLoadingMovies(true);
+        setErrorMovies(null);
+
+        const loadMovies = async () => {
+            try {
+                const data = await fetchMoviesAdmList();
+
+                const transformed = data.map(movie => ({
+                    id: `#${String(movie.id_movie).padStart(2, "0")}`,
+                    filme: movie.movie_title,
+                    avaliacaoMedia: movie.avg_rating,
+                    original_id: movie.id_movie
+                }));
+
+                setApiMovieData(transformed);
+            } catch (err) {
+                setErrorMovies(err.message);
+            } finally {
+                setLoadingMovies(false);
+            }
+        };
+
+        loadMovies();
+    }, [activeView]);
+
+    // ================================================================================
+    //                 CARREGAMENTO DE REQUISIÇÕES
+    // ================================================================================
+    const loadRequests = async () => {
+        setLoadingRequests(true);
+        setErrorRequests(null);
+
+        try {
+            const data = await fetchPendingRequests();
+
+            const transformed = data.map(req => ({
+                id: `#R${String(req.id_request).padStart(2, "0")}`,
+                original_id: req.id_request,
+                filme: req.request_body.movie_title,
+                solicitante: req.user_name,
+                dataRequisicao: req.request_date,
+                tipoRequisicao: req.request_type,
+                status: req.request_status
+            }));
+
+            setApiRequestData(transformed);
+
+        } catch (err) {
+            setErrorRequests(err.message);
+        } finally {
+            setLoadingRequests(false);
         }
     };
 
-    const handleDeleteUser = (userId) => {
-        if (window.confirm(`Tem certeza que deseja deletar o usuario ${userId}?`)) {
-            alert(`Deletar Usuário: ${userId}`);
+    useEffect(() => {
+        if (activeView === "requisicoes") {
+            loadRequests();
         }
-    }
+    }, [activeView]);
 
+    // ================================================================================
+    //                 AÇÕES DO ADMIN - APROVAR/NEGAR
+    // ================================================================================
+    const handleApproveRequest = async (id) => {
+        if (!window.confirm("Permitir publicação deste filme?")) return;
+
+        try {
+            await approveRequest(id);
+            alert("Filme aprovado e publicado!");
+            loadRequests(); // refresh
+        } catch (err) {
+            alert(err.message);
+        }
+    };
+
+    const handleDenyRequest = async (id) => {
+        if (!window.confirm("Recusar esta solicitação?")) return;
+
+        try {
+            await denyRequest(id);
+            alert("Solicitação recusada.");
+            loadRequests(); // refresh
+        } catch (err) {
+            alert(err.message);
+        }
+    };
+
+    // ================================================================================
+    //                 COLUNAS
+    // ================================================================================
     const movieColumns = [
         { label: "Filme ID", accessor: "id" },
         { label: "Filme", accessor: "filme" },
@@ -64,24 +153,18 @@ export default function AdminDashboard() {
             render: (row) => (
                 <>
                     <Link to={`/movie/${row.original_id}`}>
-                        <figure>
-                            <img src={EyeIcon} alt="Ícone de visualização" />
-                        </figure>
+                        <figure><img src={EyeIcon} alt="Ver" /></figure>
                     </Link>
                     <Link to={`/edit-movie/${row.original_id}`}>
-                        <figure>
-                            <img src={EditIcon} alt="Ícone de edição" />
-                        </figure>
+                        <figure><img src={EditIcon} alt="Editar" /></figure>
                     </Link>
-                    <a title="Deletar" onClick={() => handleDeleteMovie(row.id)}>
-                        <figure>
-                            <img src={TrashIcon} alt="Ícone de remoção" />
-                        </figure>
+                    <a title="Deletar" onClick={() => alert("Função deletar ainda não implementada")}>
+                        <figure><img src={TrashIcon} alt="Remover" /></figure>
                     </a>
                 </>
             )
         }
-    ]
+    ];
 
     const requestsColumns = [
         { label: "Requisição ID", accessor: "id" },
@@ -96,20 +179,16 @@ export default function AdminDashboard() {
             className: "action-buttons",
             render: (row) => (
                 <>
-                    <a title="Aceitar">
-                        <figure>
-                            <img src={ApprovedIcon} alt="Ícone de remoção de usuário" />
-                        </figure>
+                    <a title="Aprovar" onClick={() => handleApproveRequest(row.original_id)}>
+                        <figure><img src={ApprovedIcon} alt="Aprovar" /></figure>
                     </a>
-                    <a title="Recusar">
-                        <figure>
-                            <img src={ReprovedIcon} alt="Ícone de remoção de usuário" />
-                        </figure>
+                    <a title="Recusar" onClick={() => handleDenyRequest(row.original_id)}>
+                        <figure><img src={ReprovedIcon} alt="Recusar" /></figure>
                     </a>
                 </>
             )
         }
-    ]
+    ];
 
     const userColumns = [
         { label: "Usuário ID", accessor: "id" },
@@ -120,96 +199,73 @@ export default function AdminDashboard() {
         {
             label: "Ações",
             accessor: "acoes",
-            className: "action-buttons",
             render: (row) => (
-                <a title="Deletar" onClick={() => handleDeleteUser(row.id)}>
-                    <figure>
-                        <img src={UserRemoveIcon} alt="Ícone de remoção de usuário" />
-                    </figure>
+                <a title="Deletar" onClick={() => alert(`Deletar usuário ${row.id}`)}>
+                    <figure><img src={UserRemoveIcon} alt="Deletar usuário" /></figure>
                 </a>
             )
         }
-    ]
+    ];
 
-    useEffect(() => {
-        if (activeView === 'filmes') {
-            const loadMovies = async () => {
-                setLoading(true);
-                setError(null);
-                try {
-                    const data = await fetchMoviesAdmList();
-
-                    const transformedData = data.map(movie => ({
-                        id: `#${String(movie.id_movie).padStart(2, '0')}`,
-                        filme: movie.movie_title,
-                        avaliacaoMedia: movie.avg_rating,
-                        dataAdicao: "N/A",
-                        dataEdicao: "N/A",
-                        original_id: movie.id_movie
-                    }));
-
-                    setApiMovieData(transformedData);
-
-                } catch (err) {
-                    setError(err.message || "Falha ao carregar os filmes.");
-                } finally {
-                    setLoading(false);
-                }
-            };
-
-            loadMovies();
-        }
-    }, [activeView]);
-
-
+    // ================================================================================
+    //                 FILTRO & PAGINAÇÃO
+    // ================================================================================
     let dataToFilter;
     let columnsToShow;
     let titleForTable;
 
-    if (activeView === 'filmes') {
+    if (activeView === "filmes") {
         dataToFilter = apiMovieData;
         columnsToShow = movieColumns;
         titleForTable = "Filmes Cadastrados";
-
-    } else if (activeView === 'requisicoes') {
-        dataToFilter = allRequestData;
-        columnsToShow = requestsColumns;
-        titleForTable = "Requisições de Filmes";
     }
-    else if (activeView === 'usuarios') {
+    else if (activeView === "requisicoes") {
+        dataToFilter = apiRequestData;
+        columnsToShow = requestsColumns;
+        titleForTable = "Requisições Pendentes";
+    }
+    else if (activeView === "usuarios") {
         dataToFilter = allUserData;
         columnsToShow = userColumns;
         titleForTable = "Usuários Cadastrados";
     }
 
-    useEffect(() => {
-        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const [filteredData, setFilteredData] = useState([]);
 
-        const dataFiltered = dataToFilter.filter(item => {
-            const idMatch = item.id.toLowerCase().includes(lowerCaseSearchTerm);
-            const movieMatch = item.filme ? item.filme.toLowerCase().includes(lowerCaseSearchTerm) : false;
-            const userMatch = item.nome ? item.nome.toLowerCase().includes(lowerCaseSearchTerm) : false;
-            return idMatch || movieMatch || userMatch;
-        });
-        setFilteredData(dataFiltered);
+    useEffect(() => {
+        const term = searchTerm.toLowerCase();
+
+        const filtered = dataToFilter.filter(item =>
+            Object.values(item).some(
+                value => String(value).toLowerCase().includes(term)
+            )
+        );
+
+        setFilteredData(filtered);
         setCurrentPage(1);
     }, [searchTerm, dataToFilter]);
 
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    const currentTableData = filteredData.slice(startIndex, endIndex);
+    const currentTableData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
 
+    // ================================================================================
+    //                 RENDER
+    // ================================================================================
     return (
         <>
             <main className="perfil-page-container">
-                <PerfilMenuAdm
+
+                <PerfilMenuAdm 
                     activeView={activeView}
                     onNavigate={setActiveView}
                 />
 
-                {activeView === 'filmes' && loading && <p className="error-states">Carregando filmes...</p>}
-                {activeView === 'filmes' && error && <p className="error-states">Erro: {error}</p>}
+                {activeView === "filmes" && loadingMovies && <p className="error-states">Carregando filmes...</p>}
+                {activeView === "filmes" && errorMovies && <p className="error-states">Erro: {errorMovies}</p>}
+
+                {activeView === "requisicoes" && loadingRequests && <p className="error-states">Carregando requisições...</p>}
+                {activeView === "requisicoes" && errorRequests && <p className="error-states">Erro: {errorRequests}</p>}
 
                 <AdmListTable
                     title_table={titleForTable}
@@ -221,8 +277,10 @@ export default function AdminDashboard() {
                     totalPages={totalPages}
                     onPageChange={setCurrentPage}
                 />
+
             </main>
+
             <Footer />
         </>
-    )
+    );
 }

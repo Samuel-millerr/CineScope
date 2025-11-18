@@ -45,16 +45,20 @@
     padding: 0.25rem 1rem 0.25rem 1rem;
 }
 
+.perfil-add-edit-movie-footer div {
+    background-color: transparent;
+}
+
 .pagination {
     display: flex;
     align-items: start;
     gap: 1rem;
-    padding: 15px 0;
+    padding: 1rem 0;
     justify-content: center;
 }
 
 .pagination-btn {
-    font-size: 32px;
+    font-size: 40px;
     font-family: var(--poppins);
     font-weight: 500;
     color: rgb(var(--detail-purple));

@@ -1,31 +1,34 @@
-"""
-Essa função é o centro da autenticação por jwt.
-Ela cria um decorator que adiciona uma verificação de acesso antes da execução de uma função específica.
-
-- permissao_necessaria(role_requerida): recebe a role exigida para executar a função (ex: @permissao_necessaria('administrador'))
-- wrapper(func): recebe a função que será decorada (ex: deletar_filme())
-- inner(*args, **kwargs): a função que é executada antes da função original, validando o token
-  Os parâmetros *args e **kwargs permitem capturar todos os argumentos da função original
-"""
-
 from functools import wraps
 from core.authentication.authentication import Authentication
+from core.handlers.base_handler import BaseHandler
 
-def permission(role):
-    def wrapper(func):
+
+def permission(role_required):
+    def decorator(func):
         @wraps(func)
-        def inner(*args):
-            token = args[3]
-            dados = Authentication.verify_token(token)
-            
-            if not dados:
-                print("[PERMISSION] Token inválido ou exirado")
-                return {"erro": "Token inválido ou expirado"}, 401
+        def wrapper(self, handler: BaseHandler, *args, **kwargs):
+            token = handler.get_token()
 
-            if dados["role"] != role:
-                print("[PERMISSION] Acesso negado, role não permitida")
-                return {"erro": "Acesso negado"}, 403
-            
-            return func(*args)
-        return inner
-    return wrapper
+            if not token:
+                return handler.send_json_response(
+                    {"error": "Token não enviado"},
+                    401
+                )
+
+            data = Authentication.verify_token(token)
+            if isinstance(data, dict) and data.get("error"):
+                return handler.send_json_response(
+                    {"error": data["error"]},
+                    data["status"]
+                )
+
+            if data.get("role").lower() != role_required.lower():
+                return handler.send_json_response(
+                    {"error": "Acesso negado"},
+                    403
+                )
+
+            return func(self, handler, *args, **kwargs)
+
+        return wrapper
+    return decorator

@@ -7,9 +7,11 @@ import { authLogin } from "../../services/authService.jsx";
 import Logo from "../../atoms/Logo/Logo.jsx";
 import InputGroup from "../../molecules/InputGroup/InputGroup.jsx";
 import Button from "../../atoms/Button/Button.jsx";
+import { useAuth } from "../../AuthContext.jsx";
 
 export default function LoginPage() {
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,22 +22,16 @@ export default function LoginPage() {
         try {
             const userData = await authLogin(email, password);
 
-            if (!userData || !userData.token) {
-                toast.error("Credenciais inválidas.");
-                return;
-            }
-            console.log(userData)
-            localStorage.setItem("token", userData.token);
-            localStorage.setItem("userType", userData.user_role);
+            login(userData);
 
             toast.success("Login realizado com sucesso!");
-
             setTimeout(() => navigate("/"), 1200);
 
         } catch (err) {
-            toast.error("E-mail ou senha inválidos.");
+            toast.error(err.message || "Credenciais inválidas.");
         }
-    };
+    }
+
 
     return (
         <main className="auth-page">

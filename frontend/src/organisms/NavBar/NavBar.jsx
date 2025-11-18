@@ -1,22 +1,22 @@
 import "./NavBar.css";
 import NavBarLinks from "../../molecules/NavBarLinks/NavBarLinks.jsx";
 import SearchBar from "../../atoms/SearchBar/SearchBar.jsx";
-import NavBarUseGroup from "../../molecules/NavBarUserGroup/NavBarUserGroup.jsx";
+import NavBarUserGroup from "../../molecules/NavBarUserGroup/NavBarUserGroup.jsx";
+import { useAuth } from "../../AuthContext.jsx";
 
 export default function NavBar() {
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("userType");
+  const { auth, logout } = useAuth(); 
+  const isLoggedIn = !!auth?.token;
 
   let linkTo = "/login";
   let displayText = "Entrar";
-  const isLoggedIn = !!token;
 
   if (isLoggedIn) {
-    displayText = "Olá, Usuário"; 
+    displayText = auth.user ? `Olá, ${auth.user}` : "Olá, Usuário";
 
-    if (role?.toLowerCase() === "administrador") {
+    if (auth.role?.toLowerCase() === "administrador") {
       linkTo = "/perfil-adm";
-    } else if (role?.toLowerCase() === "comum") {
+    } else if (auth.role?.toLowerCase() === "comum") {
       linkTo = "/perfil";
     }
   }
@@ -25,7 +25,7 @@ export default function NavBar() {
     <nav className="navbar">
       <NavBarLinks />
       <SearchBar />
-      <NavBarUseGroup displayName={displayText} linkTo={linkTo} />
+      <NavBarUserGroup displayName={displayText} linkTo={linkTo} />
     </nav>
   );
 }

@@ -22,7 +22,7 @@ export default function MovieDisplay({ movie }) {
 
                     <div className="chips-container">
                         <Chip variant={"dark-blue"} chip_text={movie.publication_year}></Chip>
-                        <Chip variant={"dark-blue"} chip_text={movie.genre}></Chip>
+                        <Chip variant={"dark-blue"} chip_text={movie.genre?.split(", ")[0] || "Sem gênero"}></Chip>
                         <Chip variant={"dark-blue"} chip_text={movie.duration_time}></Chip>
                     </div>
                 </div>

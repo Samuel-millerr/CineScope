@@ -8,6 +8,7 @@
     color: rgb(var(--detail-light));
     font-family: var(--montserrat);
     padding: 3rem;
+    min-width: auto;
     max-width: 1300px;
     margin: 2rem auto;
 }

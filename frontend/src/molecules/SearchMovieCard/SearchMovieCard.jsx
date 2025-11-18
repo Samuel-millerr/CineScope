@@ -16,7 +16,7 @@ export default function SearchMovieCard({ movie }) {
 
                     <div className="search-movie-info-bottom">
                         <p className="search-movie-subtitle">
-                            {movie.publication_year} | {movie.genres.split(", ")[1]}
+                            {movie.publication_year} | {movie.genres.split(", ")[0]}
                         </p>
                         <figure className="search-movie-rating">
                             <Star variant="full" />

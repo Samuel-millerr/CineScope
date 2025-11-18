@@ -14,8 +14,8 @@ import PerfilMyRequests from "./organisms/PerfilMyRequests/PerfilMyRequests.jsx"
 import PerfilAdmPage from "./pages/PerfilAdmPage/PerfilAdmPage.jsx";
 import AboutUsPage from "./pages/AboutUsPage/AboutUsPage.jsx";
 
-import ProtectedRoute from "./ProtectedRoute.jsx";
-import AdminRoute from "./ProtectedRoute.jsx";
+import ProtectedRoute, { AdminRoute } from "./ProtectedRoute.jsx";
+
 
 export default function AppRoutes() {
   return (
@@ -27,7 +27,7 @@ export default function AppRoutes() {
       <Route path="/search" element={<SearchPage />} />
       <Route path="/movie/:movieId" element={<MoviePage />} />
       <Route path="/add-movie" element={<ProtectedRoute><MovieAddPage /></ProtectedRoute>} />
-      <Route path="/edit-movie" element={<ProtectedRoute><MovieEditionPage /></ProtectedRoute>} />
+      <Route path="/edit-movie/:movieId" element={<ProtectedRoute><MovieEditionPage /></ProtectedRoute>} />
       <Route path="/perfil" element={<ProtectedRoute><PerfilPage /></ProtectedRoute>}>
         <Route index element={<PerfilProfile />} />
         <Route path="my-reviews" element={<PerfilMyReviews />} />

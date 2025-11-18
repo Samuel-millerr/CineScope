@@ -12,7 +12,7 @@ export default function HomeMovieHorizontalCard({variant, movie}) {
                 </figure>
                 <div>
                     <h5 className="movie-name">{movie.movie_title}</h5>
-                    <p>{movie.publication_year} | {movie.genres.split(", ")[0]}</p>    
+                    <p>{movie.publication_year} | {movie.genres.split(", ")[0] || "Sem gênero"}</p>    
                 </div>
             </article>
         </Link>

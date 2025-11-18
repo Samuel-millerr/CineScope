@@ -1,16 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./FormMovieCreateUpdate.css";
 import Chip from "../../atoms/Chip/Chip.jsx";
 import InputGroup from "../../molecules/InputGroup/InputGroup.jsx";
 import TextAreaGroup from "../../molecules/TextAreaGroup/TextAreaGroup.jsx";
 import Button from "../../atoms/Button/Button.jsx";
 import SelectGroup from "../../molecules/SelectGroup/SelectGroup.jsx";
-
-const mockData = {
-    genero: ["Ação", "Aventura", "Drama", "Comédia", "Suspense", "Terror", "Romance", "Sci-Fi", "Fantasia", "Mistério", "Crime", "Animação", "Histórico", "Guerra", "Musical", "Esporte", "Thriller", "Documentário"],
-    diretor: ["Christopher Nolan", "Steven Spielberg", "Martin Scorsese", "James Cameron", "Quentin Tarantino", "Ridley Scott", "Peter Jackson", "Denis Villeneuve", "David Fincher", "Guillermo del Toro", "Alfonso Cuarón", "Bong Joon-ho", "Guy Ritchie", "Tim Burton", "Patty Jenkins", "Greta Gerwig", "Francis Ford Coppola", "George Lucas", "Clint Eastwood", "Zack Snyder", "Lana Wachowski", "Anthony Russo", "Damien Chazelle", "Todd Phillips", "Frank Darabont", "Jon Favreau", "Chris Columbus"],
-    elenco: ["Leonardo DiCaprio", "Morgan Freeman", "Scarlett Johansson", "Tom Hanks", "Natalie Portman", "Christian Bale", "Robert Downey Jr.", "Emma Stone", "Brad Pitt", "Anne Hathaway", "Keanu Reeves", "Jennifer Lawrence", "Johnny Depp", "Matt Damon", "Amy Adams", "Denzel Washington", "Chris Evans", "Gal Gadot", "Henry Cavill", "Mark Ruffalo", "Matthew McConaughey", "Heath Ledger", "Michael Caine", "Laurence Fishburne", "Carrie-Anne Moss", "Chris Hemsworth", "Kate Winslet", "Al Pacino", "Marlon Brando", "John Travolta", "Samuel L. Jackson", "Uma Thurman", "Ryan Gosling", "Song Kang-ho", "Joaquin Phoenix", "Robert De Niro", "Timothée Chalamet", "Zendaya", "Tim Robbins", "Mark Hamill", "Harrison Ford", "Carrie Fisher", "Chris Pine", "Edward Norton", "Daniel Radcliffe", "Emma Watson", "Rupert Grint", "Joseph Gordon-Levitt", "Jessica Chastain"]
-};
 
 export const initialState = {
     titulo: "",
@@ -23,155 +17,291 @@ export const initialState = {
     posterUrl: "",
 };
 
-const initialSelects = {
-    genero: "",
-    diretor: "",
-    elenco: "",
-};
-
-const selectFields = [
-    {
-        name: "genero",
-        label: "Gênero",
-        placeholder: "Selecione um gênero...",
-        options: mockData.genero
-    },
-    {
-        name: "diretor",
-        label: "Diretor(a)",
-        placeholder: "Selecione um(a) diretor(a)...",
-        options: mockData.diretor
-    },
-    {
-        name: "elenco",
-        label: "Elenco",
-        placeholder: "Selecione um(a) ator/atriz...",
-        options: mockData.elenco
+// decodificador simples de JWT payload (não verifica assinatura)
+function parseJwt(token) {
+    try {
+        const payload = token.split('.')[1];
+        const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+        return JSON.parse(decodeURIComponent(escape(decoded)));
+    } catch (e) {
+        return null;
     }
-];
+}
 
-export default function FormMovieCreateUpdate({formData, setFormData}) {
-    /* Componente de formulário para criação e edição de filmes, busca os dados necessarios do banco de dados e os insere nos selects e tem uma 
-    uma lógica de passagem de props para ser possível a visualização do poster do filme */
-    const [currentSelects, setCurrentSelects] = useState(initialSelects);
+export default function FormMovieCreateUpdate({
+    formData,
+    setFormData,
+    isEditing = false,
+    movieId = null,
+    selectsLoaded = false
+}) {
+    const [genres, setGenres] = useState([]);
+    const [actors, setActors] = useState([]);
+    const [directors, setDirectors] = useState([]);
 
+    const [currentSelects, setCurrentSelects] = useState({
+        genero: "",
+        diretor: "",
+        elenco: "",
+    });
+
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    // carrega options se não vierem de pai
+    useEffect(() => {
+        async function loadOptions() {
+            try {
+                const [gRes, aRes, dRes] = await Promise.all([
+                    fetch("http://localhost:8000/api/genres"),
+                    fetch("http://localhost:8000/api/actors"),
+                    fetch("http://localhost:8000/api/directors"),
+                ]);
+                const [gData, aData, dData] = await Promise.all([gRes.json(), aRes.json(), dRes.json()]);
+                setGenres(gData);
+                setActors(aData);
+                setDirectors(dData);
+            } catch (err) {
+                console.error("Erro ao carregar selects:", err);
+            }
+        }
+
+        // se parent já carregou selects (selectsLoaded true) talvez não seja necessário, 
+        // mas carregar localmente é seguro e idempotente.
+        loadOptions();
+
+
+    
+        const token = localStorage.getItem("token");
+        if (token) {
+            const payload = parseJwt(token);
+            if (payload && payload.role && payload.role.toLowerCase() === "administrador") {
+                setIsAdmin(true);
+            }
+        }
+    }, []);
+
+    // trata mudanças nos selects e inputs
     const handleFormChange = (e) => {
         const { name, value } = e.target;
 
-        if (Array.isArray(initialState[name])) {
+        // Se for select de N:N (array no formData)
+        if (Array.isArray(formData[name])) {
             if (!value) return;
 
-            setFormData((prevData) => {
-                const currentList = prevData[name];
-                if (currentList.includes(value)) {
-                    return prevData;
-                }
-                return {
-                    ...prevData,
-                    [name]: [...currentList, value],
-                };
-            });
+            // valor pode vir como string (id) -> converte para Number
+            const numericValue = Number(value);
 
-            setCurrentSelects(prev => ({ ...prev, [name]: "" }));
-        } else {
-            setFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
+            setFormData(prev => ({
+                ...prev,
+                [name]: prev[name].includes(numericValue)
+                    ? prev[name]
+                    : [...prev[name], numericValue]
             }));
+
+            // zera o select controlado
+            setCurrentSelects(prev => ({ ...prev, [name]: "" }));
+            return;
         }
+
+        // Campos simples
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleRemoveItem = (field, itemToRemove) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            [field]: prevData[field].filter((item) => item !== itemToRemove),
+    const handleRemoveItem = (field, value) => {
+        setFormData(prev => ({
+            ...prev,
+            [field]: prev[field].filter(item => item !== value)
         }));
     };
 
     const handleClear = () => {
         setFormData(initialState);
-        setCurrentSelects(initialSelects);
+        setCurrentSelects({ genero: "", diretor: "", elenco: "" });
     };
 
+    // SUBMIT (POST or PUT)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const token = localStorage.getItem("token");
+        if (!token) return alert("Você precisa estar logado!");
+
+        const payload = {
+            movie_title: formData.titulo,
+            publication_year: Number(formData.ano),
+            duration_time: formData.duracao,
+            movie_synopsis: formData.sinopse,
+            movie_poster: formData.posterUrl,
+            genres: formData.genero,
+            actors: formData.elenco,
+            directors: formData.diretor,
+        };
+
+        const method = isEditing ? "PUT" : "POST";
+        const url = isEditing
+            ? `http://localhost:8000/api/movies/${movieId}`
+            : "http://localhost:8000/api/movies";
+
+        try {
+            const res = await fetch(url, {
+                method,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert(data.message || "Operação realizada com sucesso!");
+                if (!isEditing) handleClear();
+            } else {
+                alert(data.error || "Erro ao enviar dados.");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Erro de conexão.");
+        }
+    };
+
+    // Render
     return (
-        <form className="form-movie">
+        <form className="form-movie" onSubmit={handleSubmit}>
+
             <InputGroup
-                label={"Título do Filme"}
-                placeholder={"Ex: Duna - Parte dois"}
-                htmlFor={"titulo"}
+                label="Título do Filme"
+                placeholder="Ex: Duna - Parte dois"
+                htmlFor="titulo"
                 value={formData.titulo}
                 onChange={handleFormChange}
-                variant={"black"}
+                variant="black"
             />
 
             <div className="form-row">
                 <InputGroup
-                    label={"Ano de Lançamento"}
-                    placeholder={"Ex: 2024"}
-                    htmlFor={"ano"}
-                    type={"number"}
+                    label="Ano de Lançamento"
+                    htmlFor="ano"
+                    type="number"
                     value={formData.ano}
                     onChange={handleFormChange}
-                    variant={"black"}
+                    variant="black"
+                    placeholder={"Ex: 1990"}
                 />
                 <InputGroup
-                    label={"Duração"}
-                    placeholder={"Ex: 2:32:54"}
-                    htmlFor={"duracao"}
+                    label="Duração"
+                    htmlFor="duracao"
                     value={formData.duracao}
                     onChange={handleFormChange}
-                    variant={"black"}
+                    variant="black"
+                    placeholder={"02:12:45"}
                 />
             </div>
 
-            {selectFields.map((field) => (
-                <div className="form-row" key={field.name}>
-                    <div>
-                        <SelectGroup
-                            label={field.label}
-                            htmlFor={field.name}
-                            onChange={handleFormChange}
-                            placeholder={field.placeholder}
-                            options={field.options}
-                            value={currentSelects[field.name]}
-                        />
-                    </div>
-                    <div className="chip-container">
-                        {formData[field.name].map((item) => (
+            {/* GÊNERO */}
+            <div className="form-row">
+                <SelectGroup
+                    label="Gênero"
+                    htmlFor="genero"
+                    name="genero"
+                    onChange={handleFormChange}
+                    options={genres.map(g => ({ value: g.id_genre, label: g.genre }))}
+                    value={currentSelects.genero}
+                />
+                <div className="chip-container">
+                    {formData.genero.map(id => {
+                        const g = genres.find(x => x.id_genre === id);
+                        return (
                             <Chip
-                                key={item}
-                                chip_text={item}
+                                key={id}
+                                chip_text={g?.genre || id}
+                                removable
+                                onRemove={() => handleRemoveItem("genero", id)}
                                 variant={"crud"}
-                                removable={true}
-                                onRemove={() => handleRemoveItem(field.name, item)}
                             />
-                        ))}
-                    </div>
+                        );
+                    })}
                 </div>
-            ))}
+            </div>
 
+            {/* DIRETOR */}
+            <div className="form-row">
+                <SelectGroup
+                    label="Diretor"
+                    htmlFor="diretor"
+                    name="diretor"
+                    onChange={handleFormChange}
+                    options={directors.map(d => ({ value: d.id_director, label: d.director_name }))}
+                    value={currentSelects.diretor}
+                />
+                <div className="chip-container">
+                    {formData.diretor.map(id => {
+                        const d = directors.find(x => x.id_director === id);
+                        return (
+                            <Chip
+                                key={id}
+                                chip_text={d?.director_name || id}
+                                removable
+                                onRemove={() => handleRemoveItem("diretor", id)}
+                                variant={"crud"}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* ELENCO */}
+            <div className="form-row">
+                <SelectGroup
+                    label="Elenco"
+                    htmlFor="elenco"
+                    name="elenco"
+                    onChange={handleFormChange}
+                    options={actors.map(a => ({ value: a.id_actor, label: a.actor_name }))}
+                    value={currentSelects.elenco}
+                />
+
+                <div className="chip-container">
+                    {formData.elenco.map(id => {
+                        const a = actors.find(x => x.id_actor === id);
+                        return (
+                            <Chip
+                                key={id}
+                                chip_text={a?.actor_name || id}
+                                removable
+                                onRemove={() => handleRemoveItem("elenco", id)}
+                                variant={"crud"}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* SINOPSE */}
             <TextAreaGroup
-                label={"Sinopse"}
-                placeholder={"Descreva a trama do filme..."}
-                htmlFor={"sinopse"}
+                label="Sinopse"
+                htmlFor="sinopse"
                 value={formData.sinopse}
                 onChange={handleFormChange}
-                variant={"black"}
+                variant="black"
+                placeholder={"Descreva a trama do filme..."}
             />
 
+            {/* POSTER */}
             <InputGroup
-                label={"URL do Poster"}
-                placeholder={"Ex: https://exemplo.com/poster.jpg"}
-                htmlFor={"posterUrl"}
+                label="URL do Poster"
+                htmlFor="posterUrl"
                 value={formData.posterUrl}
                 onChange={handleFormChange}
-                variant={"black"}
+                variant="black"
+                placeholder={"Ex: http://img_movie.png"}
             />
 
+            {/* BUTTONS */}
             <div className="form-buttons">
-                <Button variant={"transparent"} text_button={"Voltar"} type="button" />
-                <Button variant={"transparent"} text_button={"Limpar"} onClick={handleClear} type="button" />
-                <Button variant={"purple"} text_button={"Enviar Requisição"} type="submit" />
+                <Button variant="transparent" text_button="Limpar" onClick={handleClear} type="button" />
+                <Button variant="purple" text_button={isEditing ? "Salvar Alterações" : "Criar Filme"} type="submit" />
             </div>
         </form>
     );

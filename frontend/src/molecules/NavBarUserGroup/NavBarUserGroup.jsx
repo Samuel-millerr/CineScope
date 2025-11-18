@@ -3,8 +3,8 @@ import UserIcon from "../../assets/icons/avatar-icon.svg";
 import { Link } from "react-router-dom";
 
 export default function NavBarUserGroup({
-  displayName,
-  linkTo = "/", // Adicionado um fallback
+  displayName = "Entrar",
+  linkTo = "/login",
   userIcon = UserIcon,
 }) {
   return (

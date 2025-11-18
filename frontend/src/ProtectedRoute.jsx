@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 export default function ProtectedRoute({ children }) {
-  const token = localStorage.getItem("token");
+  const { auth } = useAuth();
 
-  if (!token) {
+  if (!auth.token) {
     return <Navigate to="/login" replace />;
   }
 
@@ -11,12 +12,13 @@ export default function ProtectedRoute({ children }) {
 }
 
 export function AdminRoute({ children }) {
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("userType");
+  const { auth } = useAuth();
 
-  if (!token) return <Navigate to="/login" replace />;
+  if (!auth.token) {
+    return <Navigate to="/login" replace />;
+  }
 
-  if (role !== "Administrador" && role !== "administrador") {
+  if (auth.role?.toLowerCase() !== "administrador") {
     return <Navigate to="/" replace />;
   }
 

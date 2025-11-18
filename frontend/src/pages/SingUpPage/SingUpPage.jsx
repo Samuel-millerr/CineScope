@@ -64,6 +64,8 @@ export default function SingUpPage({ step = "first" }) {
             user: username
         };
 
+        await authRegister(userData);
+
         try {
             console.log("Dados a enviar: ", userData)
             await authRegister(userData);
@@ -143,7 +145,7 @@ export default function SingUpPage({ step = "first" }) {
                             placeholder={"Digite seu sobrenome"}
                             variant={"white"}
                             value={lastName}
-                            onChange={(e) => setLastName(e.target.value)} 
+                            onChange={(e) => setLastName(e.target.value)}
                         />
                         <InputGroup
                             htmlFor={"user"}
@@ -154,7 +156,6 @@ export default function SingUpPage({ step = "first" }) {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-                        {/* NOVO: Button com type="submit" */}
                         <Button type={"submit"} text_button={"Finalizar Cadastro"} variant={"blue-gradient"} />
                     </form>
                     <p>Já é parte da comunidade? <Link to={"/login"}> Faça Login </Link></p>
