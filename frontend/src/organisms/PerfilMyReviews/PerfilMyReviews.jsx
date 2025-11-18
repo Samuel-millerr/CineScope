@@ -3,27 +3,35 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Title from "../../atoms/Title/Title";
 import MyReviewsCard from "../../molecules/MyReviewsCard/MyReviewsCard";
+import { useAuth } from "../../AuthContext";
 
 export default function PerfilMyReviews() {
     // Componente para visualizar as reviews feitas pelo usuário
     const [reviews, setReviews] = useState(null);
     const [ratingLine, setRatingLine] = useState(null);
+    const { auth, logout } = useAuth();
+    const userId = auth.user;
 
     useEffect(() => {
+        const fetchMovies = async () => {
+            try {
+                const response = await fetch(`http://localhost:8000/api/reviews_user/${userId}`);
+                if (!response.ok) throw new Error("Erro ao buscar avaliações");
 
-        const fetchMovies = () => {
-            const fetchedReviews = [
-                { movie_title: "Duna", movie_poster: "https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-02290-bad6c8a814c0d7a2da17181238447778-480-0.jpg", movie_comment: "'Eu odiaei a porra desese filme com todas as minhas forças, parace uma bostinha derretida dentro do microondas'" },
-                { movie_title: "Duna", movie_poster: "https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-02290-bad6c8a814c0d7a2da17181238447778-480-0.jpg", movie_comment: "'Eu odiaei a porra desese filme com todas as minhas forças, parace uma bostinha derretida dentro do microondas'" },
-            ];
-            setReviews(fetchedReviews);
+                let data = await response.json();
+
+                setReviews(data);
+                console.log(data)
+            } catch (error) {
+                console.error("Erro ao carregar as reviews:", error);
+            }
         };
 
         fetchMovies();
     }, []);
 
     if (!reviews) {
-        return <div>Carregando filmes...</div>
+        return <p className="error-states">Carregando suas avaliações...</p>
     }
     console.log(reviews)
     return (

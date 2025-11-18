@@ -67,7 +67,6 @@ class RequestHandler(BaseHandler):
     def allow_request(self, handler, id_request: int):
         with db.session() as session:
             session.execute("USE cinescope;")
-
             session.execute("""
                 SELECT request_type, id_movie, request_body
                 FROM request
@@ -81,8 +80,8 @@ class RequestHandler(BaseHandler):
 
             request_type, id_movie, body_json = result
             body = json.loads(body_json)
-
-            if request_type == "Adição":
+        
+            if request_type == "Adicão":
                 session.execute("""
                     INSERT INTO movie(movie_title, duration_time, publication_year,
                                     movie_synopsis, movie_poster)

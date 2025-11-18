@@ -17,10 +17,8 @@ class Router:
 
         if path["path"] == "/api/movies":
             MovieHandler.post_movie(self, handler)
-
         elif path["path"] == "/api/auth/login":
             AuthHandler.login(self, handler)
-
         elif path["path"] == "/api/auth/sing_up":
             AuthHandler.sing_up(self, handler)
 
@@ -48,25 +46,27 @@ class Router:
             RequestHandler.get_requests(self, handler)
         elif path["path"].startswith("/api/reviews") and path["id"]:
             ReviewHandler.get_reviews_by_movie(self, handler, path["id"])
+        elif path["path"] == "/api/users":
+            AuthHandler.get_all_users(self, handler)
         elif path["path"].startswith("/api/users"):
             AuthHandler.get_info_user(self, handler, path["path"])
-        elif path["path"].startswith("/api/reviews_user"):
+        elif path["path"].startswith("/api/requests_user"):
             RequestHandler.get_requests_by_user(self, handler, path["path"])
+        elif path["path"].startswith("/api/reviews_user"):
+            ReviewHandler.get_reviews_by_user(self, handler, path["path"])
             
     def handler_put(self, handler):
         path = handler.parse_path(handler.path)
+        
         if path["path"].startswith("/api/movies") and path["id"]:
             MovieHandler.put_movie(self, handler, path["id"])
-            
         elif path["path"].startswith("/api/requests/allow") and path["id"]:
             RequestHandler.allow_request(self, handler, path["id"])
-
         elif path["path"].startswith("/api/requests/deny") and path["id"]:
             RequestHandler.deny_request(self, handler, path["id"])
 
-
     def handler_delete(self, handler):
         path = handler.parse_path(handler.path)
-
+        
         if path["path"].startswith("/api/movies") and path["id"]:
             MovieHandler.delete_movie(self, handler, path["id"])

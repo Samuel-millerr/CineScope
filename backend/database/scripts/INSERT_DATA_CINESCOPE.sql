@@ -364,7 +364,8 @@ VALUES
 
 INSERT INTO user (user, password, user_role, user_name, email, created_at)
 VALUES 
-    ("Adm", "123456", "Administrador", "Samuel Miller Soares", "administrador@gmail.com", "2025-11-16");
+    ("Adm", "123456", "Administrador", "Samuel Miller Soares", "administrador@gmail.com", "2025-11-16"),
+    ("Comum", "123456", "Comum", "Samuel Miller Soares", "comum@gmail.com", "2025-11-16");
 
 INSERT INTO review (id_movie, id_user, review_text, review_rating, review_date)
 VALUES
@@ -388,4 +389,5 @@ VALUES
     (17, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
     (18, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
     (19, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
-    (20, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10");
+    (20, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10")
+    (10, 2, "Comentário de teste para verificar a funcionalidade de avaliações.", 1.0, "2025-11-10");

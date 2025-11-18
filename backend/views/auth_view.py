@@ -110,3 +110,25 @@ class AuthHandler(BaseHandler):
         }
 
         return handler.send_json_response(user_json, status["HTTP_200_OK"])
+
+    
+    def get_all_users(self, handler):
+        query = """ SELECT id_user, user, user_name, email, created_at, user_role FROM user; """
+
+        with db.session() as session:
+            session.execute("USE cinescope;")
+            session.execute(query)
+            result = session.fetchall()
+
+        users_json = []
+        for res in result:
+            users_json.append({
+                "id_user": res[0],
+                "user": res[1],
+                "full_name": res[2],
+                "email": res[3],
+                "created_at": res[4].strftime("%d/%m/%Y"),
+                "role": res[5],
+            })
+
+        return handler.send_json_response(users_json, status["HTTP_200_OK"])

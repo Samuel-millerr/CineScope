@@ -2,14 +2,16 @@ import "./PerfilMyRequests.css";
 import { useEffect, useState } from "react";
 import Title from "../../atoms/Title/Title";
 import RequestCard from "../../molecules/RequestCard/RequestCard.jsx";
+import { useAuth } from "../../AuthContext";
 
 export default function PerfilMyRequests() {
     const [requests, setRequests] = useState([]);
-
+    const { auth, logout } = useAuth();
+    const userId = auth.user;
     useEffect(() => {
         const fetchRequests = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/reviews_user/AlexPuta");
+                const response = await fetch(`http://localhost:8000/api/requests_user/${userId}`);
                 if (!response.ok) throw new Error("Erro ao buscar requisições");
 
                 let data = await response.json();

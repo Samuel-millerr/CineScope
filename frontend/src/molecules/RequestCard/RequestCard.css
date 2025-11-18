@@ -4,7 +4,7 @@
     place-items: center;
     grid-template-columns: 8rem 1fr;
     width: 20rem;
-    height: 17rem;
+    height: 20rem;
     padding: 1rem;
     border-radius: 0.75rem;
     background-color: rgb(var(--primary-color));

@@ -24,6 +24,7 @@ class AppHandler(BaseHandler):
         self.router.handler_put(self)
 
     def do_DELETE(self):
+        self.authenticate()
         self.router.handler_delete(self)
 
 def run_server():

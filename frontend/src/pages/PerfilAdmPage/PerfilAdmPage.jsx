@@ -35,6 +35,13 @@ export default function AdminDashboard() {
     const [loadingRequests, setLoadingRequests] = useState(false);
     const [errorRequests, setErrorRequests] = useState(null);
 
+    const [apiUserData, setApiUserData] = useState([]);
+    const [loadingUsers, setLoadingUsers] = useState(false);
+    const [errorUsers, setErrorUsers] = useState(null);
+
+    // ----------------------------
+    // CARREGAR FILMES
+    // ----------------------------
     useEffect(() => {
         if (activeView !== "filmes") return;
 
@@ -63,6 +70,9 @@ export default function AdminDashboard() {
         loadMovies();
     }, [activeView]);
 
+    // ----------------------------
+    // CARREGAR REQUISIÇÕES
+    // ----------------------------
     const loadRequests = async () => {
         setLoadingRequests(true);
         setErrorRequests(null);
@@ -94,6 +104,62 @@ export default function AdminDashboard() {
             loadRequests();
         }
     }, [activeView]);
+
+    const loadUsers = async () => {
+        setLoadingUsers(true);
+        setErrorUsers(null);
+
+        try {
+            const res = await fetch("http://localhost:8000/api/users");
+            const data = await res.json();
+
+            const transformed = data.map(user => ({
+                id: `#U${String(user.id_user).padStart(2, "0")}`,
+                usuario: user.username,
+                nomeCompleto: user.full_name,
+                dataCadastro: user.created_at,
+                email: user.email,
+                original_id: user.id_user
+            }));
+
+            setApiUserData(transformed);
+
+        } catch (err) {
+            setErrorUsers(err.message);
+        } finally {
+            setLoadingUsers(false);
+        }
+    };
+
+    useEffect(() => {
+        if (activeView === "usuarios") {
+            loadUsers();
+        }
+    }, [activeView]);
+
+    const handlerMovieDelete = async (idMovie) => {
+        if (!window.confirm("Tem certeza que deseja deletar este filme?")) return;
+
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch(`http://localhost:8000/api/movies/${idMovie}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (response.ok) {
+                alert("Filme deletado com sucesso!");
+
+                setApiMovieData((prev) =>
+                    prev.filter((movie) => movie.original_id !== idMovie)
+                );
+            } else {
+                alert("Erro ao deletar o filme.");
+            }
+        } catch (err) {
+            alert("Falha na requisição.");
+        }
+    };
 
     const handleApproveRequest = async (id) => {
         if (!window.confirm("Permitir publicação deste filme?")) return;
@@ -135,7 +201,7 @@ export default function AdminDashboard() {
                     <Link to={`/edit-movie/${row.original_id}`}>
                         <figure><img src={EditIcon} alt="Editar" /></figure>
                     </Link>
-                    <a title="Deletar" onClick={() => alert("Função deletar ainda não implementada")}>
+                    <a title="Deletar" onClick={() => handlerMovieDelete(row.original_id)}>
                         <figure><img src={TrashIcon} alt="Remover" /></figure>
                     </a>
                 </>
@@ -177,7 +243,7 @@ export default function AdminDashboard() {
             label: "Ações",
             accessor: "acoes",
             render: (row) => (
-                <a title="Deletar" onClick={() => alert(`Deletar usuário ${row.id}`)}>
+                <a title="Deletar" onClick={() => alert(`Deletar usuário ${row.original_id}`)}>
                     <figure><img src={UserRemoveIcon} alt="Deletar usuário" /></figure>
                 </a>
             )
@@ -199,7 +265,7 @@ export default function AdminDashboard() {
         titleForTable = "Requisições Pendentes";
     }
     else if (activeView === "usuarios") {
-        dataToFilter = allUserData;
+        dataToFilter = apiUserData;
         columnsToShow = userColumns;
         titleForTable = "Usuários Cadastrados";
     }
@@ -237,6 +303,9 @@ export default function AdminDashboard() {
 
                 {activeView === "requisicoes" && loadingRequests && <p className="error-states">Carregando requisições...</p>}
                 {activeView === "requisicoes" && errorRequests && <p className="error-states">Erro: {errorRequests}</p>}
+
+                {activeView === "usuarios" && loadingUsers && <p className="error-states">Carregando usuários...</p>}
+                {activeView === "usuarios" && errorUsers && <p className="error-states">Erro: {errorUsers}</p>}
 
                 <AdmListTable
                     title_table={titleForTable}

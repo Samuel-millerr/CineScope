@@ -11,7 +11,7 @@ export default function MyReviewsCard({review, rating, setLineRating}) {
             <div className="my-reviews-card-info">
                 <h5>{review.movie_title}</h5>
                 <RatingFilterLine rating={rating} isSelect={setLineRating}/>
-                <p>"{review.movie_comment}"</p>
+                <p>"{review.review_text}"</p>
             </div>
         </article>
     )

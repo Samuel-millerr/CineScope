@@ -99,7 +99,7 @@ export default function MoviePage() {
                                 </div>
                             ))
                         ) : (
-                            <p>Nenhuma crítica ainda.</p>
+                            <p className="error-states">Nenhuma crítica ainda.</p>
                         )}
                         <LineDivider variant={"purple"} />
                         <MyReview />
