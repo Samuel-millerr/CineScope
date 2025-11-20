@@ -389,5 +389,5 @@ VALUES
     (17, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
     (18, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
     (19, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
-    (20, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10")
-    (10, 2, "Comentário de teste para verificar a funcionalidade de avaliações.", 1.0, "2025-11-10");
+    (20, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
+    (5, 2, "Comentário de teste para verificar a funcionalidade de avaliações.", 1.0, "2025-11-10");
