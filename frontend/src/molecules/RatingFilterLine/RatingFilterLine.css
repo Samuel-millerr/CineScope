@@ -1,9 +1,0 @@
-.rating-star-row {
-    display: flex;
-    gap: 0.25rem;
-}
-
-.rating-star-row selected {
-    display: flex;
-    gap: 0.25rem;
-}
