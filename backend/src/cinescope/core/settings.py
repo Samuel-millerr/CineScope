@@ -1,0 +1,18 @@
+import os
+
+from dotenv import load_dotenv
+from sqlalchemy.orm import registry
+
+load_dotenv()
+
+
+class Settings:
+    HOST = "localhost"
+    PORT = 8000
+    BASE_SERVER = (f"http://{HOST}:{PORT}")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///:memory:")
+
+    table_registry = registry()
+
+
+settings = Settings()

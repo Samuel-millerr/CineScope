@@ -1,0 +1,46 @@
+from datetime import date
+from enum import Enum
+
+from sqlalchemy import Date, String
+from sqlalchemy import Enum as SqlEnum
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from cinescope.core.settings import settings
+
+table_registry = settings.table_registry
+
+
+class UserRole(str, Enum):
+    COMUM = "Comum"
+    ADMINISTRADOR = "Administrador"
+
+
+@table_registry.mapped_as_dataclass
+class User:
+    __tablename__ = "user"
+
+    id: Mapped[int] = mapped_column(init=False, primary_key=True)
+    user: Mapped[str] = mapped_column(String(255), unique=True)
+    hashed_password: Mapped[str] = mapped_column(String(255))
+    first_name: Mapped[str] = mapped_column(String(255))
+    last_name: Mapped[str] = mapped_column(String(255))
+    email: Mapped[str] = mapped_column(String(255), unique=True)
+    role: Mapped[UserRole] = mapped_column(
+        SqlEnum(UserRole), server_default="Comum"
+    )
+
+    @property
+    def full_name(self) -> str:
+        return f"{self.first_name} {self.last_name}"
+
+    reviews: Mapped[list["Review": object]] = relationship(
+        back_populates="user", cascade="all, delete-orphan", init=False
+    )
+
+    requests: Mapped[list["Request": object]] = relationship(
+        back_populates="user", cascade="all, delete-orphan", init=False
+    )
+
+    created_at: Mapped[Date] = mapped_column(
+        Date, default=date.today
+    )
