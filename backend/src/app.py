@@ -1,6 +1,8 @@
 import all_models
+from cinescope.routers.router import run_server
 from cinescope.core.settings import settings
 from cinescope.db.engine import engine
+
 
 table_registry = settings.table_registry
 
@@ -14,3 +16,4 @@ def create_tables() -> None:
 
 
 create_tables()
+run_server()
