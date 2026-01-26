@@ -1,3 +1,4 @@
+import all_models
 from cinescope.core.settings import settings
 from cinescope.db.engine import engine
 
