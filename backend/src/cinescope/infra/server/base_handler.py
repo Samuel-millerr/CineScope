@@ -3,6 +3,7 @@ from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler
 from urllib.parse import unquote, urlsplit
 
+
 class BaseHandler(SimpleHTTPRequestHandler):
     def send_json_response(self, data: dict, status: int = HTTPStatus.OK):
         self.send_response(status)

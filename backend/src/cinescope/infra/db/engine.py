@@ -2,7 +2,7 @@ from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session as AlchemySession
 from sqlalchemy.orm import sessionmaker
 
-from cinescope.core.settings import settings
+from cinescope.infra.server.settings import settings
 
 engine: Engine = create_engine(settings.DATABASE_URL)
 

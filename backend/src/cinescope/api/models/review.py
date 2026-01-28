@@ -3,7 +3,7 @@ from datetime import date
 from sqlalchemy import DECIMAL, Date, ForeignKey, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from cinescope.core.settings import settings
+from cinescope.infra.server.settings import settings
 
 table_registry = settings.table_registry
 

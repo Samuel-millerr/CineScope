@@ -1,8 +1,6 @@
-import all_models
-from cinescope.routers.router import run_server
-from cinescope.core.settings import settings
-from cinescope.db.engine import engine
-
+from cinescope.api.routers.router import run_server
+from cinescope.infra.db.engine import engine
+from cinescope.infra.server.settings import settings
 
 table_registry = settings.table_registry
 
