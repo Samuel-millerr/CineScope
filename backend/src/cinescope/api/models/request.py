@@ -36,9 +36,9 @@ class Request:
     )
     request_body: Mapped[JSON] = mapped_column(JSON)
 
-    user: Mapped["User": object] = relationship(back_populates="requests")
+    user: Mapped["User"] = relationship(back_populates="requests", init=False)
 
-    movie: Mapped["Movie": object] = relationship(back_populates="requests")
+    movie: Mapped["Movie"] = relationship(back_populates="requests", init=False)
 
     request_date: Mapped[Date] = mapped_column(
         Date, default=date.today

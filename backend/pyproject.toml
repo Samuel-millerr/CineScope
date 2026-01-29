@@ -36,7 +36,7 @@ preview = true
 quote-style = "double"
 
 [tool.taskipy.tasks]
-run = "py cinescope/app.py"
+run = "py src/cinescope/app.py"
 
 pre_test = "task lint"
 test = "pytest --cov=src -vv"

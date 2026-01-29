@@ -13,6 +13,6 @@ class Genre:
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
     genre: Mapped[str] = mapped_column(String(255))
 
-    movies: Mapped[list["MovieGenre": object]] = relationship(
-        back_populates="genre", cascade="all, delete-orphan"
+    movies: Mapped[list["MovieGenre"]] = relationship(
+        back_populates="genre", cascade="all, delete-orphan", init=False
     )

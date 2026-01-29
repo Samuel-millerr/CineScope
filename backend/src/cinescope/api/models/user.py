@@ -33,11 +33,11 @@ class User:
     def full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
-    reviews: Mapped[list["Review": object]] = relationship(
+    reviews: Mapped[list["Review"]] = relationship(
         back_populates="user", cascade="all, delete-orphan", init=False
     )
 
-    requests: Mapped[list["Request": object]] = relationship(
+    requests: Mapped[list["Request"]] = relationship(
         back_populates="user", cascade="all, delete-orphan", init=False
     )
 

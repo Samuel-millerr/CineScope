@@ -1,6 +1,7 @@
-from cinescope.infra.server.base_handler import BaseHandler
+from http.server import SimpleHTTPRequestHandler as HTTPHandler
 
-def read_root(router = BaseHandler):
+
+def read_root(router: HTTPHandler, method: str = "GET"):
     router.send_json_response({
         "message": "API running sucessfully"
     })

@@ -1,0 +1,23 @@
+meta {
+  name: post_actor
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/actor/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "actor_name": "Teste",
+    "actor_photo": "Foto"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

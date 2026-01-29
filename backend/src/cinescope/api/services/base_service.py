@@ -4,10 +4,9 @@ from sqlalchemy.future import select
 from sqlalchemy.orm import Session
 
 ModelType = TypeVar("ModelType")
-SchemaType = TypeVar("SchemaType")
 
 
-class BaseService(Generic[ModelType, SchemaType]):
+class BaseService(Generic[ModelType]):
     def __init__(self, model: ModelType):
         self.model = model
 
@@ -25,7 +24,7 @@ class BaseService(Generic[ModelType, SchemaType]):
 
         return model
 
-    def create(self, data: SchemaType, db: Session):
+    def create(self, data, db: Session):
         model = self.model(**dict(data))
         db.add(model)
         db.commit()
@@ -33,7 +32,7 @@ class BaseService(Generic[ModelType, SchemaType]):
 
         return model
 
-    def patch(self, pk: int, data: SchemaType, db: Session):
+    def patch(self, pk: int, data, db: Session):
         model = self.get_one(pk, db)
         update_data: dict = data.dict(exclude_unset=True)
 

@@ -13,6 +13,6 @@ class Director:
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
     director_name: Mapped[str] = mapped_column(String(255), unique=True)
 
-    movies: Mapped[list["MovieDirector": object]] = relationship(
-        back_populates="director", cascade="all, delete-orphan"
+    movies: Mapped[list["MovieDirector"]] = relationship(
+        back_populates="director", cascade="all, delete-orphan", init=False
     )

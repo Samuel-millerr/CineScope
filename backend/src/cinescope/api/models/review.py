@@ -18,9 +18,9 @@ class Review:
     review_text: Mapped[str] = mapped_column(Text)
     review_ratting: Mapped[bool] = mapped_column(DECIMAL(2, 1))
 
-    movie: Mapped["Movie": object] = relationship(back_populates="reviews")
+    movie: Mapped["Movie"] = relationship(back_populates="reviews")
 
-    user: Mapped["User": object] = relationship(back_populates="reviews")
+    user: Mapped["User"] = relationship(back_populates="reviews")
 
     review_date: Mapped[Date] = mapped_column(
         Date, default=date.today()

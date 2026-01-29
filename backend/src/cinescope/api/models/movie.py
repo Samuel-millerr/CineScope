@@ -20,23 +20,23 @@ class Movie:
     movie_poster: Mapped[str] = mapped_column(Text)
 
     directors: Mapped[list["MovieDirector"]] = relationship(
-        back_populates="movie", cascade="all, delete-orphan"
+        back_populates="movie", cascade="all, delete-orphan", init=False
     )
 
     actors: Mapped[list["MovieActor"]] = relationship(
-        back_populates="movie", cascade="all, delete-orphan"
+        back_populates="movie", cascade="all, delete-orphan", init=False
     )
 
     genres: Mapped[list["MovieGenre"]] = relationship(
-        back_populates="movie", cascade="all, delete-orphan"
+        back_populates="movie", cascade="all, delete-orphan", init=False
     )
 
-    reviews: Mapped[list["Review": object]] = relationship(
-        back_populates="movie", cascade="all, delete-orphan"
+    reviews: Mapped[list["Review"]] = relationship(
+        back_populates="movie", cascade="all, delete-orphan", init=False
     )
 
-    requests: Mapped[list["Request": object]] = relationship(
-        back_populates="movie", cascade="all, delete-orphan"
+    requests: Mapped[list["Request"]] = relationship(
+        back_populates="movie", cascade="all, delete-orphan", init=False
     )
 
 
@@ -48,9 +48,9 @@ class MovieDirector:
     id_movie: Mapped[int] = mapped_column(ForeignKey("movie.id"))
     id_director: Mapped[int] = mapped_column(ForeignKey("director.id"))
 
-    movie: Mapped["Movie"] = relationship(back_populates="directors")
+    movie: Mapped["Movie"] = relationship(back_populates="directors", init=False)
 
-    director: Mapped["Director": object] = relationship(back_populates="movies")
+    director: Mapped["Director"] = relationship(back_populates="movies", init=False)
 
 
 @table_registry.mapped_as_dataclass
@@ -61,9 +61,9 @@ class MovieActor:
     id_movie: Mapped[int] = mapped_column(ForeignKey("movie.id"))
     id_actor: Mapped[int] = mapped_column(ForeignKey("actor.id"))
 
-    movie: Mapped["Movie"] = relationship(back_populates="actors")
+    movie: Mapped["Movie"] = relationship(back_populates="actors", init=False)
 
-    actor: Mapped["Actor": object] = relationship(back_populates="movies")
+    actor: Mapped["ActorModel"] = relationship(back_populates="movies", init=False)
 
 
 @table_registry.mapped_as_dataclass
@@ -74,6 +74,6 @@ class MovieGenre:
     id_movie: Mapped[int] = mapped_column(ForeignKey("movie.id"))
     id_genre: Mapped[int] = mapped_column(ForeignKey("genre.id"))
 
-    movie: Mapped["Movie"] = relationship(back_populates="genres")
+    movie: Mapped["Movie"] = relationship(back_populates="genres", init=False)
 
-    genre: Mapped["Genre": object] = relationship(back_populates="movies")
+    genre: Mapped["Genre"] = relationship(back_populates="movies", init=False)

@@ -1,6 +1,6 @@
 from cinescope.infra.db.engine import engine
+from cinescope.infra.server.base_router import run_server
 from cinescope.infra.server.settings import settings
-from cinescope.infra.server.base_router import router, run_server
 
 table_registry = settings.table_registry
 
@@ -12,5 +12,6 @@ def create_tables() -> None:
 
     print("Tabelas no banco de dados criadas com sucesso!")
 
-create_tables()
+
+# create_tables()
 run_server()
