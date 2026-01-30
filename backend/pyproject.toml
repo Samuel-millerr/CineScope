@@ -20,7 +20,8 @@ dependencies = [
 packages = [{include = "cinescope", from = "src"}]
 
 [tool.pytest.ini.options]
-pythonpath = "."
+testpaths = ["backend/tests"]
+pythonpath = ["backend/src"]
 addopts = "-p no:warnings"
 
 [tool.ruff]
@@ -35,11 +36,15 @@ select = ["I", "F", "E", "W", "PL", "PL"]
 preview = true
 quote-style = "double"
 
+[tool.coverage.report]
+omit = [
+  "*/__init__.py",
+]
+
 [tool.taskipy.tasks]
 run = "py src/cinescope/app.py"
 
-pre_test = "task lint"
-test = "pytest --cov=src -vv"
+test = "pytest --cov=cinescope.api.routers -vv"
 post_test = "coverage html"
 
 lint = "ruff check . && ruff check . --diff"
@@ -54,6 +59,7 @@ dev = [
     "ruff (>=0.14.13,<0.15.0)",
     "pytest (>=9.0.2,<10.0.0)",
     "pytest-cov (>=7.0.0,<8.0.0)",
-    "taskipy (>=1.14.1,<2.0.0)"
+    "taskipy (>=1.14.1,<2.0.0)",
+    "requests (>=2.32.5,<3.0.0)"
 ]
 

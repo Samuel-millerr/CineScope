@@ -14,4 +14,4 @@ def create_tables() -> None:
 
 
 # create_tables()
-run_server()
+run_server(8000)
