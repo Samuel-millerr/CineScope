@@ -1,0 +1,59 @@
+[project]
+name = "cinescope"
+version = "0.1.0"
+description = "Projeto integrador do SENAI 'Roberto Mange' feito com http-server do python, o objetivo é o desenvolvimento de uma aplicação completa para avaliação de filmes."
+authors = [
+    {name = "Samuel Miller Soares",email = "samuel.m.soares10@aluno.senai.br"}
+]
+readme = "README.md"
+requires-python = ">=3.14,<4.0"
+dependencies = [
+    "sqlalchemy (>=2.0.46,<3.0.0)",
+    "alembic (>=1.18.1,<2.0.0)",
+    "pytest (>=9.0.2,<10.0.0)",
+    "pytest-cov (>=7.0.0,<8.0.0)",
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "pymysql (>=1.1.2,<2.0.0)",
+]
+
+[tool.poetry]
+packages = [{include = "cinescope", from = "src"}]
+
+[tool.pytest.ini.options]
+pythonpath = "."
+addopts = "-p no:warnings"
+
+[tool.ruff]
+line-length = 79
+extend-exclude = ["migrations", "all_models.py"]
+
+[tool.ruff.lint]
+preview = true
+select = ["I", "F", "E", "W", "PL", "PL"]
+
+[tool.ruff.format]
+preview = true
+quote-style = "double"
+
+[tool.taskipy.tasks]
+run = "py src/cinescope/app.py"
+
+pre_test = "task lint"
+test = "pytest --cov=src -vv"
+post_test = "coverage html"
+
+lint = "ruff check . && ruff check . --diff"
+format = "ruff check . --fix && ruff format ."
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.14.13,<0.15.0)",
+    "pytest (>=9.0.2,<10.0.0)",
+    "pytest-cov (>=7.0.0,<8.0.0)",
+    "taskipy (>=1.14.1,<2.0.0)"
+]
+

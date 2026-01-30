@@ -1,8 +1,0 @@
-/* Estilização do componente de linha de filmes */
-.home-page-line-movies {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    gap: 4rem;
-}

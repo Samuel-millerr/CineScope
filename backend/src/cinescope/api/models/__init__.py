@@ -1,0 +1,10 @@
+from .actor import ActorModel as ActorModel
+from .director import Director as Director
+from .genre import Genre as Genre
+from .movie import Movie as Movie
+from .movie import MovieActor as MovieActor
+from .movie import MovieDirector as MovieDirector
+from .movie import MovieGenre as MovieGenre
+from .request import Request as Request
+from .review import Review as Review
+from .user import User as User

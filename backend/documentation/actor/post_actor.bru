@@ -1,0 +1,23 @@
+meta {
+  name: post_actor
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/actor/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "actor_name": "Daniel Day-Lewis",
+    "actor_photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1oXEKDksbF4umb1nIKE7zBGZ2SZRAo4turgaoSAZSPy7M4fHfspEMi78YQEoh8LTjKzneasa9mFMUsLpqXeBY5RIsBkLk_rqD1tolLZl8vg&s=10"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
