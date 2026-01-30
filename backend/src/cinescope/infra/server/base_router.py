@@ -10,16 +10,20 @@ from cinescope.infra.server.settings import settings
 def router(func):
     @functools.wraps(func)
     def wrapper(*args, **kwars):
-        router = args[0]
-        router_path = router.parse_path(router.path)
-        print(router_path)
-        if router_path["path"] in urls:
-            router_func = urls[router_path["path"]]
-            sig = inspect.signature(router_func[0])
-            params = sig.parameters
-            print(params["method"].default)
-            # router_func(router)
-            # print(router_func.method)
+        server = args[0]
+        server_path = server.server_path
+        server_method = server.server_method
+
+        if server_path["id"]:
+            server_path["path"] = server_path["path"].replace(f"{server_path["id"]}", "<pk>")
+
+        if server_path["path"] in urls:
+            router_funcs = urls[server_path["path"]]
+            for router_func in router_funcs:
+                sig = inspect.signature(router_func)
+                params = sig.parameters
+                router_method = params["method"].default
+                router_func(server) if server_method == router_method else ...
     return wrapper
 
 
@@ -44,5 +48,5 @@ class Router(BaseHandler):
 def run_server():
     """Função para iniciar o servidor, recebe a porta que deve ser utilizada, ou seja , o endereço do servidor, e o handler personalidado criado na classe acima. """
     httpd = HTTPServer((settings.HOST, settings.PORT), Router)
-    print(f"Servidor rodando na porta {settings.BASE_SERVER}")
+    print(f"Servidor rodando no caminho {settings.BASE_SERVER}")
     httpd.serve_forever()

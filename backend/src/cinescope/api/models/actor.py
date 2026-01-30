@@ -1,5 +1,5 @@
 from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, class_mapper
 
 from cinescope.infra.server.settings import settings
 
@@ -17,3 +17,6 @@ class ActorModel:
     movies: Mapped[list["MovieActor"]] = relationship(
         back_populates="actor", cascade="all, delete-orphan", init=False
     )
+
+    def to_dict(self):
+        return {c.key: getattr(self, c.key) for c in class_mapper(self.__class__).columns}

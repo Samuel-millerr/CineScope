@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "api_documentation",
+  "name": "cinescope_documentation",
   "type": "collection",
   "ignore": [
     "node_modules",

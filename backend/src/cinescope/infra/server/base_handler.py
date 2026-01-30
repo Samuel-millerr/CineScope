@@ -34,3 +34,12 @@ class BaseHandler(SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
         self.end_headers()
+
+    @property
+    def server_path(self):
+        server_path = self.parse_path(self.path)
+        return server_path
+    
+    @property
+    def server_method(self):
+        return self.command

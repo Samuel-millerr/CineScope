@@ -22,10 +22,12 @@ class BaseService(Generic[ModelType]):
         result = db.execute(query)
         model = result.scalar_one_or_none()
 
+        if model:
+            return model.to_dict()
         return model
 
     def create(self, data, db: Session):
-        model = self.model(**dict(data))
+        model = self.model(**dict(data)) 
         db.add(model)
         db.commit()
         db.refresh(model)
