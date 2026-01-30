@@ -1,5 +1,5 @@
-import inspect
 import functools
+import inspect
 from http.server import HTTPServer
 
 from cinescope.api.core.urls import urls
@@ -10,7 +10,7 @@ from cinescope.infra.server.settings import settings
 def router(func):
     @functools.wraps(func)
     def wrapper(*args, **kwars):
-        server = args[0]
+        server: BaseHandler = args[0]
         server_path = server.server_path
         server_method = server.server_method
 
@@ -23,7 +23,8 @@ def router(func):
                 sig = inspect.signature(router_func)
                 params = sig.parameters
                 router_method = params["method"].default
-                router_func(server) if server_method == router_method else ...
+                if server_method == router_method:
+                    router_func(server)
     return wrapper
 
 

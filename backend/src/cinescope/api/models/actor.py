@@ -1,5 +1,5 @@
 from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column, relationship, class_mapper
+from sqlalchemy.orm import Mapped, class_mapper, mapped_column, relationship
 
 from cinescope.infra.server.settings import settings
 

@@ -12,4 +12,5 @@ class ActorService(BaseService[ActorModel]):
         actor = result.scalar_one_or_none()
         return actor
 
+
 actor_service = ActorService(ActorModel)

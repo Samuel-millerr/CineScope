@@ -5,6 +5,10 @@ from urllib.parse import unquote, urlsplit
 
 
 class BaseHandler(SimpleHTTPRequestHandler):
+    def send_status_only(self, status: int = HTTPStatus.OK):
+        self.send_response_only(status)
+        self.end_headers()
+
     def send_json_response(self, data: dict, status: int = HTTPStatus.OK):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -39,7 +43,7 @@ class BaseHandler(SimpleHTTPRequestHandler):
     def server_path(self):
         server_path = self.parse_path(self.path)
         return server_path
-    
+
     @property
     def server_method(self):
         return self.command
