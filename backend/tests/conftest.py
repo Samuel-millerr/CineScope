@@ -17,3 +17,15 @@ def server():
 
     time.sleep(1)
     yield
+
+# @pytest.fixture()
+# def session():
+#     table_registry = api_settings.table_registry
+#     print(server_settings.DATABASE_TEST_URL)
+#     engine = create_engine(server_settings.DATABASE_TEST_URL)
+#     table_registry.metadata.create_all(engine)
+
+#     with Session(engine) as session:
+#         yield session
+
+#     table_registry.metadata.drop_all(engine)

@@ -47,7 +47,6 @@ class Router(BaseHandler):
 
 
 def run_server(port: int):
-    """Função para iniciar o servidor, recebe a porta que deve ser utilizada, ou seja , o endereço do servidor, e o handler personalidado criado na classe acima. """
     httpd = HTTPServer((settings.HOST, port), Router)
     print(f"Servidor rodando no caminho {settings.BASE_SERVER}")
     httpd.serve_forever()
