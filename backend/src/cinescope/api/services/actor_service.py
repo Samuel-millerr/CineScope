@@ -2,7 +2,7 @@ from sqlalchemy.future import select
 from sqlalchemy.orm import Session
 
 from cinescope.api.models.actor import ActorModel
-from cinescope.api.services.base_service import BaseService
+from cinescope.api.services._base_service import BaseService
 
 
 class ActorService(BaseService[ActorModel]):

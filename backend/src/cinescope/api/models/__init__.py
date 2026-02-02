@@ -1,5 +1,5 @@
 from .actor import ActorModel as ActorModel
-from .director import Director as Director
+from .director import DirectorModel as DirectorMoel
 from .genre import Genre as Genre
 from .movie import Movie as Movie
 from .movie import MovieActor as MovieActor
