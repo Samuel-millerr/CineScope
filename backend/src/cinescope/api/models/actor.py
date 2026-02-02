@@ -1,7 +1,7 @@
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, class_mapper, mapped_column, relationship
 
-from cinescope.infra.server.settings import settings
+from cinescope.api.core.settings import settings
 
 table_registry = settings.table_registry
 

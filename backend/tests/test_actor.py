@@ -4,9 +4,10 @@ import requests
 
 TEST_URL = "http://localhost:8001/api/actor/"
 
+
 def test_post_actor_return_actor_json():
     response = requests.post(
-        TEST_URL, 
+        TEST_URL,
         {
             "actor_name": "Test Actor",
             "actor_photo": "http://test_actor_photo"
