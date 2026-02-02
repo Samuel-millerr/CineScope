@@ -1,0 +1,22 @@
+meta {
+  name: post_director
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/director/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "director_name": "teste2"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
