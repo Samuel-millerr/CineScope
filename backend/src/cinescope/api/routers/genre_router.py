@@ -81,5 +81,5 @@ def delete_genre(server: serverType, method: str = "DELETE"):
                 )
             else:
                 server.send_status_only(HTTPStatus.NO_CONTENT)
-    except Exception as e:
+    except:
         server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
