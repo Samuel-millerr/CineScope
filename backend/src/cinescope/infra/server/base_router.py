@@ -3,14 +3,15 @@ import inspect
 from http.server import HTTPServer
 
 from cinescope.api.core.urls import urls
-from cinescope.infra.server.base_handler import BaseHandler
 from cinescope.infra.server.settings import settings
+
+server = settings.server
 
 
 def router(func):
     @functools.wraps(func)
     def wrapper(*args, **kwars):
-        server: BaseHandler = args[0]
+        server: server = args[0]
         server_path = server.server_path
         server_method = server.server_method
 
@@ -28,7 +29,7 @@ def router(func):
     return wrapper
 
 
-class Router(BaseHandler):
+class Router(server):
     @router
     def do_GET(self):
         ...

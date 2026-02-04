@@ -76,4 +76,4 @@ class MovieGenre:
 
     movie: Mapped["Movie"] = relationship(back_populates="genres", init=False)
 
-    genre: Mapped["Genre"] = relationship(back_populates="movies", init=False)
+    genre: Mapped["GenreModel"] = relationship(back_populates="movies", init=False)
