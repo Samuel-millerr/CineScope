@@ -7,4 +7,4 @@ from .movie import MovieDirector as MovieDirector
 from .movie import MovieGenre as MovieGenre
 from .request import Request as Request
 from .review import Review as Review
-from .user import User as User
+from .user import UserModel as UserModel

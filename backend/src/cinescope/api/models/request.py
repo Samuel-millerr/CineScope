@@ -36,7 +36,7 @@ class Request:
     )
     request_body: Mapped[JSON] = mapped_column(JSON)
 
-    user: Mapped["User"] = relationship(back_populates="requests", init=False)
+    user: Mapped["UserModel"] = relationship(back_populates="requests", init=False)
 
     movie: Mapped["Movie"] = relationship(back_populates="requests", init=False)
 

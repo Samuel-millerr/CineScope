@@ -20,7 +20,7 @@ class Review:
 
     movie: Mapped["Movie"] = relationship(back_populates="reviews")
 
-    user: Mapped["User"] = relationship(back_populates="reviews")
+    user: Mapped["UserModel"] = relationship(back_populates="reviews")
 
     review_date: Mapped[Date] = mapped_column(
         Date, default=date.today()

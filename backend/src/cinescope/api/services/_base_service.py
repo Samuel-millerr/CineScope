@@ -10,7 +10,7 @@ class BaseService(Generic[ModelType]):
     def __init__(self, model: ModelType):
         self.model = model
 
-    def get_all(self, db: Session) -> List[ModelType]:
+    def get_all(self, db: Session):
         query = select(self.model)
         result = db.execute(query)
         model = result.scalars()
@@ -22,9 +22,7 @@ class BaseService(Generic[ModelType]):
         return model_list
 
     def get_one(self, pk: int, db: Session):
-        query = select(self.model).filter(self.model.id == pk)
-        result = db.execute(query)
-        model = result.scalar_one_or_none()
+        model = self.get_one_as_model(pk, db)
 
         if model:
             return model.to_dict()

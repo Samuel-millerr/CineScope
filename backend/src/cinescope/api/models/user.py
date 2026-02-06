@@ -3,7 +3,7 @@ from enum import Enum
 
 from sqlalchemy import Date, String
 from sqlalchemy import Enum as SqlEnum
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, class_mapper
 
 from cinescope.api.core.settings import settings
 
@@ -16,7 +16,7 @@ class UserRole(str, Enum):
 
 
 @table_registry.mapped_as_dataclass
-class User:
+class UserModel:
     __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
@@ -42,5 +42,18 @@ class User:
     )
 
     created_at: Mapped[Date] = mapped_column(
-        Date, default=date.today
+        Date, default=date.today()
     )
+
+    def to_dict(self):
+        data = {}
+
+        for c in class_mapper(self.__class__).columns:
+            value = getattr(self, c.key)
+
+            if isinstance(value, date):
+                value = value.isoformat()
+
+            data[c.key] = value
+
+        return data

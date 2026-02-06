@@ -1,0 +1,27 @@
+meta {
+  name: post_user
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/users
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "user": "Samucas123",
+    "hashed_password": "sa123mi11!",
+    "first_name": "Samuel", 
+    "last_name": "Soares",
+    "email": "samuel.m.ssoares11@aluno.senai.br",
+    "role": "Comum"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
