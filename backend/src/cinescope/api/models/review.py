@@ -18,7 +18,7 @@ class Review:
     review_text: Mapped[str] = mapped_column(Text)
     review_ratting: Mapped[bool] = mapped_column(DECIMAL(2, 1))
 
-    movie: Mapped["Movie"] = relationship(back_populates="reviews")
+    movie: Mapped["MovieModel"] = relationship(back_populates="reviews")
 
     user: Mapped["UserModel"] = relationship(back_populates="reviews")
 

@@ -9,7 +9,7 @@ table_registry = settings.table_registry
 
 
 @table_registry.mapped_as_dataclass
-class Movie:
+class MovieModel:
     __tablename__ = "movie"
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
@@ -48,7 +48,7 @@ class MovieDirector:
     id_movie: Mapped[int] = mapped_column(ForeignKey("movie.id"))
     id_director: Mapped[int] = mapped_column(ForeignKey("director.id"))
 
-    movie: Mapped["Movie"] = relationship(back_populates="directors", init=False)
+    movie: Mapped["MovieModel"] = relationship(back_populates="directors", init=False)
 
     director: Mapped["DirectorModel"] = relationship(back_populates="movies", init=False)
 
@@ -61,7 +61,7 @@ class MovieActor:
     id_movie: Mapped[int] = mapped_column(ForeignKey("movie.id"))
     id_actor: Mapped[int] = mapped_column(ForeignKey("actor.id"))
 
-    movie: Mapped["Movie"] = relationship(back_populates="actors", init=False)
+    movie: Mapped["MovieModel"] = relationship(back_populates="actors", init=False)
 
     actor: Mapped["ActorModel"] = relationship(back_populates="movies", init=False)
 
@@ -74,6 +74,6 @@ class MovieGenre:
     id_movie: Mapped[int] = mapped_column(ForeignKey("movie.id"))
     id_genre: Mapped[int] = mapped_column(ForeignKey("genre.id"))
 
-    movie: Mapped["Movie"] = relationship(back_populates="genres", init=False)
+    movie: Mapped["MovieModel"] = relationship(back_populates="genres", init=False)
 
     genre: Mapped["GenreModel"] = relationship(back_populates="movies", init=False)

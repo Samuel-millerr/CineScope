@@ -38,7 +38,7 @@ class Request:
 
     user: Mapped["UserModel"] = relationship(back_populates="requests", init=False)
 
-    movie: Mapped["Movie"] = relationship(back_populates="requests", init=False)
+    movie: Mapped["MovieModel"] = relationship(back_populates="requests", init=False)
 
     request_date: Mapped[Date] = mapped_column(
         Date, default=date.today

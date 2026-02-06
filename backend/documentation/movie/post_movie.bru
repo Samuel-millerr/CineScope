@@ -1,0 +1,26 @@
+meta {
+  name: post_movie
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/movies
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "movie_title": "Clube da Cura",
+    "duration_time": "01:32:29",
+    "publication_year": 1990,
+    "movie_synopsis": "Clube da luta",
+    "movie_poster": "dsafa"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
