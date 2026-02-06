@@ -1,4 +1,4 @@
-# 🎬 CineScope
+# 🎬 CineScope - Em Manutenção 🚧
 
 O **CineScope** é um projeto avaliativo desenvolvido para integrar as unidades curriculares de **PWFE**, **PWBE** e **Modelagem/Manipulação de Banco de Dados**. Seu objetivo é fornecer uma plataforma completa para **visualização, avaliação, criação e edição de filmes**, contando com backend em Python e frontend em React.
 
