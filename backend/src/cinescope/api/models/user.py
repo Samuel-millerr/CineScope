@@ -3,7 +3,7 @@ from enum import Enum
 
 from sqlalchemy import Date, String
 from sqlalchemy import Enum as SqlEnum
-from sqlalchemy.orm import Mapped, mapped_column, relationship, class_mapper
+from sqlalchemy.orm import Mapped, class_mapper, mapped_column, relationship
 
 from cinescope.api.core.settings import settings
 

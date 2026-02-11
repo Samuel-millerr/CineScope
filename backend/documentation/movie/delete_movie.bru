@@ -1,0 +1,16 @@
+meta {
+  name: delete_movie
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:8000/api/movies/2
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

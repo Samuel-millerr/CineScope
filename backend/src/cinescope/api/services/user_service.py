@@ -16,11 +16,11 @@ class UserService(BaseService[UserModel]):
         exists_username = self.get_user_by_atribute(
             self.model.user,
             data["user"],
-            db                
+            db
         )
         if exists_username:
             return False, {"message": "User with username alredy exists"}
-        
+
         exists_email = self.get_user_by_atribute(
             self.model.email,
             data["email"],
@@ -28,8 +28,9 @@ class UserService(BaseService[UserModel]):
         )
         if exists_email:
             return False, {"message": "User with email alredy exists"}
-        
+
         user = super().create(data, db)
         return user, {}
+
 
 user_service = UserService(UserModel)

@@ -42,7 +42,7 @@ class UserRouter:
         except Exception as e:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
             raise e
-    
+
     @staticmethod
     def get_users(server: serverType, method: str = "GET"):
         try:
@@ -52,7 +52,7 @@ class UserRouter:
         except Exception as e:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
             raise e
-        
+
     @staticmethod
     def delete_users(server: serverType, method: str = "DELETE"):
         try:
@@ -70,5 +70,6 @@ class UserRouter:
         except Exception as e:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
             raise e
+
 
 user_router = UserRouter()

@@ -1,7 +1,7 @@
 from datetime import time
 
 from sqlalchemy import ForeignKey, String, Text, Time
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, class_mapper, mapped_column, relationship
 
 from cinescope.api.core.settings import settings
 
@@ -38,6 +38,19 @@ class MovieModel:
     requests: Mapped[list["Request"]] = relationship(
         back_populates="movie", cascade="all, delete-orphan", init=False
     )
+
+    def to_dict(self):
+        data = {}
+
+        for c in class_mapper(self.__class__).columns:
+            value = getattr(self, c.key)
+
+            if isinstance(value, time):
+                value = value.strftime("%H:%M:%S")
+
+            data[c.key] = value
+
+        return data
 
 
 @table_registry.mapped_as_dataclass

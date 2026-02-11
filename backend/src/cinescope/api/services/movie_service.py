@@ -12,4 +12,5 @@ class MovieService(BaseService[MovieModel]):
         movie = result.scalar_one_or_none()
         return movie
 
+
 movie_service = MovieService(MovieModel)
