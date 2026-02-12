@@ -33,7 +33,7 @@ class UserModel:
     def full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
-    reviews: Mapped[list["Review"]] = relationship(
+    reviews: Mapped[list["ReviewModel"]] = relationship(
         back_populates="user", cascade="all, delete-orphan", init=False
     )
 

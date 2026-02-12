@@ -6,5 +6,5 @@ from .movie import MovieDirector as MovieDirector
 from .movie import MovieGenre as MovieGenre
 from .movie import MovieModel as MovieModel
 from .request import Request as Request
-from .review import Review as Review
+from .review import ReviewModel as ReviewModel
 from .user import UserModel as UserModel

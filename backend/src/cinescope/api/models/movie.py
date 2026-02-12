@@ -31,7 +31,7 @@ class MovieModel:
         back_populates="movie", cascade="all, delete-orphan", init=False
     )
 
-    reviews: Mapped[list["Review"]] = relationship(
+    reviews: Mapped[list["ReviewModel"]] = relationship(
         back_populates="movie", cascade="all, delete-orphan", init=False
     )
 
