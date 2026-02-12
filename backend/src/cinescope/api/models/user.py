@@ -37,7 +37,7 @@ class UserModel:
         back_populates="user", cascade="all, delete-orphan", init=False
     )
 
-    requests: Mapped[list["Request"]] = relationship(
+    requests: Mapped[list["RequestModel"]] = relationship(
         back_populates="user", cascade="all, delete-orphan", init=False
     )
 

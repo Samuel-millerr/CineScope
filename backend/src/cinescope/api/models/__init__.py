@@ -5,6 +5,6 @@ from .movie import MovieActor as MovieActor
 from .movie import MovieDirector as MovieDirector
 from .movie import MovieGenre as MovieGenre
 from .movie import MovieModel as MovieModel
-from .request import Request as Request
+from .request import RequestModel as RequestModel
 from .review import ReviewModel as ReviewModel
 from .user import UserModel as UserModel

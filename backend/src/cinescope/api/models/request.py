@@ -22,7 +22,7 @@ class RequestStatus(str, Enum):
 
 
 @table_registry.mapped_as_dataclass
-class Request:
+class RequestModel:
     __tablename__ = "request"
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)

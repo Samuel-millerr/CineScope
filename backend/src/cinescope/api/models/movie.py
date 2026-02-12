@@ -35,7 +35,7 @@ class MovieModel:
         back_populates="movie", cascade="all, delete-orphan", init=False
     )
 
-    requests: Mapped[list["Request"]] = relationship(
+    requests: Mapped[list["RequestModel"]] = relationship(
         back_populates="movie", cascade="all, delete-orphan", init=False
     )
 

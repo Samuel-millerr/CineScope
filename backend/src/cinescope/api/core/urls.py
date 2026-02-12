@@ -5,6 +5,7 @@ from cinescope.api.routers.movie_router import movie_router
 from cinescope.api.routers.read_root_router import read_root
 from cinescope.api.routers.review_router import review_router
 from cinescope.api.routers.user_router import user_router
+from cinescope.api.routers.request_router import request_router
 
 urls = {
     "/api": [read_root],
@@ -18,5 +19,7 @@ urls = {
     "/api/users/<pk>": [user_router.get_one_user, user_router.delete_users],
     "/api/movies": [movie_router.post_movie, movie_router.get_movies],
     "/api/movies/<pk>": [movie_router.get_one_movie, movie_router.patch_movie, movie_router.delete_movie],
-    "/api/reviews": [review_router.post_review, review_router.get_reviews]
+    "/api/reviews": [review_router.post_review, review_router.get_reviews],
+    "/api/requests": [request_router.post_request, request_router.get_requests],
+    "/api/requests/<pk>": [request_router.delete_request]
 }
