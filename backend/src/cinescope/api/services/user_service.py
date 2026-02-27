@@ -22,7 +22,7 @@ class UserService(BaseService[UserModel]):
             return False, {"message": "User with email alredy exists"}
 
         user = super().create(data, db)
-        return user, {}
+        return user, {"message": "User sucessfully created"}
 
 
 user_service = UserService(UserModel)
