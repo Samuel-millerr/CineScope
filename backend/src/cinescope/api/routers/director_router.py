@@ -11,11 +11,12 @@ class DirectorRouter:
         try:
             data = server.parse_json_body()
             with get_session() as db:
-                director = director_service.get_director_by_name(data["director_name"], db)
+                director = director_service.get_director_by_name(
+                    data["director_name"], db
+                )
                 if director:
                     server.send_json_response(
-                        {"message": "Director alredy exists"},
-                        HTTPStatus.CONFLICT
+                        {"message": "Director alredy exists"}, HTTPStatus.CONFLICT
                     )
                 else:
                     director_service.create(data, db)
@@ -35,7 +36,7 @@ class DirectorRouter:
                 else:
                     server.send_json_response(
                         {"message": f"Director with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
         except:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
@@ -60,7 +61,7 @@ class DirectorRouter:
                 if not director:
                     server.send_json_response(
                         {"message": f"Director with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_json_response(director)
@@ -77,7 +78,7 @@ class DirectorRouter:
                 if not director:
                     server.send_json_response(
                         {"message": f"Director with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_status_only(HTTPStatus.NO_CONTENT)

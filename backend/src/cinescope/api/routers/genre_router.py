@@ -16,8 +16,7 @@ class GenreRouter:
                 genre = genre_service.get_genre_by_name(data["genre"], db)
                 if genre:
                     server.send_json_response(
-                        {"message": "Genre alredy exists"},
-                        HTTPStatus.CONFLICT
+                        {"message": "Genre alredy exists"}, HTTPStatus.CONFLICT
                     )
                 else:
                     genre_service.create(data, db)
@@ -37,7 +36,7 @@ class GenreRouter:
                 else:
                     server.send_json_response(
                         {"message": f"Genre with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
         except:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
@@ -62,7 +61,7 @@ class GenreRouter:
                 if not genre:
                     server.send_json_response(
                         {"message": f"Genre with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_json_response(genre)
@@ -79,7 +78,7 @@ class GenreRouter:
                 if not genre:
                     server.send_json_response(
                         {"message": f"Genre with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_status_only(HTTPStatus.NO_CONTENT)

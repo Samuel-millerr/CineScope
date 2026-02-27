@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 import requests
 
-TEST_URL = "http://localhost:8001/api/actor/"
+TEST_URL = "http://localhost:8080/api/actor/"
 
 
 def test_post_actor_return_actor_json(server):

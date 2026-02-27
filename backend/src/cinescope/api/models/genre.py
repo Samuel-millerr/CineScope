@@ -18,4 +18,6 @@ class GenreModel:
     )
 
     def to_dict(self):
-        return {c.key: getattr(self, c.key) for c in class_mapper(self.__class__).columns}
+        return {
+            c.key: getattr(self, c.key) for c in class_mapper(self.__class__).columns
+        }

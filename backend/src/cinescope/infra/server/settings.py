@@ -10,10 +10,9 @@ load_dotenv()
 class Settings:
     HOST = "localhost"
     PORT = 8000
-    BASE_SERVER = (f"http://{HOST}:{PORT}/api/")
+    BASE_SERVER = f"http://{HOST}:{PORT}/api/"
 
     DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///cinescope:")
-    # DATABASE_TEST_URL: str = os.getenv("DATABASE_TEST_URL", "sqlite:///:memory:")
 
     server = BaseHandler
 

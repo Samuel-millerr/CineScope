@@ -11,5 +11,5 @@ SessionLocal: AlchemySession = sessionmaker(
     autoflush=False,
     expire_on_commit=False,
     class_=AlchemySession,
-    bind=engine
+    bind=engine,
 )

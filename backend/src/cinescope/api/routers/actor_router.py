@@ -14,8 +14,7 @@ class ActorRouter:
                 actor = actor_service.get_actor_by_name(data["actor_name"], db)
                 if actor:
                     server.send_json_response(
-                        {"message": "Actor alredy exists"},
-                        HTTPStatus.CONFLICT
+                        {"message": "Actor alredy exists"}, HTTPStatus.CONFLICT
                     )
                 else:
                     actor_service.create(data, db)
@@ -36,7 +35,7 @@ class ActorRouter:
                 else:
                     server.send_json_response(
                         {"message": f"Actor with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
         except:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
@@ -61,7 +60,7 @@ class ActorRouter:
                 if not actor:
                     server.send_json_response(
                         {"message": f"Actor with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_json_response(actor)
@@ -78,7 +77,7 @@ class ActorRouter:
                 if not actor:
                     server.send_json_response(
                         {"message": f"Actor with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_status_only(HTTPStatus.NO_CONTENT)

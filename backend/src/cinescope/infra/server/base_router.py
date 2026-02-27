@@ -16,7 +16,9 @@ def router(func):
         server_method = server.server_method
 
         if server_path["id"]:
-            server_path["path"] = server_path["path"].replace(f"{server_path["id"]}", "<pk>")
+            server_path["path"] = server_path["path"].replace(
+                f"{server_path["id"]}", "<pk>"
+            )
 
         if server_path["path"] in urls:
             router_funcs = urls[server_path["path"]]
@@ -26,25 +28,22 @@ def router(func):
                 router_method = params["method"].default
                 if server_method == router_method:
                     router_func(server)
+
     return wrapper
 
 
 class Router(server):
     @router
-    def do_GET(self):
-        ...
+    def do_GET(self): ...
 
     @router
-    def do_POST(self):
-        ...
+    def do_POST(self): ...
 
     @router
-    def do_PATCH(self):
-        ...
+    def do_PATCH(self): ...
 
     @router
-    def do_DELETE(self):
-        ...
+    def do_DELETE(self): ...
 
 
 def run_server(port: int):

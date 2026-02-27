@@ -16,8 +16,7 @@ class MovieRouter:
                 movie = movie_service.get_service_by_title(data["movie_title"], db)
                 if movie:
                     server.send_json_response(
-                        {"message": "Movie alredy exists"},
-                        HTTPStatus.CONFLICT
+                        {"message": "Movie alredy exists"}, HTTPStatus.CONFLICT
                     )
                 else:
                     movie_service.create(data, db)
@@ -38,7 +37,7 @@ class MovieRouter:
                 else:
                     server.send_json_response(
                         {"message": f"Movie with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
         except Exception as e:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
@@ -65,7 +64,7 @@ class MovieRouter:
                 if not movie:
                     server.send_json_response(
                         {"message": f"Movie with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_json_response(movie)
@@ -83,7 +82,7 @@ class MovieRouter:
                 if not movie:
                     server.send_json_response(
                         {"message": f"Movie with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_status_only(HTTPStatus.NO_CONTENT)

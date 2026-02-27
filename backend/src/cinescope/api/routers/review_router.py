@@ -14,9 +14,7 @@ class ReviewRouter:
             data = server.parse_json_body()
             with get_session() as db:
                 review_service.create(data, db)
-                server.send_json_response(
-                    data, HTTPStatus.CREATED
-                )
+                server.send_json_response(data, HTTPStatus.CREATED)
         except Exception as e:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
             raise e

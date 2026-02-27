@@ -15,10 +15,7 @@ class UserRouter:
             with get_session() as db:
                 user, message = user_service.create(data, db)
                 if not user:
-                    server.send_json_response(
-                        message,
-                        HTTPStatus.CONFLICT
-                    )
+                    server.send_json_response(message, HTTPStatus.CONFLICT)
                 else:
                     server.send_json_response(data, HTTPStatus.CREATED)
         except Exception as e:
@@ -37,7 +34,7 @@ class UserRouter:
                 else:
                     server.send_json_response(
                         {"message": f"Genre with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
         except Exception as e:
             server.send_status_only(HTTPStatus.INTERNAL_SERVER_ERROR)
@@ -63,7 +60,7 @@ class UserRouter:
                 if not user:
                     server.send_json_response(
                         {"message": f"User with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_status_only(HTTPStatus.NO_CONTENT)

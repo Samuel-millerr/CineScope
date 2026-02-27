@@ -25,9 +25,7 @@ class UserModel:
     first_name: Mapped[str] = mapped_column(String(255))
     last_name: Mapped[str] = mapped_column(String(255))
     email: Mapped[str] = mapped_column(String(255), unique=True)
-    role: Mapped[UserRole] = mapped_column(
-        SqlEnum(UserRole), server_default="Comum"
-    )
+    role: Mapped[UserRole] = mapped_column(SqlEnum(UserRole), server_default="Comum")
 
     @property
     def full_name(self) -> str:
@@ -41,9 +39,7 @@ class UserModel:
         back_populates="user", cascade="all, delete-orphan", init=False
     )
 
-    created_at: Mapped[Date] = mapped_column(
-        Date, default=date.today()
-    )
+    created_at: Mapped[Date] = mapped_column(Date, server_default=str(date.today()))
 
     def to_dict(self):
         data = {}

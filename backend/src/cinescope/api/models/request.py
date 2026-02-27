@@ -27,9 +27,7 @@ class RequestModel:
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
     id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    id_movie: Mapped[int] = mapped_column(
-        ForeignKey("movie.id"), nullable=True
-    )
+    id_movie: Mapped[int] = mapped_column(ForeignKey("movie.id"), nullable=True)
     request_type: Mapped[RequestType] = mapped_column(SqlEnum(RequestType))
     request_status: Mapped[RequestStatus] = mapped_column(
         SqlEnum(RequestStatus), server_default="PENDENTE"
@@ -40,6 +38,4 @@ class RequestModel:
 
     movie: Mapped["MovieModel"] = relationship(back_populates="requests", init=False)
 
-    request_date: Mapped[Date] = mapped_column(
-        Date, default=date.today
-    )
+    request_date: Mapped[Date] = mapped_column(Date, default=date.today)

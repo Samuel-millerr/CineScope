@@ -63,7 +63,9 @@ class MovieDirector:
 
     movie: Mapped["MovieModel"] = relationship(back_populates="directors", init=False)
 
-    director: Mapped["DirectorModel"] = relationship(back_populates="movies", init=False)
+    director: Mapped["DirectorModel"] = relationship(
+        back_populates="movies", init=False
+    )
 
 
 @table_registry.mapped_as_dataclass

@@ -46,7 +46,8 @@ class BaseService(Generic[ModelType]):
     def patch(self, pk: int, data: dict, db: Session):
         model = self.get_one_as_model(pk, db)
 
-        if not model: return
+        if not model:
+            return
 
         for key, value in data.items():
             setattr(model, key, value)
@@ -59,7 +60,8 @@ class BaseService(Generic[ModelType]):
     def delete(self, pk: int, db: Session):
         model = self.get_one_as_model(pk, db)
 
-        if not model: return
+        if not model:
+            return
 
         db.delete(model)
         db.commit()

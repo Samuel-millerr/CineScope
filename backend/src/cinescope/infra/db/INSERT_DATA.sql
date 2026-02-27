@@ -1,3 +1,5 @@
+USE cinescope;
+
 INSERT INTO director (director_name)
 VALUES
     ("Christopher Nolan"),
@@ -362,12 +364,11 @@ VALUES
     (20, 9),
     (20, 2);
 
-INSERT INTO user (user, password, user_role, user_name, email, created_at)
-VALUES 
-    ("Adm", "123456", "Administrador", "Samuel Miller Soares", "administrador@gmail.com", "2025-11-16"),
-    ("Comum", "123456", "Comum", "Samuel Miller Soares", "comum@gmail.com", "2025-11-16");
-
-INSERT INTO review (id_movie, id_user, review_text, review_rating, review_date)
+INSERT INTO user (user, hashed_password, first_name, last_name, email) 
+VALUES
+	("Samuca", "1234", "Samuel", "Soares", "mukamiller11@gmail.com");
+    
+INSERT INTO review (id_movie, id_user, review_text, review_ratting, review_date)
 VALUES
     (1, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 4.9, "2025-11-10"),
     (1, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 2.0, "2025-11-10"),
@@ -390,4 +391,4 @@ VALUES
     (18, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
     (19, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
     (20, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 5.0, "2025-11-10"),
-    (5, 2, "Comentário de teste para verificar a funcionalidade de avaliações.", 1.0, "2025-11-10");
+    (5, 1, "Comentário de teste para verificar a funcionalidade de avaliações.", 1.0, "2025-11-10");

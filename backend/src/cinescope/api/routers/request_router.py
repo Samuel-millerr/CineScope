@@ -39,7 +39,7 @@ class RequestRouter:
                 if not request:
                     server.send_json_response(
                         {"message": f"Request with ID {pk} not found"},
-                        HTTPStatus.NOT_FOUND
+                        HTTPStatus.NOT_FOUND,
                     )
                 else:
                     server.send_status_only(HTTPStatus.NO_CONTENT)
