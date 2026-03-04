@@ -6,8 +6,11 @@ from cinescope.api.services._base_service import BaseService
 
 
 class UserService(BaseService[UserModel]):
-    def get_user_by_atribute(self, atribute, data_atribute, db: Session):
-        query = select(self.model).filter(atribute == data_atribute)
+    def get_user_by_atribute(self, target_atribute, atribute_value, db: Session):
+        if type(target_atribute) == str:
+            target_atribute = getattr(self.model, target_atribute)
+
+        query = select(self.model).filter(target_atribute == atribute_value)
         result = db.execute(query)
         user = result.scalar_one_or_none()
         return user
@@ -22,6 +25,8 @@ class UserService(BaseService[UserModel]):
             return False, {"message": "User with email alredy exists"}
 
         user = super().create(data, db)
+        db.commit()
+        db.refresh(user)
         return user, {"message": "User sucessfully created"}
 
 

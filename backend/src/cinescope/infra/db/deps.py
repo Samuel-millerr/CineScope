@@ -3,7 +3,8 @@ from typing import Generator
 
 from sqlalchemy.orm import Session as AlchemySession
 
-from cinescope.api.core.settings import settings as server_settings
+from cinescope.api.core.settings import settings as api_settings
+from cinescope.infra.server.settings import settings as server_settings
 from cinescope.infra.db.engine import SessionLocal, engine
 
 
@@ -17,7 +18,7 @@ def get_session() -> Generator:
 
 
 def create_tables() -> None:
-    table_registry = server_settings.table_registry
+    table_registry = api_settings.table_registry
 
     print(
         f"Tabelas do banco de dados sendo criadas na URL: {server_settings.DATABASE_URL}"

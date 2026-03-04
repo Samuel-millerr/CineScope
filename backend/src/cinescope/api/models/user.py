@@ -39,7 +39,7 @@ class UserModel:
         back_populates="user", cascade="all, delete-orphan", init=False
     )
 
-    created_at: Mapped[Date] = mapped_column(Date, server_default=str(date.today()))
+    created_at: Mapped[Date] = mapped_column(Date, server_default=str(date.today()), default=str(date.today()))
 
     def to_dict(self):
         data = {}

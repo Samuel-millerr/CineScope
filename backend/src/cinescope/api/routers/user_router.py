@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 from cinescope.api.services.user_service import user_service
+from cinescope.api.services.auth_service import auth_service
 from cinescope.infra.db.deps import get_session
 from cinescope.infra.server.settings import settings
 
@@ -12,6 +13,7 @@ class UserRouter:
     def post_user(server: serverType, method: str = "POST"):
         try:
             data = server.parse_json_body()
+            data["hashed_password"] = auth_service.get_password_hash(data["hashed_password"])
             with get_session() as db:
                 user, message = user_service.create(data, db)
                 if not user:
