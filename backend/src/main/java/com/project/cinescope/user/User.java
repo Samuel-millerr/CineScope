@@ -1,5 +1,6 @@
 package com.project.cinescope.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,9 @@ public class User {
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @JsonIgnore
+    private Boolean active = true;
 
     public User(String username, String hashedPassword, String firstName, String lastName, String email, UserRole userRole) {
         this.username = username;

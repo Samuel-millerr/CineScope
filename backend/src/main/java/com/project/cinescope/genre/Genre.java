@@ -1,5 +1,6 @@
 package com.project.cinescope.genre;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,10 @@ public class Genre {
     @Column(length = 255, nullable = false)
     public String genre;
 
-    private Boolean active;
+    @JsonIgnore
+    private Boolean active = true;
 
     public Genre(String genre) {
         this.genre = genre;
-        this.active = true;
     }
 }

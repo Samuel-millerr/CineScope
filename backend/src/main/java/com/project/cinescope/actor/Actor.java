@@ -1,5 +1,6 @@
 package com.project.cinescope.actor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
@@ -20,11 +21,11 @@ public class Actor {
     @Column(length = 512, nullable = false)
     private String photo;
 
-    private Boolean active;
+    @JsonIgnore
+    private Boolean active = true;
 
     public Actor(String name, String photo) {
         this.name = name;
         this.photo = photo;
-        this.active = true;
     }
 }

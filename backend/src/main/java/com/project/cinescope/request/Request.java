@@ -1,5 +1,6 @@
 package com.project.cinescope.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.cinescope.movie.Movie;
 import com.project.cinescope.user.User;
 import jakarta.persistence.*;

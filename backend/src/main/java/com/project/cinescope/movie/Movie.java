@@ -1,5 +1,6 @@
 package com.project.cinescope.movie;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,9 @@ public class Movie {
 
     @Column(nullable = false)
     private String poster;
+
+    @JsonIgnore
+    private Boolean active = true;
 
     public Movie(String name, LocalTime duration, Year publicationYear, String synopsis, String poster) {
         this.name = name;

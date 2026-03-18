@@ -1,5 +1,6 @@
 package com.project.cinescope.director;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,10 @@ public class Director {
     @Column(length = 255, nullable = false)
     private String name;
 
-    private Boolean active;
+    @JsonIgnore
+    private Boolean active = true;
 
     public Director(String name) {
         this.name = name;
-        this.active = true;
     }
 }
