@@ -1,4 +1,4 @@
-package com.project.cinescope.user;
+package com.project.cinescope.user.enums;
 
 public enum UserRole {
     COMMON("Comum"),

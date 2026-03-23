@@ -1,6 +1,7 @@
 package com.project.cinescope.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.cinescope.user.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

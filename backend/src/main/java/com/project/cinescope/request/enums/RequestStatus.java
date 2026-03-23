@@ -1,4 +1,4 @@
-package com.project.cinescope.request;
+package com.project.cinescope.request.enums;
 
 public enum RequestStatus {
     APPROVED("Aprovado"),
