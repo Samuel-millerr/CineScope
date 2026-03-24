@@ -1,10 +1,14 @@
 package com.project.cinescope.genre;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.cinescope.movie.Movie;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "genre")
@@ -21,6 +25,14 @@ public class Genre {
 
     @JsonIgnore
     private Boolean active = true;
+
+    @ManyToMany
+    @JoinTable(
+            name = "genre_movie",
+            joinColumns = @JoinColumn(name = "id_genre", table = "genre", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_movie", table = "movie", referencedColumnName = "id")
+    )
+    private List<Movie> movies = new ArrayList<>();
 
     public Genre(String genre) {
         this.genre = genre;

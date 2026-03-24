@@ -1,10 +1,14 @@
 package com.project.cinescope.director;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.cinescope.movie.Movie;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "director")
@@ -21,6 +25,14 @@ public class Director {
 
     @JsonIgnore
     private Boolean active = true;
+
+    @ManyToMany
+    @JoinTable(
+            name="movie_director",
+            joinColumns = @JoinColumn(name = "director_id", table = "director", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id", table = "movie", referencedColumnName = "id")
+    )
+    private List<Movie> movies = new ArrayList<>();
 
     public Director(String name) {
         this.name = name;
