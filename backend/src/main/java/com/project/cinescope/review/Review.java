@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.cinescope.movie.Movie;
 import com.project.cinescope.user.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "review")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @SQLRestriction("active = true")
@@ -21,7 +23,7 @@ public class Review {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_user", referencedColumnName = "id")
     private User user;
 
     @ManyToOne
@@ -37,10 +39,6 @@ public class Review {
     @Column(nullable = false)
     private LocalDateTime reviewDate = LocalDateTime.now();
 
-    public Review(User user, Movie movie, String reviewText, Float reviewRatting, LocalDateTime reviewDate) {
-        this.user = user;
-        this.movie = movie;
-        this.reviewText = reviewText;
-        this.reviewRatting = reviewRatting;
-    }
+    @JsonIgnore
+    private Boolean active = true;
 }

@@ -1,16 +1,22 @@
 package com.project.cinescope.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.cinescope.request.Request;
+import com.project.cinescope.review.Review;
 import com.project.cinescope.user.enums.UserRole;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @SQLRestriction("active = true")
@@ -41,15 +47,12 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = Review.class)
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = Request.class)
+    private List<Request> requests = new ArrayList<>();
+
     @JsonIgnore
     private Boolean active = true;
-
-    public User(String username, String hashedPassword, String firstName, String lastName, String email, UserRole userRole) {
-        this.username = username;
-        this.hashedPassword = hashedPassword;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.userRole = userRole;
-    }
 }

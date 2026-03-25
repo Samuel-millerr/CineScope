@@ -4,13 +4,16 @@ import com.project.cinescope.movie.Movie;
 import com.project.cinescope.request.enums.RequestStatus;
 import com.project.cinescope.request.enums.RequestType;
 import com.project.cinescope.user.User;
+import com.sun.jdi.ClassType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "request")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @SQLRestriction("active = true")
@@ -37,12 +40,4 @@ public class Request {
 
     @Column(nullable = true, columnDefinition = "json")
     private String requestBody;
-
-    public Request(User user, Movie movie, RequestType requestType, RequestStatus requestStatus, String requestBody) {
-        this.user = user;
-        this.movie = movie;
-        this.requestType = requestType;
-        this.requestStatus = requestStatus;
-        this.requestBody = requestBody;
-    }
 }

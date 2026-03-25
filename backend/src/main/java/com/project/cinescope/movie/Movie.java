@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.cinescope.actor.Actor;
 import com.project.cinescope.director.Director;
 import com.project.cinescope.genre.Genre;
+import com.project.cinescope.request.Request;
+import com.project.cinescope.review.Review;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
@@ -16,6 +19,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "movie")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @SQLRestriction("active = true")
@@ -39,23 +43,21 @@ public class Movie {
     @Column(nullable = false)
     private String poster;
 
-    @JsonIgnore
-    private Boolean active = true;
-
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(mappedBy = "movies", targetEntity = Actor.class)
     private List<Actor> actors = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(mappedBy = "movies", targetEntity = Director.class)
     private List<Director> directors = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(mappedBy = "movies", targetEntity = Genre.class)
     private List<Genre> genres = new ArrayList<>();
 
-    public Movie(String name, LocalTime duration, Year publicationYear, String synopsis, String poster) {
-        this.name = name;
-        this.duration = duration;
-        this.publicationYear = publicationYear;
-        this.synopsis = synopsis;
-        this.poster = poster;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", targetEntity = Review.class)
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", targetEntity = Request.class)
+    private List<Request> requests = new ArrayList<>();
+
+    @JsonIgnore
+    private Boolean active = true;
 }

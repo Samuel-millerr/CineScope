@@ -3,6 +3,7 @@ package com.project.cinescope.genre;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.cinescope.movie.Movie;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "genre")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @SQLRestriction("active = true")
@@ -33,8 +35,4 @@ public class Genre {
             inverseJoinColumns = @JoinColumn(name = "id_movie", table = "movie", referencedColumnName = "id")
     )
     private List<Movie> movies = new ArrayList<>();
-
-    public Genre(String genre) {
-        this.genre = genre;
-    }
 }

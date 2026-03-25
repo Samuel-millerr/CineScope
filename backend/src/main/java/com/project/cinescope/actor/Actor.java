@@ -13,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "actor")
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @SQLRestriction("active = true")
 public class Actor {
@@ -36,9 +37,4 @@ public class Actor {
             inverseJoinColumns = @JoinColumn(name = "id_movie", table = "movie", referencedColumnName = "id")
     )
     private List<Movie> movies = new ArrayList<>();
-
-    public Actor(String name, String photo) {
-        this.name = name;
-        this.photo = photo;
-    }
 }

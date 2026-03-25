@@ -3,6 +3,7 @@ package com.project.cinescope.director;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.cinescope.movie.Movie;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "director")
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @SQLRestriction("active = true")
 public class Director {
@@ -33,8 +35,4 @@ public class Director {
             inverseJoinColumns = @JoinColumn(name = "movie_id", table = "movie", referencedColumnName = "id")
     )
     private List<Movie> movies = new ArrayList<>();
-
-    public Director(String name) {
-        this.name = name;
-    }
 }
