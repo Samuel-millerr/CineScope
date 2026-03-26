@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "cinescope_user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -25,24 +25,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 255, nullable = false, unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String username;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 100, nullable = false)
     private String hashedPassword;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 100, nullable = false)
     private String firstName;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 100, nullable = false)
     private String lastName;
 
-    @Column(length = 255, nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role", nullable = false)
-    private UserRole userRole = UserRole.COMMON;
+    @Column(nullable = false)
+    private UserRole user = UserRole.COMMON;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

@@ -17,3 +17,7 @@ spring:
     properties:
       hibernate:
         format-sql: false
+
+    flyaway:
+      enabled: true
+      baseline-on-migrate: true

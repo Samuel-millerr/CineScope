@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
 
-import java.time.LocalTime;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +27,11 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 255, nullable = false, unique = true)
-    private String name;
+    @Column(length = 100, nullable = false, unique = true)
+    private String title;
 
     @Column(nullable = false)
-    private LocalTime duration;
+    private Integer duration;
 
     @Column(nullable = false)
     private Year publicationYear;
@@ -40,7 +39,7 @@ public class Movie {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String synopsis;
 
-    @Column(nullable = false)
+    @Column(length = 512, nullable = false)
     private String poster;
 
     @ManyToMany(mappedBy = "movies", targetEntity = Actor.class)
@@ -52,10 +51,10 @@ public class Movie {
     @ManyToMany(mappedBy = "movies", targetEntity = Genre.class)
     private List<Genre> genres = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", targetEntity = Review.class)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "movie", targetEntity = Review.class)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", targetEntity = Request.class)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "movie", targetEntity = Request.class)
     private List<Request> requests = new ArrayList<>();
 
     @JsonIgnore

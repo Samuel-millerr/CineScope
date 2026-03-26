@@ -30,7 +30,7 @@ public class Review {
     @JoinColumn(name = "id_movie", nullable = false, referencedColumnName = "id")
     private Movie movie;
 
-    @Column(length = 255, nullable = true)
+    @Column(columnDefinition = "TEXT", nullable = true)
     private String reviewText;
 
     @Column(nullable = false)

@@ -22,15 +22,15 @@ public class Director {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 100, nullable = false)
     private String name;
 
     @JsonIgnore
     private Boolean active = true;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name="movie_director",
+            name = "movie_director",
             joinColumns = @JoinColumn(name = "director_id", table = "director", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id", table = "movie", referencedColumnName = "id")
     )

@@ -21,7 +21,7 @@ public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 255, nullable = false) // Atributo de nome na tabela
+    @Column(length = 100, nullable = false, unique = true)
     private String name;
 
     @Column(length = 512, nullable = false)
@@ -30,7 +30,7 @@ public class Actor {
     @JsonIgnore
     private Boolean active = true;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "movie_actor",
             joinColumns = @JoinColumn(name = "id_actor", table = "actor", referencedColumnName = "id"),
