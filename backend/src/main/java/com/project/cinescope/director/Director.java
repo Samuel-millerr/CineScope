@@ -31,8 +31,8 @@ public class Director {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "movie_director",
-            joinColumns = @JoinColumn(name = "director_id", table = "director", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id", table = "movie", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "id_director", table = "director", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_movie", table = "movie", referencedColumnName = "id")
     )
     private List<Movie> movies = new ArrayList<>();
 }
