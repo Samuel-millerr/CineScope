@@ -37,7 +37,7 @@ CREATE TABLE cinescope_user(
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     role user_role NOT NULL DEFAULT 'Comum',
-    created_at DATE NOT NULL,
+    created_at DATE NOT NULL DEFAULT NOW(),
     active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
