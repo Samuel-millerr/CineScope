@@ -20,7 +20,7 @@ import java.util.List;
 public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(length = 100, nullable = false)
     private String name;
