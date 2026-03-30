@@ -29,7 +29,7 @@ public class DirectorController {
     public ResponseEntity<DirectorResponseDto> getById(
             @PathVariable Long id
     ) {
-        DirectorResponseDto directorResponseDto = directorService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(directorResponseDto);
+        DirectorResponseDto responseDto = directorService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 }

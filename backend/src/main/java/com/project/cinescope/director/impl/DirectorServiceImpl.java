@@ -20,9 +20,8 @@ public class DirectorServiceImpl implements DirectorService {
 
     public List<DirectorResponseDto> getAll() {
         List<Director> directorList = directorRepository.findAll();
-        return directorList
-                .stream().
-                map(DirectorResponseDto::toDirectorDto)
+        return directorList.stream()
+                .map(DirectorResponseDto::toDirectorDto)
                 .toList();
     }
 
