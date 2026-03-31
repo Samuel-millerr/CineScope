@@ -5,7 +5,6 @@ import com.project.cinescope.actor.ActorRepository;
 import com.project.cinescope.actor.ActorService;
 import com.project.cinescope.actor.response.ActorResponseDto;
 import com.project.cinescope.exception.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +27,6 @@ public class ActorServiceImpl implements ActorService {
     public ActorResponseDto getById(Long id) {
         return actorRepository.findById(id)
                 .map(ActorResponseDto::toActorDto)
-                .orElseThrow(() -> new ResourceNotFoundException("No actor find with especified id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
     }
 }

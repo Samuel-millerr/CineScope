@@ -8,7 +8,6 @@ import com.project.cinescope.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DirectorServiceImpl implements DirectorService {
@@ -28,6 +27,6 @@ public class DirectorServiceImpl implements DirectorService {
     public DirectorResponseDto getById(Long id) {
         return directorRepository.findById(id)
                 .map(DirectorResponseDto::toDirectorDto)
-                .orElseThrow(() -> new ResourceNotFoundException("No director find with especified id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
     }
 }

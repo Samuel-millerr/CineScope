@@ -27,6 +27,6 @@ public class GenreServiceImpl implements GenreService {
     public GenreResponseDto getById(Long id) {
         return genreRepository.findById(id)
                 .map(GenreResponseDto::toGenreDto)
-                .orElseThrow(() -> new ResourceNotFoundException("No genre find with especified id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Genre not found with id: " + id));
     }
 }
