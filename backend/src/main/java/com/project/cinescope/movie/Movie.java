@@ -34,7 +34,7 @@ public class Movie {
     private Integer duration;
 
     @Column(nullable = false)
-    private Year publicationYear;
+    private Integer publicationYear;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String synopsis;
