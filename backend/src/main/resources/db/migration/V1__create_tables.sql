@@ -27,7 +27,7 @@ CREATE TABLE movie(
     active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-CREATE TYPE user_role AS ENUM ('Comum', 'Administrador');
+CREATE TYPE user_role AS ENUM ('COMUM', 'ADMINISTRADOR');
 
 CREATE TABLE cinescope_user(
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -36,14 +36,14 @@ CREATE TABLE cinescope_user(
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    role user_role NOT NULL DEFAULT 'Comum',
+    role user_role NOT NULL DEFAULT 'COMUM',
     created_at DATE NOT NULL DEFAULT NOW(),
     active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-CREATE TYPE request_type AS ENUM ('Adição', 'Edição');
+CREATE TYPE request_type AS ENUM ('ADIÇÃO', 'EDIÇÃO');
 
-CREATE TYPE request_status AS ENUM ('Aprovado', 'Pendente', 'Reprovado');
+CREATE TYPE request_status AS ENUM ('APROVADO', 'PENDENTE', 'REPROVADO');
 
 CREATE TABLE request(
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

@@ -39,7 +39,7 @@ public class Request {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "request_status", nullable = false)
-    private RequestStatus status = RequestStatus.PENDING;
+    private RequestStatus status = RequestStatus.PENDENTE;
 
     @Column(nullable = false)
     private LocalDate requestDate = LocalDate.now();
