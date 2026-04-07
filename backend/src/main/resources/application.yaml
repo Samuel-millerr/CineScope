@@ -1,0 +1,23 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: cinescope
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cinescope
+    username: postgres
+    password: root
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format-sql: false
+
+    flyaway:
+      enabled: true
+      baseline-on-migrate: true
