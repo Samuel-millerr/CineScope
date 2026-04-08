@@ -5,7 +5,6 @@ import com.project.cinescope.movie.Movie;
 import com.project.cinescope.request.enums.RequestStatus;
 import com.project.cinescope.request.enums.RequestType;
 import com.project.cinescope.user.User;
-import com.sun.jdi.ClassType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
