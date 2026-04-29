@@ -27,7 +27,8 @@ public class ReviewController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ReviewGetResponseDto> getById(
-            @PathVariable Long id) {
+            @PathVariable Long id
+    ) {
         ReviewGetResponseDto responseDto = reviewService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
