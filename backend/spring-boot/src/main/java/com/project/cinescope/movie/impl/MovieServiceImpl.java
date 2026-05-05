@@ -1,6 +1,6 @@
 package com.project.cinescope.movie.impl;
 
-import com.project.cinescope.exception.ResourceNotFoundException;
+import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.movie.Movie;
 import com.project.cinescope.movie.MovieRepository;
 import com.project.cinescope.movie.MovieService;

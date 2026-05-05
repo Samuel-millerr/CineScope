@@ -240,6 +240,6 @@ VALUES ('Inception',
         'Um garoto descobre que é bruxo.',
         'https://m.media-amazon.com/images/I/715YKSv-XuL.jpg');
 
-INSERT INTO cinescope_user (username, hashed_password, first_name, last_name, email, role)
-VALUES ('Adm', '123456', 'Samuel', 'Soares', 'administrador@gmail.com', 'ADMINISTRADOR'),
-       ('Comum', '123456', 'Samuel', 'Soares', 'comum@gmail.com', 'COMUM');
+-- INSERT INTO cinescope_user (username, hashed_password, first_name, last_name, email, role)
+-- VALUES ('Adm', '123456', 'Samuel', 'Soares', 'administrador@gmail.com', 'ADMINISTRADOR'),
+--        ('Comum', '123456', 'Samuel', 'Soares', 'comum@gmail.com', 'COMUM');

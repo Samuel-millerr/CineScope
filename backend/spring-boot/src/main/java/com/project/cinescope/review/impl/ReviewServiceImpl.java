@@ -1,6 +1,6 @@
 package com.project.cinescope.review.impl;
 
-import com.project.cinescope.exception.ResourceNotFoundException;
+import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.review.Review;
 import com.project.cinescope.review.ReviewRepository;
 import com.project.cinescope.review.ReviewService;

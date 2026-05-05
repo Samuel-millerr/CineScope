@@ -4,7 +4,7 @@ import com.project.cinescope.director.Director;
 import com.project.cinescope.director.DirectorRepository;
 import com.project.cinescope.director.DirectorService;
 import com.project.cinescope.director.response.DirectorResponseDto;
-import com.project.cinescope.exception.ResourceNotFoundException;
+import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
