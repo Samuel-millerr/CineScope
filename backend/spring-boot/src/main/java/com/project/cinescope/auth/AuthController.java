@@ -46,20 +46,20 @@ public class AuthController {
     public ResponseEntity register(@RequestBody @Valid UserRequestRegisterDto requestDto) {
         if (userService.findByUsername(requestDto.username()) != null) {
             return ResponseEntity.badRequest().build();
-        } else {
-            String hashedPassword = new BCryptPasswordEncoder().encode(requestDto.password());
-
-            UserRequestRegisterDto registerDto = new UserRequestRegisterDto(
-                    requestDto.username(),
-                    hashedPassword,
-                    requestDto.firstName(),
-                    requestDto.lastName(),
-                    requestDto.email()
-            );
-
-            UserResponseDto responseDto = userService.post(registerDto);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
         }
+
+        String hashedPassword = new BCryptPasswordEncoder().encode(requestDto.password());
+
+        UserRequestRegisterDto registerDto = new UserRequestRegisterDto(
+                requestDto.username(),
+                hashedPassword,
+                requestDto.firstName(),
+                requestDto.lastName(),
+                requestDto.email()
+        );
+
+        UserResponseDto responseDto = userService.post(registerDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 }
