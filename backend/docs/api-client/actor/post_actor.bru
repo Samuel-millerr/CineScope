@@ -5,15 +5,15 @@ meta {
 }
 
 post {
-  url: http://localhost:8000/api/actors
+  url: {{baseUrl}}/actors
   body: json
-  auth: inherit
+  auth: none
 }
 
 body:json {
   {
-    "actor_name": "Daniel Dai-Lewis",
-    "actor_photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1oXEKDksbF4umb1nIKE7zBGZ2SZRAo4turgaoSAZSPy7M4fHfspEMi78YQEoh8LTjKzneasa9mFMUsLpqXeBY5RIsBkLk_rqD1tolLZl8vg&s=10"
+    "name": "Daniel Dai-Lewis",
+    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1oXEKDksbF4umb1nIKE7zBGZ2SZRAo4turgaoSAZSPy7M4fHfspEMi78YQEoh8LTjKzneasa9mFMUsLpqXeBY5RIsBkLk_rqD1tolLZl8vg&s=10"
   }
 }
 

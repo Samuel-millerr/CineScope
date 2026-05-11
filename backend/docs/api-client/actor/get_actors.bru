@@ -1,11 +1,11 @@
 meta {
-  name: get_actor
+  name: get_actors
   type: http
   seq: 2
 }
 
 get {
-  url: http://localhost:8000/api/actors
+  url: {{baseUrl}}/actors
   body: none
   auth: inherit
 }

@@ -1,0 +1,27 @@
+meta {
+  name: register
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "administrador",
+    "password": "123456",
+    "firstName": "Samuel",
+    "lastName": "Soares",
+    "email": "samuel.m.soares10@gmail.com"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
