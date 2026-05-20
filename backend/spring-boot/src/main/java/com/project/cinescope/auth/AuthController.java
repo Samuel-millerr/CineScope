@@ -1,10 +1,11 @@
 package com.project.cinescope.auth;
 
+import com.project.cinescope.auth.service.TokenService;
 import com.project.cinescope.user.User;
 import com.project.cinescope.user.UserService;
 import com.project.cinescope.user.request.UserRequestLoginDto;
 import com.project.cinescope.user.request.UserRequestRegisterDto;
-import com.project.cinescope.user.response.LoginResponseDto;
+import com.project.cinescope.auth.response.TokenResponseDto;
 import com.project.cinescope.user.response.UserResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class AuthController {
 
         String token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDto(token));
+        return ResponseEntity.ok(new TokenResponseDto(token));
     }
 
     @PostMapping("/register")

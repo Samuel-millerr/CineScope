@@ -1,4 +1,4 @@
-package com.project.cinescope.auth;
+package com.project.cinescope.auth.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -40,7 +40,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException e) {
-            return "";
+            return null;
         }
     }
 

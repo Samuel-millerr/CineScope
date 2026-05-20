@@ -1,5 +1,6 @@
 package com.project.cinescope.user.impl;
 
+import com.project.cinescope.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.user.User;
 import com.project.cinescope.user.UserRepository;
@@ -31,6 +32,16 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserResponseDto post(UserRequestRegisterDto registerDto) {
+        String username = registerDto.username();
+        if (userRepository.existsByUsername(username)) {
+            throw new DuplicateResourceException("User with username " + username + " already exists");
+        }
+
+        String userEmail = registerDto.email();
+        if(userRepository.existsByEmail(userEmail)) {
+            throw new DuplicateResourceException("User with email " + userEmail + " already exists");
+        }
+
         User user = UserRequestRegisterDto.toUser(registerDto);
         User createdUser = userRepository.save(user);
         return  UserResponseDto.toUserDto(createdUser);

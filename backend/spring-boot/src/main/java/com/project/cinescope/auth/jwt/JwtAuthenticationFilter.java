@@ -1,6 +1,6 @@
-package com.project.cinescope.config;
+package com.project.cinescope.auth.jwt;
 
-import com.project.cinescope.auth.TokenService;
+import com.project.cinescope.auth.service.TokenService;
 import com.project.cinescope.user.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,11 +15,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class SecurityFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
     private final UserService userService;
 
-    public SecurityFilter(TokenService tokenService, UserService userService) {
+    public JwtAuthenticationFilter(TokenService tokenService, UserService userService) {
         this.tokenService = tokenService;
         this.userService = userService;
     }
@@ -29,10 +29,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         String token = recoverToken(request);
         if (token != null) {
             String subject = tokenService.validateToken(token);
-            UserDetails user = userService.findByUsername(subject);
+            if (subject != null) {
+                UserDetails user = userService.findByUsername(subject);
 
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
         filterChain.doFilter(request, response);
     }

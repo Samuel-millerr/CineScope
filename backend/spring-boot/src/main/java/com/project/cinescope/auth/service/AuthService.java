@@ -1,4 +1,4 @@
-package com.project.cinescope.auth;
+package com.project.cinescope.auth.service;
 
 import com.project.cinescope.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
