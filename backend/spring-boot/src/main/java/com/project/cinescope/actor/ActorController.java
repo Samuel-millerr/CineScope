@@ -39,4 +39,12 @@ public class ActorController {
         ActorResponseDto responseDto = actorService.post(requestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ActorResponseDto> delete(
+            @PathVariable Long id
+    ) {
+        actorService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

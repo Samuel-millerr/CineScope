@@ -10,6 +10,7 @@ import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ActorServiceImpl implements ActorService {
@@ -41,5 +42,15 @@ public class ActorServiceImpl implements ActorService {
         Actor actor = ActorRequestDto.toActor(requestDto);
         Actor createdActor = actorRepository.save(actor);
         return ActorResponseDto.toActorDto(createdActor);
+    }
+
+    public void delete(Long id) {
+        Optional<Actor> actor = actorRepository.findById(id);
+
+        if (actor.isEmpty()) {
+            throw  new ResourceNotFoundException("Actor not found with id: " + id);
+        }
+
+        actorRepository.delete(actor.get());
     }
 }

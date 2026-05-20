@@ -11,4 +11,6 @@ public interface ActorService {
     ActorResponseDto getById(Long id);
 
     ActorResponseDto post(ActorRequestDto requestDto);
+
+    void delete(Long id);
 }
