@@ -46,7 +46,6 @@ public class ActorServiceImpl implements ActorService {
 
     public void delete(Long id) {
         Optional<Actor> actor = actorRepository.findById(id);
-
         if (actor.isEmpty()) {
             throw  new ResourceNotFoundException("Actor not found with id: " + id);
         }
