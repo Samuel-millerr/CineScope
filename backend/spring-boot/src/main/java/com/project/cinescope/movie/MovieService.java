@@ -1,11 +1,16 @@
 package com.project.cinescope.movie;
 
-import com.project.cinescope.movie.response.MovieGetResponseDto;
+import com.project.cinescope.movie.request.MovieRequestDto;
+import com.project.cinescope.movie.response.MovieResponseDto;
 
 import java.util.List;
 
 public interface MovieService {
-    public List<MovieGetResponseDto> getAll();
+    List<MovieResponseDto> getAll();
 
-    public MovieGetResponseDto getById(Long id);
+    MovieResponseDto getById(Long id);
+
+    MovieResponseDto post(MovieRequestDto requestDto);
+
+//    void delete(Long id);
 }

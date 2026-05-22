@@ -10,7 +10,7 @@ public interface DirectorService {
 
     DirectorResponseDto getById(Long id);
 
-    DirectorResponseDto post(DirectorRequestDto directorRequestDto);
+    DirectorResponseDto post(DirectorRequestDto requestDto);
 
     void delete(Long id);
 }

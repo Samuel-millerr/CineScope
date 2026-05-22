@@ -1,13 +1,14 @@
 package com.project.cinescope.movie;
 
-import com.project.cinescope.movie.response.MovieGetResponseDto;
+import com.project.cinescope.movie.request.MovieRequestDto;
+import com.project.cinescope.movie.response.MovieResponseDto;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,17 +21,31 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MovieGetResponseDto>> getAll() {
-        List<MovieGetResponseDto> responseDtoList = movieService.getAll();
+    public ResponseEntity<List<MovieResponseDto>> getAll() {
+        List<MovieResponseDto> responseDtoList = movieService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieGetResponseDto> getById(
+    public ResponseEntity<MovieResponseDto> getById(
             @PathVariable Long id
     ) {
-        MovieGetResponseDto responseDto = movieService.getById(id);
+        MovieResponseDto responseDto = movieService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
+    @PostMapping
+    public ResponseEntity<MovieResponseDto> post(
+            @RequestBody @Valid MovieRequestDto requestDto
+    ) {
+        MovieResponseDto responseDto = movieService.post(requestDto);
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(responseDto.id())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(responseDto);
+    }
 }

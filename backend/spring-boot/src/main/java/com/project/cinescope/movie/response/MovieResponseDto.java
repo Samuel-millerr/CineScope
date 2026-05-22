@@ -1,14 +1,12 @@
 package com.project.cinescope.movie.response;
 
-import com.project.cinescope.actor.Actor;
 import com.project.cinescope.actor.response.ActorResponseDto;
-import com.project.cinescope.director.Director;
 import com.project.cinescope.director.response.DirectorResponseDto;
 import com.project.cinescope.movie.Movie;
 
 import java.util.List;
 
-public record MovieGetResponseDto(
+public record MovieResponseDto(
         Long id,
         String title,
         Integer duration,
@@ -18,8 +16,8 @@ public record MovieGetResponseDto(
         List<ActorResponseDto> actors,
         List<DirectorResponseDto> directors
 ) {
-    public static MovieGetResponseDto toMovieDto(Movie movie) {
-        return new MovieGetResponseDto(
+    public static MovieResponseDto toMovieDto(Movie movie) {
+        return new MovieResponseDto(
                 movie.getId(),
                 movie.getTitle(),
                 movie.getDuration(),

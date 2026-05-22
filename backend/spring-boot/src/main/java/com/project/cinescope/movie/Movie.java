@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @SQLRestriction("active = true")
 public class Movie {
     @Id
@@ -35,10 +37,10 @@ public class Movie {
     @Column(nullable = false)
     private Integer publicationYear;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = true)
     private String synopsis;
 
-    @Column(length = 512, nullable = false)
+    @Column(length = 512, nullable = true)
     private String poster;
 
     @ManyToMany(mappedBy = "movies", targetEntity = Actor.class)

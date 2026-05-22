@@ -1,11 +1,11 @@
 meta {
-  name: delete_genre
+  name: health
   type: http
-  seq: 4
+  seq: 1
 }
 
-delete {
-  url: {{baseUrl}}/genres
+get {
+  url: http://localhost:8000/api/genres/health
   body: none
   auth: inherit
 }

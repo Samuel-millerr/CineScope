@@ -1,10 +1,12 @@
 package com.project.cinescope.movie.impl;
 
+import com.project.cinescope.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.movie.Movie;
 import com.project.cinescope.movie.MovieRepository;
 import com.project.cinescope.movie.MovieService;
-import com.project.cinescope.movie.response.MovieGetResponseDto;
+import com.project.cinescope.movie.request.MovieRequestDto;
+import com.project.cinescope.movie.response.MovieResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,16 +19,27 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public List<MovieGetResponseDto> getAll() {
+    public List<MovieResponseDto> getAll() {
         List<Movie> movieList = movieRepository.findAll();
         return movieList.stream()
-                .map(MovieGetResponseDto::toMovieDto)
+                .map(MovieResponseDto::toMovieDto)
                 .toList();
     }
 
-    public MovieGetResponseDto getById(Long id) {
+    public MovieResponseDto getById(Long id) {
         return movieRepository.findById(id)
-                .map(MovieGetResponseDto::toMovieDto)
+                .map(MovieResponseDto::toMovieDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id " + id));
+    }
+
+    public MovieResponseDto post(MovieRequestDto requestDto) {
+        String movieTitle = requestDto.title();
+        if (movieRepository.existsByTitle(movieTitle)) {
+            throw new DuplicateResourceException("Movie with title " + movieTitle + " already exists");
+        }
+
+        Movie movie = MovieRequestDto.toMovie(requestDto);
+        Movie createdMovie = movieRepository.save(movie);
+        return MovieResponseDto.toMovieDto(createdMovie);
     }
 }

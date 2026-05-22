@@ -1,6 +1,8 @@
 package com.project.cinescope.genre;
 
 import com.project.cinescope.genre.response.GenreResponseDto;
+import com.project.cinescope.health.HealthCheckService;
+import com.project.cinescope.health.response.HealthCheckResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +16,16 @@ import java.util.List;
 @RequestMapping("/api/genres")
 public class GenreController {
     private final GenreService genreService;
+    private final HealthCheckService healthCheckService;
 
-    public GenreController(GenreService genreService) {
+    public GenreController(GenreService genreService, HealthCheckService healthCheckService) {
         this.genreService = genreService;
+        this.healthCheckService = healthCheckService;
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<HealthCheckResponseDto> health() {
+        return ResponseEntity.ok(healthCheckService.healthCheck(this.getClass()));
     }
 
     @GetMapping
