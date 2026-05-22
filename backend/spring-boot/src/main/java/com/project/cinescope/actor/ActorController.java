@@ -2,6 +2,8 @@ package com.project.cinescope.actor;
 
 import com.project.cinescope.actor.request.ActorRequestDto;
 import com.project.cinescope.actor.response.ActorResponseDto;
+import com.project.cinescope.health.HealthCheckService;
+import com.project.cinescope.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +16,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/actors")
 public class ActorController {
-    private final ActorService actorService;
 
-    public ActorController(ActorService actorService) {
+    private final ActorService actorService;
+    private final HealthCheckService healthCheckService;
+
+    public ActorController(ActorService actorService, HealthCheckService healthCheckService) {
         this.actorService = actorService;
+        this.healthCheckService = healthCheckService;
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<HealthCheckResponseDto> healthCheck() {
+        return ResponseEntity.ok(healthCheckService.healthCheck(this.getClass()));
     }
 
     @GetMapping
