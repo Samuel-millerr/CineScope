@@ -1,6 +1,7 @@
 package com.project.cinescope.exception;
 
 import com.project.cinescope.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.exception.exceptions.InvalidCredentialsException;
 import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -34,5 +35,17 @@ public class GlobalExceptionHandler {
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<StandardError> invalidCredentials(InvalidCredentialsException e, HttpServletRequest request) {
+        StandardError error = new StandardError(
+                Instant.now(),
+                HttpStatus.FORBIDDEN.value(),
+                "Invalid credentials",
+                e.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 }

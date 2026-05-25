@@ -1,5 +1,7 @@
 package com.project.cinescope.movie;
 
+import com.project.cinescope.health.HealthCheckService;
+import com.project.cinescope.health.response.HealthCheckResponseDto;
 import com.project.cinescope.movie.request.MovieRequestDto;
 import com.project.cinescope.movie.response.MovieResponseDto;
 import jakarta.validation.Valid;
@@ -15,9 +17,16 @@ import java.util.List;
 @RequestMapping("/api/movies")
 public class MovieController {
     private final MovieService movieService;
+    private final HealthCheckService healthCheckService;
 
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, HealthCheckService healthCheckService) {
         this.movieService = movieService;
+        this.healthCheckService = healthCheckService;
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<HealthCheckResponseDto> health() {
+        return ResponseEntity.ok(healthCheckService.healthCheck(this.getClass()));
     }
 
     @GetMapping

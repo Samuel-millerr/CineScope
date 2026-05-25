@@ -1,6 +1,5 @@
 package com.project.cinescope.director.request;
 
-import com.project.cinescope.actor.Actor;
 import com.project.cinescope.director.Director;
 
 public record DirectorRequestDto(String name) {

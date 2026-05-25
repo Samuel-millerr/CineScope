@@ -1,7 +1,6 @@
 package com.project.cinescope.user.impl;
 
 import com.project.cinescope.exception.exceptions.DuplicateResourceException;
-import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.user.User;
 import com.project.cinescope.user.UserRepository;
 import com.project.cinescope.user.UserService;

@@ -11,6 +11,4 @@ public interface MovieService {
     MovieResponseDto getById(Long id);
 
     MovieResponseDto post(MovieRequestDto requestDto);
-
-//    void delete(Long id);
 }
