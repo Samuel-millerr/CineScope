@@ -1,10 +1,10 @@
 package com.project.cinescope.review.impl;
 
-import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.review.Review;
 import com.project.cinescope.review.ReviewRepository;
 import com.project.cinescope.review.ReviewService;
 import com.project.cinescope.review.response.ReviewGetResponseDto;
+import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

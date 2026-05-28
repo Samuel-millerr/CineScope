@@ -37,12 +37,12 @@ public class UserServiceImpl implements UserService {
         }
 
         String userEmail = registerDto.email();
-        if(userRepository.existsByEmail(userEmail)) {
+        if (userRepository.existsByEmail(userEmail)) {
             throw new DuplicateResourceException("User with email " + userEmail + " already exists");
         }
 
         User user = UserRequestRegisterDto.toUser(registerDto);
         User createdUser = userRepository.save(user);
-        return  UserResponseDto.toUserDto(createdUser);
+        return UserResponseDto.toUserDto(createdUser);
     }
 }

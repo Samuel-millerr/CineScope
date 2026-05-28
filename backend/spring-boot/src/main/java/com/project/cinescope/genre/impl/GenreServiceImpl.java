@@ -1,10 +1,10 @@
 package com.project.cinescope.genre.impl;
 
-import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.genre.Genre;
 import com.project.cinescope.genre.GenreRepository;
 import com.project.cinescope.genre.GenreService;
 import com.project.cinescope.genre.response.GenreResponseDto;
+import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

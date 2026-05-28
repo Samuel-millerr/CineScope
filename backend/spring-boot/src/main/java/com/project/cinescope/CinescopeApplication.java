@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CinescopeApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CinescopeApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CinescopeApplication.class, args);
+    }
 
 
-	@GetMapping("/api")
-	public ResponseEntity<String> health() {
-		return ResponseEntity.ok().body("OK!");
-	}
+    @GetMapping("/api")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok().body("OK!");
+    }
 }
 

@@ -4,8 +4,8 @@ import com.project.cinescope.auth.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -44,7 +44,8 @@ public class SecurityConfiguration {
                             for (EndpointsPermissions permission : EndpointsPermissions.values()) {
                                 switch (permission.access) {
                                     case PUBLIC -> authorize.requestMatchers(permission.method, permission.path).permitAll();
-                                    case ADMIN -> authorize.requestMatchers(permission.method, permission.path).hasRole("ADMIN");
+                                    case ADMIN ->
+                                            authorize.requestMatchers(permission.method, permission.path).hasRole("ADMIN");
                                 }
                             }
 

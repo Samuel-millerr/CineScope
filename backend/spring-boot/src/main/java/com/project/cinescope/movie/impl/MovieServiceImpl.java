@@ -1,12 +1,12 @@
 package com.project.cinescope.movie.impl;
 
-import com.project.cinescope.shared.exception.exceptions.DuplicateResourceException;
-import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.movie.Movie;
 import com.project.cinescope.movie.MovieRepository;
 import com.project.cinescope.movie.MovieService;
 import com.project.cinescope.movie.request.MovieRequestDto;
 import com.project.cinescope.movie.response.MovieResponseDto;
+import com.project.cinescope.shared.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

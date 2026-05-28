@@ -46,7 +46,7 @@ public class DirectorServiceImpl implements DirectorService {
     public void delete(Long id) {
         Optional<Director> director = directorRepository.findById(id);
         if (director.isEmpty()) {
-            throw  new ResourceNotFoundException("Director not found with id: " + id);
+            throw new ResourceNotFoundException("Director not found with id: " + id);
         }
 
         directorRepository.delete(director.get());
