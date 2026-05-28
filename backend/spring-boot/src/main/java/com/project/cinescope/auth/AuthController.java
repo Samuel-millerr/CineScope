@@ -2,9 +2,9 @@ package com.project.cinescope.auth;
 
 import com.project.cinescope.auth.response.TokenResponseDto;
 import com.project.cinescope.auth.service.TokenService;
-import com.project.cinescope.exception.exceptions.InvalidCredentialsException;
-import com.project.cinescope.health.HealthCheckService;
-import com.project.cinescope.health.response.HealthCheckResponseDto;
+import com.project.cinescope.shared.exception.exceptions.InvalidCredentialsException;
+import com.project.cinescope.shared.health.HealthCheckService;
+import com.project.cinescope.shared.health.response.HealthCheckResponseDto;
 import com.project.cinescope.user.User;
 import com.project.cinescope.user.UserService;
 import com.project.cinescope.user.request.UserRequestLoginDto;

@@ -1,7 +1,7 @@
 package com.project.cinescope.movie;
 
-import com.project.cinescope.health.HealthCheckService;
-import com.project.cinescope.health.response.HealthCheckResponseDto;
+import com.project.cinescope.shared.health.HealthCheckService;
+import com.project.cinescope.shared.health.response.HealthCheckResponseDto;
 import com.project.cinescope.movie.request.MovieRequestDto;
 import com.project.cinescope.movie.response.MovieResponseDto;
 import jakarta.validation.Valid;

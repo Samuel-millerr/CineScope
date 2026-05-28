@@ -1,6 +1,6 @@
 package com.project.cinescope.genre.impl;
 
-import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.genre.Genre;
 import com.project.cinescope.genre.GenreRepository;
 import com.project.cinescope.genre.GenreService;

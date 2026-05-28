@@ -1,4 +1,4 @@
-package com.project.cinescope.config;
+package com.project.cinescope.shared.config;
 
 import com.project.cinescope.auth.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
@@ -37,19 +37,19 @@ public class SecurityConfiguration {
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/actors").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/actors/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/directors").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/directors/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/movies").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/movies/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(authorize -> {
+                            authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                            authorize.requestMatchers(HttpMethod.GET, "/api").permitAll();
+
+                            for (EndpointsPermissions permission : EndpointsPermissions.values()) {
+                                switch (permission.access) {
+                                    case PUBLIC -> authorize.requestMatchers(permission.method, permission.path).permitAll();
+                                    case ADMIN -> authorize.requestMatchers(permission.method, permission.path).hasRole("ADMIN");
+                                }
+                            }
+
+                            authorize.anyRequest().authenticated();
+                        }
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

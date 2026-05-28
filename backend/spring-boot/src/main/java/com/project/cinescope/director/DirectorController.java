@@ -2,8 +2,8 @@ package com.project.cinescope.director;
 
 import com.project.cinescope.director.request.DirectorRequestDto;
 import com.project.cinescope.director.response.DirectorResponseDto;
-import com.project.cinescope.health.HealthCheckService;
-import com.project.cinescope.health.response.HealthCheckResponseDto;
+import com.project.cinescope.shared.health.HealthCheckService;
+import com.project.cinescope.shared.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

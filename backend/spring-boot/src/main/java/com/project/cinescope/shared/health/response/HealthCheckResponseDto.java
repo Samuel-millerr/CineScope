@@ -1,4 +1,4 @@
-package com.project.cinescope.health.response;
+package com.project.cinescope.shared.health.response;
 
 import java.time.Instant;
 import java.util.List;

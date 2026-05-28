@@ -5,8 +5,8 @@ import com.project.cinescope.actor.ActorRepository;
 import com.project.cinescope.actor.ActorService;
 import com.project.cinescope.actor.request.ActorRequestDto;
 import com.project.cinescope.actor.response.ActorResponseDto;
-import com.project.cinescope.exception.exceptions.DuplicateResourceException;
-import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.shared.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.project.cinescope.exception;
+package com.project.cinescope.shared.exception;
 
 import java.time.Instant;
 

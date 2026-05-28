@@ -1,8 +1,8 @@
-package com.project.cinescope.exception;
+package com.project.cinescope.shared.exception;
 
-import com.project.cinescope.exception.exceptions.DuplicateResourceException;
-import com.project.cinescope.exception.exceptions.InvalidCredentialsException;
-import com.project.cinescope.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.shared.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.shared.exception.exceptions.InvalidCredentialsException;
+import com.project.cinescope.shared.exception.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

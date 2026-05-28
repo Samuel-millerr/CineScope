@@ -1,8 +1,8 @@
 package com.project.cinescope.genre;
 
 import com.project.cinescope.genre.response.GenreResponseDto;
-import com.project.cinescope.health.HealthCheckService;
-import com.project.cinescope.health.response.HealthCheckResponseDto;
+import com.project.cinescope.shared.health.HealthCheckService;
+import com.project.cinescope.shared.health.response.HealthCheckResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
-package com.project.cinescope.health;
+package com.project.cinescope.shared.health;
 
-import com.project.cinescope.health.response.HealthCheckResponseDto;
+import com.project.cinescope.shared.health.response.HealthCheckResponseDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;

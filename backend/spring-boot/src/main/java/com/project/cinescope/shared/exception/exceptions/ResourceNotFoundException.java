@@ -1,4 +1,4 @@
-package com.project.cinescope.exception.exceptions;
+package com.project.cinescope.shared.exception.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {
