@@ -1,11 +1,11 @@
 meta {
-  name: get_review
+  name: get-user-by-username
   type: http
-  seq: 1
+  seq: 3
 }
 
 get {
-  url: {{baseUrl}}/reviews
+  url: {{baseUrl}}/users/username/Comum
   body: none
   auth: inherit
 }

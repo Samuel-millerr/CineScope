@@ -1,11 +1,11 @@
 meta {
-  name: get_movie
+  name: delete-director
   type: http
-  seq: 3
+  seq: 4
 }
 
-get {
-  url: {{baseUrl}}/movies
+delete {
+  url: {{baseUrl}}/directors/33
   body: none
   auth: inherit
 }

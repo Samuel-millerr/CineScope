@@ -1,11 +1,11 @@
 meta {
-  name: delete_actor
+  name: get-user-by-id
   type: http
-  seq: 4
+  seq: 2
 }
 
-delete {
-  url: {{baseUrl}}/actors/50
+get {
+  url: {{baseUrl}}/users/id/1
   body: none
   auth: inherit
 }

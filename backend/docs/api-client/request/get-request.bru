@@ -1,11 +1,11 @@
 meta {
-  name: delete_director
+  name: get-request
   type: http
-  seq: 4
+  seq: 1
 }
 
-delete {
-  url: {{baseUrl}}/directors/33
+get {
+  url: {{baseUrl}}/requests
   body: none
   auth: inherit
 }

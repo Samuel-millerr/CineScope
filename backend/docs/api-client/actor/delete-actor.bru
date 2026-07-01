@@ -1,11 +1,11 @@
 meta {
-  name: health
+  name: delete-actor
   type: http
-  seq: 1
+  seq: 4
 }
 
-get {
-  url: {{baseUrl}}/api/actors/health
+delete {
+  url: {{baseUrl}}/actors/50
   body: none
   auth: inherit
 }
