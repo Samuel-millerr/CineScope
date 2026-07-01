@@ -1,0 +1,63 @@
+package com.project.cinescope.application.movie;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.cinescope.application.actor.Actor;
+import com.project.cinescope.application.director.Director;
+import com.project.cinescope.application.genre.Genre;
+import com.project.cinescope.application.request.Request;
+import com.project.cinescope.application.review.Review;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "movie")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@SQLRestriction("active = true")
+public class Movie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 100, nullable = false, unique = true)
+    private String title;
+
+    @Column(nullable = false)
+    private Integer duration;
+
+    @Column(nullable = false)
+    private Integer publicationYear;
+
+    @Column(columnDefinition = "TEXT", nullable = true)
+    private String synopsis;
+
+    @Column(length = 512, nullable = true)
+    private String poster;
+
+    @ManyToMany(mappedBy = "movies", targetEntity = Actor.class)
+    private List<Actor> actors = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "movies", targetEntity = Director.class)
+    private List<Director> directors = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "movies", targetEntity = Genre.class)
+    private List<Genre> genres = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "movie", targetEntity = Review.class)
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "movie", targetEntity = Request.class)
+    private List<Request> requests = new ArrayList<>();
+
+    @JsonIgnore
+    private Boolean active = true;
+}
