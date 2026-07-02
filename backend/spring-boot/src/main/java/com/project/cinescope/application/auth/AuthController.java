@@ -2,6 +2,7 @@ package com.project.cinescope.application.auth;
 
 import com.project.cinescope.application.auth.response.TokenResponseDto;
 import com.project.cinescope.application.auth.service.TokenService;
+import com.project.cinescope.core.config.ApiEndpoints;
 import com.project.cinescope.core.exception.exceptions.InvalidCredentialsException;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
@@ -22,7 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(ApiEndpoints.Auth.BASE)
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

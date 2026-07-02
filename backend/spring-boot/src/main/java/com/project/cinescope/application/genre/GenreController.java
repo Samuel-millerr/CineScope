@@ -2,6 +2,7 @@ package com.project.cinescope.application.genre;
 
 import com.project.cinescope.application.genre.request.GenreRequestDto;
 import com.project.cinescope.application.genre.response.GenreResponseDto;
+import com.project.cinescope.core.config.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/genres")
+@RequestMapping(ApiEndpoints.Genres.BASE)
 public class GenreController {
     private final GenreService genreService;
     private final HealthCheckService healthCheckService;

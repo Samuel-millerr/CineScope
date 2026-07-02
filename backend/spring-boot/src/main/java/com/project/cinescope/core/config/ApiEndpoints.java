@@ -21,6 +21,11 @@ public final class ApiEndpoints {
         public static final String BY_ID = BASE + "/{id}";
     }
 
+    public static class Genres {
+        public static final String BASE = "/api/genres";
+        public static final String BY_ID = BASE + "/{id}";
+    }
+
     public static class Movies {
         public static final String BASE = "/api/movies";
         public static final String BY_ID = BASE + "/{id}";

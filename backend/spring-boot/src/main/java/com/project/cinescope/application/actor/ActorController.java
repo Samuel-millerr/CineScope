@@ -2,6 +2,7 @@ package com.project.cinescope.application.actor;
 
 import com.project.cinescope.application.actor.request.ActorRequestDto;
 import com.project.cinescope.application.actor.response.ActorResponseDto;
+import com.project.cinescope.core.config.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
@@ -14,7 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/actors")
+@RequestMapping(ApiEndpoints.Actors.BASE)
 public class ActorController {
 
     private final ActorService actorService;
