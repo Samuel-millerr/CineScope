@@ -59,6 +59,15 @@ public class ActorController {
         return ResponseEntity.created(uri).body(responseDto);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<ActorResponseDto> patch(
+        @PathVariable Long id,
+        @RequestBody @Valid ActorRequestDto requestDto
+    ) {
+        ActorResponseDto responseDto = actorService.patch(id, requestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ActorResponseDto> delete(
             @PathVariable Long id

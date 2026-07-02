@@ -44,12 +44,26 @@ public class ActorServiceImpl implements ActorService {
         return ActorResponseDto.toActorDto(createdActor);
     }
 
-    public void delete(Long id) {
-        Optional<Actor> actor = actorRepository.findById(id);
-        if (actor.isEmpty()) {
-            throw new ResourceNotFoundException("Actor not found with id: " + id);
+    public ActorResponseDto patch(Long id, ActorRequestDto requestDto) {
+        Actor actor = actorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
+
+        if (requestDto.name() != null) {
+            actor.setName(requestDto.name());
         }
 
-        actorRepository.delete(actor.get());
+        if (requestDto.photo() != null) {
+            actor.setPhoto(requestDto.photo());
+        }
+
+        Actor updateActor = actorRepository.save(actor);
+        return ActorResponseDto.toActorDto(updateActor);
+    }
+
+    public void delete(Long id) {
+        Actor actor = actorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
+
+        actorRepository.delete(actor);
     }
 }

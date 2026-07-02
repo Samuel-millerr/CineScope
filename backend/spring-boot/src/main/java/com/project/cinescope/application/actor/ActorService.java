@@ -12,5 +12,7 @@ public interface ActorService {
 
     ActorResponseDto post(ActorRequestDto requestDto);
 
+    ActorResponseDto patch(Long id, ActorRequestDto requestDto);
+
     void delete(Long id);
 }
