@@ -1,17 +1,17 @@
 package com.project.cinescope.application.review;
 
-import com.project.cinescope.application.review.response.ReviewGetResponseDto;
+import com.project.cinescope.application.review.request.ReviewRequestDto;
+import com.project.cinescope.application.review.response.ReviewResponseDto;
+import com.project.cinescope.core.config.ApiEndpoints;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reviews")
+@RequestMapping(ApiEndpoints.Reviews.BASE)
 public class ReviewController {
     private final ReviewService reviewService;
 
@@ -20,16 +20,32 @@ public class ReviewController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReviewGetResponseDto>> getAll() {
-        List<ReviewGetResponseDto> responseDtoList = reviewService.getAll();
+    public ResponseEntity<List<ReviewResponseDto>> getAll() {
+        List<ReviewResponseDto> responseDtoList = reviewService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReviewGetResponseDto> getById(
+    public ResponseEntity<ReviewResponseDto> getById(
             @PathVariable Long id
     ) {
-        ReviewGetResponseDto responseDto = reviewService.getById(id);
+        ReviewResponseDto responseDto = reviewService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<ReviewResponseDto> post(
+            @RequestBody @Valid ReviewRequestDto reviewRequestDto
+    ) {
+        ReviewResponseDto responseDto = reviewService.post(reviewRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    };
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ReviewResponseDto> delete(
+            @PathVariable Long id
+    ) {
+        reviewService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

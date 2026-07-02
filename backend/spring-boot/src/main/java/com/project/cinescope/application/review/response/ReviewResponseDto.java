@@ -6,21 +6,21 @@ import com.project.cinescope.application.user.response.UserResponseDto;
 
 import java.time.LocalDateTime;
 
-public record ReviewGetResponseDto(
+public record ReviewResponseDto(
         Long id,
         UserResponseDto user,
         MovieResponseDto movie,
         String reviewText,
-        Float reviewRatting,
+        Float reviewRating,
         LocalDateTime reviewDate
 ) {
-    public static ReviewGetResponseDto toReviewDto(Review review) {
-        return new ReviewGetResponseDto(
+    public static ReviewResponseDto toReviewDto(Review review) {
+        return new ReviewResponseDto(
                 review.getId(),
                 UserResponseDto.toUserDto(review.getUser()),
                 MovieResponseDto.toMovieDto(review.getMovie()),
                 review.getReviewText(),
-                review.getReviewRatting(),
+                review.getReviewRating(),
                 review.getReviewDate()
         );
     }

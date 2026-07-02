@@ -61,8 +61,8 @@ CREATE TABLE review(
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     id_user INTEGER NOT NULL,
     id_movie INTEGER NOT NULL,
-    reviewText TEXT NULL,
-    reviewRatting DECIMAL(2,1) NOT NULL,
+    review_text TEXT NULL,
+    review_rating DECIMAL(2,1) NOT NULL,
     review_date DATE NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE
 );

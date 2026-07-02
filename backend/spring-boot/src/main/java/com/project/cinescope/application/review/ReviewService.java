@@ -1,11 +1,16 @@
 package com.project.cinescope.application.review;
 
-import com.project.cinescope.application.review.response.ReviewGetResponseDto;
+import com.project.cinescope.application.review.request.ReviewRequestDto;
+import com.project.cinescope.application.review.response.ReviewResponseDto;
 
 import java.util.List;
 
 public interface ReviewService {
-    List<ReviewGetResponseDto> getAll();
+    List<ReviewResponseDto> getAll();
 
-    ReviewGetResponseDto getById(Long id);
+    ReviewResponseDto getById(Long id);
+
+    ReviewResponseDto post(ReviewRequestDto requestDto);
+
+    void delete(Long id);
 }

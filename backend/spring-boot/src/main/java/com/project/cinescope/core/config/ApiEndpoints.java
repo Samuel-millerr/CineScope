@@ -31,9 +31,19 @@ public final class ApiEndpoints {
         public static final String BY_ID = BASE + "/{id}";
     }
 
+    public static class Requests {
+        public static final String BASE = "/api/requests";
+        public static final String BY_ID = BASE + "/{id}";
+    }
+
+    public static class Reviews {
+        public static final String BASE = "/api/reviews";
+        public static final String BY_ID = "/{id}";
+    }
+
     public static class Users {
         public static final String BASE = "/api/users";
-        public static final String BY_ID = BASE + "/id/{id}";
+        public static final String BY_ID = BASE + "/{id}";
         public static final String BY_USERNAME = BASE + "/username/{username}";
     }
 }

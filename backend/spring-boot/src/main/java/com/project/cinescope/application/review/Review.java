@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @SQLRestriction("active = true")
 public class Review {
     @Id
@@ -30,13 +32,13 @@ public class Review {
     @JoinColumn(name = "id_movie", nullable = false, referencedColumnName = "id")
     private Movie movie;
 
-    @Column(columnDefinition = "TEXT", nullable = true)
+    @Column(name = "review_text", columnDefinition = "TEXT", nullable = true)
     private String reviewText;
 
-    @Column(nullable = false)
-    private Float reviewRatting;
+    @Column(name = "review_rating", nullable = false)
+    private Float reviewRating;
 
-    @Column(nullable = false)
+    @Column(name = "review_date", nullable = false)
     private LocalDateTime reviewDate = LocalDateTime.now();
 
     @JsonIgnore
