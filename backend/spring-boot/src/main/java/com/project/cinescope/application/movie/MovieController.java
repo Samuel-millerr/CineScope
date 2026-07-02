@@ -2,9 +2,11 @@ package com.project.cinescope.application.movie;
 
 import com.project.cinescope.application.movie.request.MovieRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
+import com.project.cinescope.core.config.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/movies")
+@RequestMapping(ApiEndpoints.Movies.BASE)
 public class MovieController {
     private final MovieService movieService;
     private final HealthCheckService healthCheckService;
@@ -56,5 +58,23 @@ public class MovieController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(responseDto);
+    }
+
+    @SneakyThrows
+    @PatchMapping("/{id}")
+    public ResponseEntity<MovieResponseDto> patch(
+            @PathVariable Long id,
+            @RequestBody @Valid MovieRequestDto requestDto
+    ) {
+        MovieResponseDto movieResponseDto = movieService.patch(id, requestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(movieResponseDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MovieResponseDto> delete(
+            @PathVariable Long id
+    ) {
+        movieService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

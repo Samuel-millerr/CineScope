@@ -19,7 +19,9 @@ public enum EndpointsPermissions {
     GENRES_DELETE(HttpMethod.DELETE, ApiEndpoints.Genres.BY_ID, Access.ADMIN),
 
     MOVIES_CREATE(HttpMethod.POST, ApiEndpoints.Movies.BASE, Access.ADMIN),
-    MOVIES_DELETE(HttpMethod.POST, ApiEndpoints.Movies.BY_ID, Access.ADMIN),
+    MOVIES_LIST(HttpMethod.GET, ApiEndpoints.Movies.BASE, Access.PUBLIC), // Permitira a visualização dos filmes na tela inicial sem a necessidade de login
+    MOVIES_UPDATE(HttpMethod.PATCH, ApiEndpoints.Movies.BY_ID, Access.ADMIN),
+    MOVIES_DELETE(HttpMethod.DELETE, ApiEndpoints.Movies.BY_ID, Access.ADMIN),
 
     USERS_LIST(HttpMethod.GET, ApiEndpoints.Users.BASE, Access.ADMIN),
     USERS_LIST_BY_ID(HttpMethod.GET, ApiEndpoints.Users.BY_ID, Access.ADMIN),

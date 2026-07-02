@@ -9,6 +9,12 @@ import com.project.cinescope.core.exception.exceptions.DuplicateResourceExceptio
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 @Service
@@ -41,5 +47,39 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = MovieRequestDto.toMovie(requestDto);
         Movie createdMovie = movieRepository.save(movie);
         return MovieResponseDto.toMovieDto(createdMovie);
+    }
+
+    public MovieResponseDto patch(Long id, MovieRequestDto requestDto) {
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
+
+        try {
+            int count = 0;
+            Field[] fields = requestDto.getClass().getDeclaredFields();
+            PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(movie.getClass()).getPropertyDescriptors();
+            for (Field field : fields) {
+                field.setAccessible(true);
+
+                if (field.get(requestDto) != null) {
+                    for (PropertyDescriptor pd : propertyDescriptors) {
+                        if (field.getName().equals(pd.getName())) {
+                            Method setter = pd.getWriteMethod();
+                            setter.invoke(movie, field.get(requestDto));
+                        }
+                    }
+                }
+            }
+        } catch (IllegalAccessException | IntrospectionException | InvocationTargetException e) {
+            System.out.println(e);
+        }
+        Movie updatedMovie = movieRepository.save(movie);
+        return MovieResponseDto.toMovieDto(updatedMovie);
+    }
+
+    public void delete(Long id) {
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
+
+        movieRepository.delete(movie);
     }
 }
