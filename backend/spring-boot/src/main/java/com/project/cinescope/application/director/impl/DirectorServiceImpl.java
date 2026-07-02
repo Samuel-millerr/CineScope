@@ -43,12 +43,22 @@ public class DirectorServiceImpl implements DirectorService {
         return DirectorResponseDto.toDirectorDto(createdDirector);
     }
 
-    public void delete(Long id) {
-        Optional<Director> director = directorRepository.findById(id);
-        if (director.isEmpty()) {
-            throw new ResourceNotFoundException("Director not found with id: " + id);
+    public DirectorResponseDto patch(Long id, DirectorRequestDto requestDto) {
+        Director director = directorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
+
+        if (requestDto.name() != null) {
+            director.setName(requestDto.name());
         }
 
-        directorRepository.delete(director.get());
+        Director updateActor = directorRepository.save(director);
+        return DirectorResponseDto.toDirectorDto(updateActor);
+    }
+
+    public void delete(Long id) {
+        Director director = directorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
+
+        directorRepository.delete(director);
     }
 }

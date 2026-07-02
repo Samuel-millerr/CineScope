@@ -12,5 +12,6 @@ public interface DirectorService {
 
     DirectorResponseDto post(DirectorRequestDto requestDto);
 
+    DirectorResponseDto patch(Long id, DirectorRequestDto requestDto);
     void delete(Long id);
 }

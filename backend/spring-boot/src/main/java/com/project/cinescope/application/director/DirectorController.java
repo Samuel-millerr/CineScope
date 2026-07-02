@@ -59,6 +59,15 @@ public class DirectorController {
         return ResponseEntity.created(uri).body(responseDto);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<DirectorResponseDto> patch(
+            @PathVariable Long id,
+            @RequestBody @Valid DirectorRequestDto requestDto
+    ) {
+        DirectorResponseDto responseDto = directorService.patch(id, requestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<DirectorResponseDto> delete(
             @PathVariable Long id
