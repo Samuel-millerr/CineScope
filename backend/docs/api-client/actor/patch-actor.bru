@@ -1,0 +1,23 @@
+meta {
+  name: patch-actor
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/actors/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Leonardo DiCapril",
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Leonardo_Dicaprio_-_World_Premiere_‘One_Battle_after_Another’.jpg/250px-Leonardo_Dicaprio_-_World_Premiere_‘One_Battle_after_Another’.jpg"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

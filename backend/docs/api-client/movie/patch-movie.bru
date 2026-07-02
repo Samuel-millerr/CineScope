@@ -1,0 +1,27 @@
+meta {
+  name: patch-movie
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/movies/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 1,
+    "title": "Inceptionss",
+    "duration": 148,
+    "publicationYear": 2010,
+    "synopsis": "Um ladrão invade sonhos à procura de segredos corporativos.",
+    "poster": "https://m.media-amazon.com/images/I/71iDkRVDZNL.jpg"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
