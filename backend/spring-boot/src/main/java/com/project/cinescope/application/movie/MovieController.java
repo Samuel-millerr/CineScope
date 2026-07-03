@@ -71,7 +71,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MovieResponseDto> delete(
+    public ResponseEntity<Void> delete(
             @PathVariable Long id
     ) {
         movieService.delete(id);

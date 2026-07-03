@@ -7,7 +7,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,24 +27,23 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ReviewResponseDto> getById(
-            @PathVariable Long id
-    ) {
-        ReviewResponseDto responseDto = reviewService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
-    }
-
     @PostMapping
     public ResponseEntity<ReviewResponseDto> post(
             @RequestBody @Valid ReviewRequestDto reviewRequestDto
     ) {
         ReviewResponseDto responseDto = reviewService.post(reviewRequestDto);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand()
+                .toUri();
+
+        return ResponseEntity.created(uri).body(responseDto);
     };
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ReviewResponseDto> delete(
+    public ResponseEntity<Void> delete(
             @PathVariable Long id
     ) {
         reviewService.delete(id);

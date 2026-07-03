@@ -27,7 +27,7 @@ public class ActorController {
     }
 
     @GetMapping("/health")
-    public ResponseEntity<HealthCheckResponseDto> healthCheck() {
+    public ResponseEntity<HealthCheckResponseDto> health() {
         return ResponseEntity.ok(healthCheckService.healthCheck(this.getClass()));
     }
 
@@ -70,7 +70,7 @@ public class ActorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ActorResponseDto> delete(
+    public ResponseEntity<Void> delete(
             @PathVariable Long id
     ) {
         actorService.delete(id);

@@ -2,6 +2,7 @@ package com.project.cinescope.application.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.cinescope.application.movie.Movie;
+import com.project.cinescope.application.movie.request.MovieRequestDto;
 import com.project.cinescope.application.request.enums.RequestStatus;
 import com.project.cinescope.application.request.enums.RequestType;
 import com.project.cinescope.application.user.User;
@@ -9,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @SQLRestriction("active = true")
 public class Request {
     @Id
@@ -43,8 +46,8 @@ public class Request {
     @Column(nullable = false)
     private LocalDate requestDate = LocalDate.now();
 
-    @Column(nullable = true, columnDefinition = "json")
-    private String requestBody;
+    @Column(columnDefinition = "json")
+    private MovieRequestDto requestBody;
 
     @Column(nullable = true, columnDefinition = "TEXT")
     private String comment;

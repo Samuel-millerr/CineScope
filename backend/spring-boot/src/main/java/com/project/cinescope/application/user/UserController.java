@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/health")
-    public ResponseEntity<HealthCheckResponseDto> healthCheck() {
+    public ResponseEntity<HealthCheckResponseDto> health() {
         return ResponseEntity.ok(healthCheckService.healthCheck(this.getClass()));
     }
 

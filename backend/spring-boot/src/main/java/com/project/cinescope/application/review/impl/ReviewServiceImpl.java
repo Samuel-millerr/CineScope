@@ -45,13 +45,9 @@ public class ReviewServiceImpl implements ReviewService {
         Movie movie = movieRepository.findById(requestDto.movieId())
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + requestDto.movieId()));
 
-        Review review = new Review();
+        Review review = ReviewRequestDto.toReview(requestDto);
         review.setUser(user);
         review.setMovie(movie);
-        review.setReviewText(requestDto.reviewText());
-        review.setReviewRating(requestDto.reviewRating());
-        System.out.println("Rating: " + requestDto.reviewRating());
-        System.out.println("Entity Rating: " + review.getReviewRating());
         Review createdReview = reviewRepository.save(review);
         return ReviewResponseDto.toReviewDto(createdReview);
     }

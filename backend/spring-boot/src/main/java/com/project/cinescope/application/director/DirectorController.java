@@ -70,7 +70,7 @@ public class DirectorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DirectorResponseDto> delete(
+    public ResponseEntity<Void> delete(
             @PathVariable Long id
     ) {
         directorService.delete(id);
