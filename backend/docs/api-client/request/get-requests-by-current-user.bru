@@ -1,11 +1,11 @@
 meta {
-  name: get-review
+  name: get-requests-by-current-user
   type: http
-  seq: 2
+  seq: 4
 }
 
 get {
-  url: {{baseUrl}}/reviews
+  url: {{baseUrl}}/users/me/requests
   body: none
   auth: inherit
 }
