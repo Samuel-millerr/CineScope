@@ -1,17 +1,17 @@
 meta {
-  name: delete-request-by-current-user
+  name: delete-by-current-user
   type: http
   seq: 7
 }
 
 delete {
-  url: {{baseUrl}}/users/me/requests/{{id}}
+  url: {{baseUrl}}/users/me/reviews/{{id}}
   body: none
   auth: inherit
 }
 
 vars:pre-request {
-  id: 10
+  id: 3
 }
 
 settings {

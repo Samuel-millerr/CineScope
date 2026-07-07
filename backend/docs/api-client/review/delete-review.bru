@@ -1,13 +1,17 @@
 meta {
   name: delete-review
   type: http
-  seq: 4
+  seq: 6
 }
 
 delete {
-  url: {{baseUrl}}/reviews/2
+  url: {{baseUrl}}/reviews/{{id}}
   body: none
   auth: inherit
+}
+
+vars:pre-request {
+  id: 3
 }
 
 settings {
