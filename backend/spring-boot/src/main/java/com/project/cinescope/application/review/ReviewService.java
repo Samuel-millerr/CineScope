@@ -10,7 +10,13 @@ public interface ReviewService {
 
     ReviewResponseDto getById(Long id);
 
+    List<ReviewResponseDto> findReviewsByCurrentUser();
+
+    List<ReviewResponseDto> findReviewsByUserId(Long userId);
+
     ReviewResponseDto post(ReviewRequestDto requestDto);
 
     void delete(Long id);
+
+    void deleteReviewByCurrentUser(Long id);
 }

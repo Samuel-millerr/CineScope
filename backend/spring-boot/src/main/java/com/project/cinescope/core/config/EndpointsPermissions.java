@@ -25,11 +25,16 @@ public enum EndpointsPermissions {
 
     REQUESTS_LIST(HttpMethod.GET, ApiEndpoints.Requests.BASE, Access.ADMIN),
     REQUESTS_BY_ID(HttpMethod.GET, ApiEndpoints.Requests.BY_ID, Access.ADMIN),
+    REQUESTS_BY_CURRENT_USER(HttpMethod.GET, ApiEndpoints.Users.REQUESTS_BY_CURRENT_USER, Access.AUTHENTICATED),
     REQUESTS_BY_USER_ID(HttpMethod.GET, ApiEndpoints.Users.REQUESTS_BY_USER_ID, Access.ADMIN),
     REQUESTS_DELETE(HttpMethod.DELETE, ApiEndpoints.Requests.BY_ID, Access.ADMIN),
+//    REQUESTS_DELETE_BY_CURRENT_USER(HttpMethod.DELETE, ApiEndpoints.Users.REVIEWS_BY_CURRENT_USER + "/{id}", Access.AUTHENTICATED),
 
     REVIEWS_LIST(HttpMethod.GET, ApiEndpoints.Reviews.BASE, Access.ADMIN),
     REVIEWS_BY_ID(HttpMethod.GET, ApiEndpoints.Reviews.BY_ID, Access.ADMIN),
+    REVIEWS_BY_CURRENT_USERS(HttpMethod.GET, ApiEndpoints.Users.REVIEWS_BY_CURRENT_USER, Access.AUTHENTICATED),
+    REVIEWS_BY_USER_ID(HttpMethod.GET, ApiEndpoints.Users.REVIEWS_BY_USER_ID, Access.ADMIN),
+    REVIEWS_DELETE(HttpMethod.DELETE, ApiEndpoints.Reviews.BY_ID, Access.ADMIN),
 
     USERS_LIST(HttpMethod.GET, ApiEndpoints.Users.BASE, Access.ADMIN),
     USERS_LIST_BY_ID(HttpMethod.GET, ApiEndpoints.Users.BY_ID, Access.ADMIN),
@@ -45,5 +50,5 @@ public enum EndpointsPermissions {
         this.access = access;
     }
 
-    public enum Access {PUBLIC, ADMIN}
+    public enum Access {PUBLIC, AUTHENTICATED, ADMIN}
 }

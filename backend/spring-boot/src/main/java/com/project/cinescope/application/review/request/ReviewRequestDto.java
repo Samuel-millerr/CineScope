@@ -4,7 +4,6 @@ import com.project.cinescope.application.review.Review;
 import com.project.cinescope.application.user.User;
 
 public record ReviewRequestDto(
-        Long userId,
         Long movieId,
         String reviewText,
         Float reviewRating

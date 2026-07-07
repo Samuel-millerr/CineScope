@@ -82,10 +82,10 @@ public class RequestServiceImpl implements RequestService {
     }
 
     public void deleteRequestByCurrentUser(Long id) {
-        User user = authenticatedUserService.getCurrentUser();
-
         Request request = requestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
+
+        User user = authenticatedUserService.getCurrentUser();
 
         if (user != request.getUser()) {
             throw new ForbiddenOperationException("You don't have permission to delete another user's requests.");

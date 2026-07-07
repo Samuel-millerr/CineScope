@@ -44,6 +44,7 @@ public class SecurityConfiguration {
                             for (EndpointsPermissions permission : EndpointsPermissions.values()) {
                                 switch (permission.access) {
                                     case PUBLIC -> authorize.requestMatchers(permission.method, permission.path).permitAll();
+                                    case AUTHENTICATED -> authorize.requestMatchers(permission.method, permission.path).authenticated();
                                     case ADMIN ->
                                             authorize.requestMatchers(permission.method, permission.path).hasRole("ADMIN");
                                 }

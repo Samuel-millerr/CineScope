@@ -2,6 +2,7 @@ package com.project.cinescope.application.user;
 
 import com.project.cinescope.application.request.RequestService;
 import com.project.cinescope.application.request.response.RequestMovieResponseDto;
+import com.project.cinescope.application.review.ReviewService;
 import com.project.cinescope.application.review.response.ReviewResponseDto;
 import com.project.cinescope.application.user.response.UserResponseDto;
 import com.project.cinescope.core.config.ApiEndpoints;
@@ -19,11 +20,13 @@ public class UserController {
 
     private final UserService userService;
     private final RequestService requestService;
+    private final ReviewService reviewService;
     private final HealthCheckService healthCheckService;
 
-    public UserController(UserService userService, RequestService requestService, HealthCheckService healthCheckService) {
+    public UserController(UserService userService, RequestService requestService, ReviewService reviewService, HealthCheckService healthCheckService) {
         this.userService = userService;
         this.requestService = requestService;
+        this.reviewService = reviewService;
         this.healthCheckService = healthCheckService;
     }
 
@@ -64,7 +67,8 @@ public class UserController {
 
     @GetMapping("/me/reviews")
     public ResponseEntity<List<ReviewResponseDto>> findCurrentUserReviews() {
-        return null;
+        List<ReviewResponseDto> responseDtoList = reviewService.findReviewsByCurrentUser();
+        return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
     @GetMapping("/{id}/requests")
@@ -75,17 +79,19 @@ public class UserController {
 
     @GetMapping("/{id}/reviews")
     public ResponseEntity<List<ReviewResponseDto>> findReviewsByUserId(@PathVariable Long id) {
-        return null;
+        List<ReviewResponseDto> responseDtoList = reviewService.findReviewsByUserId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
-    @DeleteMapping("/me/requests/{id}")
+    @DeleteMapping("/me/requests/{requestId}")
     public ResponseEntity<Void> deleteRequestByCurrentUser(@PathVariable Long requestId) {
         requestService.deleteRequestByCurrentUser(requestId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @DeleteMapping("/me/reviews/{id}")
+    @DeleteMapping("/me/reviews/{reviewId}")
     public ResponseEntity<Void> deleteReviewByCurrentUser(@PathVariable Long reviewId) {
-        return null;
+        reviewService.deleteReviewByCurrentUser(reviewId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

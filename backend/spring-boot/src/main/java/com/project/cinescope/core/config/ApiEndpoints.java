@@ -45,6 +45,9 @@ public final class ApiEndpoints {
         public static final String BASE = "/api/users";
         public static final String BY_ID = BASE + "/id/{id}";
         public static final String BY_USERNAME = BASE + "/username/{username}";
+        public static final String REQUESTS_BY_CURRENT_USER = BASE + "/me/requests";
         public static final String REQUESTS_BY_USER_ID = BASE + "/{id}/requests";
+        public static final String REVIEWS_BY_CURRENT_USER = BASE + "/me/reviews";
+        public static final String REVIEWS_BY_USER_ID = BASE + "/{id}/reviews";
     }
 }

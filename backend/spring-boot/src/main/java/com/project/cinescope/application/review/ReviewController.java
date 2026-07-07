@@ -1,5 +1,6 @@
 package com.project.cinescope.application.review;
 
+import com.project.cinescope.application.request.response.RequestMovieResponseDto;
 import com.project.cinescope.application.review.request.ReviewRequestDto;
 import com.project.cinescope.application.review.response.ReviewResponseDto;
 import com.project.cinescope.core.config.ApiEndpoints;
@@ -36,16 +37,24 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ReviewResponseDto> getById(
+            @PathVariable Long id
+    ) {
+        ReviewResponseDto responseDto = reviewService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
     @PostMapping
     public ResponseEntity<ReviewResponseDto> post(
-            @RequestBody @Valid ReviewRequestDto reviewRequestDto
+            @RequestBody @Valid ReviewRequestDto requestDto
     ) {
-        ReviewResponseDto responseDto = reviewService.post(reviewRequestDto);
+        ReviewResponseDto responseDto = reviewService.post(requestDto);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand()
+                .buildAndExpand(responseDto.id())
                 .toUri();
 
         return ResponseEntity.created(uri).body(responseDto);
