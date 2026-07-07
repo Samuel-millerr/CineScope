@@ -15,7 +15,7 @@ public record RequestMovieResponseDto(
         MovieResponseDto movie,
         RequestType requestType,
         RequestStatus requestStatus,
-        MovieRequestDto requestBody,
+        String requestBody,
         String comment,
         LocalDate requestDate
 ) {

@@ -1,8 +1,11 @@
 package com.project.cinescope.application.request;
 
+import com.project.cinescope.application.auth.service.AuthenticatedUserService;
 import com.project.cinescope.application.request.request.RequestMovieRequestDto;
 import com.project.cinescope.application.request.response.RequestMovieResponseDto;
 import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.health.HealthCheckService;
+import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +19,16 @@ import java.util.List;
 @RequestMapping(ApiEndpoints.Requests.BASE)
 public class RequestController {
     private final RequestService requestService;
+    private final HealthCheckService healthCheckService;
 
-    public RequestController(RequestService requestService) {
+    public RequestController(RequestService requestService, HealthCheckService healthCheckService, AuthenticatedUserService authenticatedUserService) {
         this.requestService = requestService;
+        this.healthCheckService = healthCheckService;
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<HealthCheckResponseDto> health() {
+        return ResponseEntity.ok(healthCheckService.healthCheck(this.getClass()));
     }
 
     @GetMapping
@@ -44,7 +54,7 @@ public class RequestController {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand()
+                .buildAndExpand(responseDto.id())
                 .toUri();
 
         return ResponseEntity.created(uri).body(responseDto);

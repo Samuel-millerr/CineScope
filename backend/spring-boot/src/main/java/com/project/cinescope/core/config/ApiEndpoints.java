@@ -38,12 +38,13 @@ public final class ApiEndpoints {
 
     public static class Reviews {
         public static final String BASE = "/api/reviews";
-        public static final String BY_ID = "/{id}";
+        public static final String BY_ID = BASE + "/{id}";
     }
 
     public static class Users {
         public static final String BASE = "/api/users";
-        public static final String BY_ID = BASE + "/{id}";
+        public static final String BY_ID = BASE + "/id/{id}";
         public static final String BY_USERNAME = BASE + "/username/{username}";
+        public static final String REQUESTS_BY_USER_ID = BASE + "/{id}/requests";
     }
 }

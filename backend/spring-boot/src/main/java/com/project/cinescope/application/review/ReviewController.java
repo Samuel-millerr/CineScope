@@ -3,6 +3,8 @@ package com.project.cinescope.application.review;
 import com.project.cinescope.application.review.request.ReviewRequestDto;
 import com.project.cinescope.application.review.response.ReviewResponseDto;
 import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.health.HealthCheckService;
+import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,16 @@ import java.util.List;
 @RequestMapping(ApiEndpoints.Reviews.BASE)
 public class ReviewController {
     private final ReviewService reviewService;
+    private final HealthCheckService healthCheckService;
 
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewService reviewService, HealthCheckService healthCheckService) {
         this.reviewService = reviewService;
+        this.healthCheckService = healthCheckService;
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<HealthCheckResponseDto> health() {
+        return ResponseEntity.ok(healthCheckService.healthCheck(this.getClass()));
     }
 
     @GetMapping

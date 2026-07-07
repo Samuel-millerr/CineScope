@@ -10,7 +10,13 @@ public interface RequestService {
 
     RequestMovieResponseDto getById(Long id);
 
+    List<RequestMovieResponseDto> findRequestsByCurrentUser();
+
+    List<RequestMovieResponseDto> findRequestsByUserId(Long userId);
+
     RequestMovieResponseDto post(RequestMovieRequestDto requestDto);
 
     void delete(Long id);
+
+    void deleteRequestByCurrentUser(Long id);
 }

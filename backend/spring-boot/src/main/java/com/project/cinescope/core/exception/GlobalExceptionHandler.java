@@ -1,6 +1,7 @@
 package com.project.cinescope.core.exception;
 
 import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.core.exception.exceptions.ForbiddenOperationException;
 import com.project.cinescope.core.exception.exceptions.InvalidCredentialsException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,6 +44,18 @@ public class GlobalExceptionHandler {
                 Instant.now(),
                 HttpStatus.FORBIDDEN.value(),
                 "Invalid credentials",
+                e.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    @ExceptionHandler(ForbiddenOperationException.class)
+    public ResponseEntity<StandardError> forbiddenOperation(ForbiddenOperationException e, HttpServletRequest request) {
+        StandardError error = new StandardError(
+                Instant.now(),
+                HttpStatus.FORBIDDEN.value(),
+                "Forbidden operation",
                 e.getMessage(),
                 request.getRequestURI()
         );

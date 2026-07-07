@@ -1,5 +1,6 @@
 package com.project.cinescope.application.user.impl;
 
+import com.project.cinescope.application.auth.service.AuthenticatedUserService;
 import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
@@ -14,10 +15,13 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    private final UserRepository userRepository;
+    private final AuthenticatedUserService authenticatedUserService;
+
+    public UserServiceImpl(UserRepository userRepository, AuthenticatedUserService authenticatedUserService) {
         this.userRepository = userRepository;
+        this.authenticatedUserService = authenticatedUserService;
     }
 
     public List<UserResponseDto> getAll() {
@@ -45,6 +49,11 @@ public class UserServiceImpl implements UserService {
 
     public UserDetails findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public UserResponseDto findCurrentUser() {
+        User user = authenticatedUserService.getCurrentUser();
+        return UserResponseDto.toUserDto(user);
     }
 
     public UserResponseDto post(UserRequestRegisterDto registerDto) {

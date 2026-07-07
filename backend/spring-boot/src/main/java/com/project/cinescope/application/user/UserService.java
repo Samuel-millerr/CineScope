@@ -15,5 +15,7 @@ public interface UserService {
 
     UserDetails findByUsername(String username);
 
+    UserResponseDto findCurrentUser();
+
     UserResponseDto post(UserRequestRegisterDto registerDto);
 }

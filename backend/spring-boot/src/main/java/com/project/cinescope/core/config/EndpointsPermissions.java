@@ -23,9 +23,13 @@ public enum EndpointsPermissions {
     MOVIES_UPDATE(HttpMethod.PATCH, ApiEndpoints.Movies.BY_ID, Access.ADMIN),
     MOVIES_DELETE(HttpMethod.DELETE, ApiEndpoints.Movies.BY_ID, Access.ADMIN),
 
-    REVIEWS_LIST(HttpMethod.GET, ApiEndpoints.Reviews.BASE, Access.ADMIN),
-
     REQUESTS_LIST(HttpMethod.GET, ApiEndpoints.Requests.BASE, Access.ADMIN),
+    REQUESTS_BY_ID(HttpMethod.GET, ApiEndpoints.Requests.BY_ID, Access.ADMIN),
+    REQUESTS_BY_USER_ID(HttpMethod.GET, ApiEndpoints.Users.REQUESTS_BY_USER_ID, Access.ADMIN),
+    REQUESTS_DELETE(HttpMethod.DELETE, ApiEndpoints.Requests.BY_ID, Access.ADMIN),
+
+    REVIEWS_LIST(HttpMethod.GET, ApiEndpoints.Reviews.BASE, Access.ADMIN),
+    REVIEWS_BY_ID(HttpMethod.GET, ApiEndpoints.Reviews.BY_ID, Access.ADMIN),
 
     USERS_LIST(HttpMethod.GET, ApiEndpoints.Users.BASE, Access.ADMIN),
     USERS_LIST_BY_ID(HttpMethod.GET, ApiEndpoints.Users.BY_ID, Access.ADMIN),
