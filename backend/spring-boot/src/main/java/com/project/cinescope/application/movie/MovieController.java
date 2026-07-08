@@ -1,6 +1,7 @@
 package com.project.cinescope.application.movie;
 
-import com.project.cinescope.application.movie.request.MovieRequestDto;
+import com.project.cinescope.application.movie.request.MovieCreateRequestDto;
+import com.project.cinescope.application.movie.request.MovieUpdateRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
 import com.project.cinescope.core.config.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
@@ -47,7 +48,7 @@ public class MovieController {
 
     @PostMapping
     public ResponseEntity<MovieResponseDto> post(
-            @RequestBody @Valid MovieRequestDto requestDto
+            @RequestBody @Valid MovieCreateRequestDto requestDto
     ) {
         MovieResponseDto responseDto = movieService.post(requestDto);
 
@@ -64,7 +65,7 @@ public class MovieController {
     @PatchMapping("/{id}")
     public ResponseEntity<MovieResponseDto> patch(
             @PathVariable Long id,
-            @RequestBody @Valid MovieRequestDto requestDto
+            @RequestBody @Valid MovieUpdateRequestDto requestDto
     ) {
         MovieResponseDto movieResponseDto = movieService.patch(id, requestDto);
         return ResponseEntity.status(HttpStatus.OK).body(movieResponseDto);

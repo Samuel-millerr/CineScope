@@ -1,6 +1,8 @@
 package com.project.cinescope.application.request;
 
 import com.project.cinescope.application.auth.service.AuthenticatedUserService;
+import com.project.cinescope.application.request.enums.RequestStatus;
+import com.project.cinescope.application.request.enums.RequestType;
 import com.project.cinescope.application.request.request.RequestMovieRequestDto;
 import com.project.cinescope.application.request.response.RequestMovieResponseDto;
 import com.project.cinescope.core.config.ApiEndpoints;
@@ -58,6 +60,22 @@ public class RequestController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(responseDto);
+    }
+
+    @PostMapping("/{id}/approve")
+    public ResponseEntity<RequestMovieResponseDto> approveRequest(
+        @PathVariable Long id,
+        @RequestParam(required = false, defaultValue = "APROVADO") RequestStatus requestStatus
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.updateStatus(id, requestStatus));
+    }
+
+    @PostMapping("/{id}/reject")
+    public ResponseEntity<RequestMovieResponseDto> rejectionRequest(
+            @PathVariable Long id,
+            @RequestParam(required = false, defaultValue = "REPROVADO") RequestStatus requestStatus
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(requestService.updateStatus(id, requestStatus));
     }
 
     @DeleteMapping("/{id}")

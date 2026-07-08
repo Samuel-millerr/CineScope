@@ -33,7 +33,7 @@ public class Request {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "id_movie", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "id_movie", referencedColumnName = "id")
     private Movie movie;
 
     @Enumerated(EnumType.STRING)

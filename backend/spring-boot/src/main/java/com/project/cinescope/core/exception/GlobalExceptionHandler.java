@@ -1,9 +1,6 @@
 package com.project.cinescope.core.exception;
 
-import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
-import com.project.cinescope.core.exception.exceptions.ForbiddenOperationException;
-import com.project.cinescope.core.exception.exceptions.InvalidCredentialsException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.exception.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +57,17 @@ public class GlobalExceptionHandler {
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<StandardError> constraintViolation(ConstraintViolationException e, HttpServletRequest request){
+        StandardError error = new StandardError(
+            Instant.now(),
+            HttpStatus.FORBIDDEN.value(),
+            "Constrain Violation",
+            e.getMessage(),
+            request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

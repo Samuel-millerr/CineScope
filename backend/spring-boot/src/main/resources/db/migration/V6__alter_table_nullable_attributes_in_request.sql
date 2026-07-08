@@ -1,0 +1,2 @@
+ALTER TABLE request
+ALTER COLUMN id_movie DROP NOT NULL

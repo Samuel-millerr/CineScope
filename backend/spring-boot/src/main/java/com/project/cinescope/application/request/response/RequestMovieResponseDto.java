@@ -1,6 +1,5 @@
 package com.project.cinescope.application.request.response;
 
-import com.project.cinescope.application.movie.request.MovieRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
 import com.project.cinescope.application.request.Request;
 import com.project.cinescope.application.request.enums.RequestStatus;
@@ -23,13 +22,12 @@ public record RequestMovieResponseDto(
         return new RequestMovieResponseDto(
                 request.getId(),
                 UserResponseDto.toUserDto(request.getUser()),
-                MovieResponseDto.toMovieDto(request.getMovie()),
+                request.getMovie() != null? MovieResponseDto.toMovieDto(request.getMovie()) : null,
                 request.getType(),
                 request.getStatus(),
                 request.getRequestBody(),
                 request.getComment(),
                 request.getRequestDate()
-
         );
     }
 }

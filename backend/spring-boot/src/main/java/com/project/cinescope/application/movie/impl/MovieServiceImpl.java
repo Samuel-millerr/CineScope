@@ -3,7 +3,8 @@ package com.project.cinescope.application.movie.impl;
 import com.project.cinescope.application.movie.Movie;
 import com.project.cinescope.application.movie.MovieRepository;
 import com.project.cinescope.application.movie.MovieService;
-import com.project.cinescope.application.movie.request.MovieRequestDto;
+import com.project.cinescope.application.movie.request.MovieCreateRequestDto;
+import com.project.cinescope.application.movie.request.MovieUpdateRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
 import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
@@ -38,23 +39,22 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id " + id));
     }
 
-    public MovieResponseDto post(MovieRequestDto requestDto) {
+    public MovieResponseDto post(MovieCreateRequestDto requestDto) {
         String movieTitle = requestDto.title();
         if (movieRepository.existsByTitle(movieTitle)) {
             throw new DuplicateResourceException("Movie with title " + movieTitle + " already exists");
         }
 
-        Movie movie = MovieRequestDto.toMovie(requestDto);
+        Movie movie = MovieCreateRequestDto.toMovie(requestDto);
         Movie createdMovie = movieRepository.save(movie);
         return MovieResponseDto.toMovieDto(createdMovie);
     }
 
-    public MovieResponseDto patch(Long id, MovieRequestDto requestDto) {
+    public MovieResponseDto patch(Long id, MovieUpdateRequestDto requestDto) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
 
         try {
-            int count = 0;
             Field[] fields = requestDto.getClass().getDeclaredFields();
             PropertyDescriptor[] propertyDescriptors = Introspector.getBeanInfo(movie.getClass()).getPropertyDescriptors();
             for (Field field : fields) {
@@ -72,6 +72,7 @@ public class MovieServiceImpl implements MovieService {
         } catch (IllegalAccessException | IntrospectionException | InvocationTargetException e) {
             System.out.println(e);
         }
+
         Movie updatedMovie = movieRepository.save(movie);
         return MovieResponseDto.toMovieDto(updatedMovie);
     }
