@@ -1,11 +1,11 @@
 meta {
-  name: get-request
+  name: reject-request
   type: http
-  seq: 3
+  seq: 9
 }
 
-get {
-  url: {{baseUrl}}/requests/10
+post {
+  url: {{baseUrl}}/requests/{{id}}/reject
   body: none
   auth: inherit
 }
