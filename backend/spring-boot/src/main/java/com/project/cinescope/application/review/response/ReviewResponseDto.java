@@ -14,11 +14,11 @@ public record ReviewResponseDto(
         Float reviewRating,
         LocalDateTime reviewDate
 ) {
-    public static ReviewResponseDto toReviewDto(Review review) {
+    public static ReviewResponseDto toResponseDto(Review review) {
         return new ReviewResponseDto(
                 review.getId(),
-                UserResponseDto.toUserDto(review.getUser()),
-                MovieResponseDto.toMovieDto(review.getMovie()),
+                UserResponseDto.toResponseDto(review.getUser()),
+                MovieResponseDto.toResponseDto(review.getMovie()),
                 review.getReviewText(),
                 review.getReviewRating(),
                 review.getReviewDate()

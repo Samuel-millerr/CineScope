@@ -14,31 +14,37 @@ public final class ApiEndpoints {
     public static class Actors {
         public static final String BASE = "/api/actors";
         public static final String BY_ID = BASE +"/{id}";
+        public static final String HEALTH = BASE + "/health";
     }
 
     public static class Directors {
         public static final String BASE = "/api/directors";
         public static final String BY_ID = BASE + "/{id}";
+        public static final String HEALTH = BASE + "/health";
     }
 
     public static class Genres {
         public static final String BASE = "/api/genres";
         public static final String BY_ID = BASE + "/{id}";
+        public static final String HEALTH = BASE + "/health";
     }
 
     public static class Movies {
         public static final String BASE = "/api/movies";
         public static final String BY_ID = BASE + "/{id}";
+        public static final String HEALTH = BASE + "/health";
     }
 
     public static class Requests {
         public static final String BASE = "/api/requests";
         public static final String BY_ID = BASE + "/{id}";
+        public static final String HEALTH = BASE + "/health";
     }
 
     public static class Reviews {
         public static final String BASE = "/api/reviews";
         public static final String BY_ID = BASE + "/{id}";
+        public static final String HEALTH = BASE + "/health";
     }
 
     public static class Users {
@@ -49,5 +55,6 @@ public final class ApiEndpoints {
         public static final String REQUESTS_BY_USER_ID = BASE + "/{id}/requests";
         public static final String REVIEWS_BY_CURRENT_USER = BASE + "/me/reviews";
         public static final String REVIEWS_BY_USER_ID = BASE + "/{id}/reviews";
+        public static final String HEALTH = BASE + "/health";
     }
 }

@@ -1,12 +1,12 @@
 package com.project.cinescope.application.user.impl;
 
 import com.project.cinescope.application.auth.service.AuthenticatedUserService;
-import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
 import com.project.cinescope.application.user.UserService;
 import com.project.cinescope.application.user.request.UserRequestRegisterDto;
 import com.project.cinescope.application.user.response.UserResponseDto;
+import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -27,13 +27,13 @@ public class UserServiceImpl implements UserService {
     public List<UserResponseDto> getAll() {
         List<User> userList = userRepository.findAll();
         return userList.stream()
-                .map(UserResponseDto::toUserDto)
+                .map(UserResponseDto::toResponseDto)
                 .toList();
     }
 
     public UserResponseDto getById(Long id) {
         return userRepository.findById(id)
-                .map(UserResponseDto::toUserDto)
+                .map(UserResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("User not found with username: " + username);
         }
 
-        return UserResponseDto.toUserDto(user);
+        return UserResponseDto.toResponseDto(user);
     }
 
     public UserDetails findByUsername(String username) {
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     public UserResponseDto findCurrentUser() {
         User user = authenticatedUserService.getCurrentUser();
-        return UserResponseDto.toUserDto(user);
+        return UserResponseDto.toResponseDto(user);
     }
 
     public UserResponseDto post(UserRequestRegisterDto registerDto) {
@@ -67,8 +67,8 @@ public class UserServiceImpl implements UserService {
             throw new DuplicateResourceException("User with email " + userEmail + " already exists");
         }
 
-        User user = UserRequestRegisterDto.toUser(registerDto);
+        User user = UserRequestRegisterDto.toEntity(registerDto);
         User createdUser = userRepository.save(user);
-        return UserResponseDto.toUserDto(createdUser);
+        return UserResponseDto.toResponseDto(createdUser);
     }
 }

@@ -29,13 +29,13 @@ public class MovieServiceImpl implements MovieService {
     public List<MovieResponseDto> getAll() {
         List<Movie> movieList = movieRepository.findAll();
         return movieList.stream()
-                .map(MovieResponseDto::toMovieDto)
+                .map(MovieResponseDto::toResponseDto)
                 .toList();
     }
 
     public MovieResponseDto getById(Long id) {
         return movieRepository.findById(id)
-                .map(MovieResponseDto::toMovieDto)
+                .map(MovieResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id " + id));
     }
 
@@ -45,9 +45,9 @@ public class MovieServiceImpl implements MovieService {
             throw new DuplicateResourceException("Movie with title " + movieTitle + " already exists");
         }
 
-        Movie movie = MovieCreateRequestDto.toMovie(requestDto);
+        Movie movie = MovieCreateRequestDto.toEntity(requestDto);
         Movie createdMovie = movieRepository.save(movie);
-        return MovieResponseDto.toMovieDto(createdMovie);
+        return MovieResponseDto.toResponseDto(createdMovie);
     }
 
     public MovieResponseDto patch(Long id, MovieUpdateRequestDto requestDto) {
@@ -74,7 +74,7 @@ public class MovieServiceImpl implements MovieService {
         }
 
         Movie updatedMovie = movieRepository.save(movie);
-        return MovieResponseDto.toMovieDto(updatedMovie);
+        return MovieResponseDto.toResponseDto(updatedMovie);
     }
 
     public void delete(Long id) {

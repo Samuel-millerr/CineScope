@@ -16,7 +16,7 @@ public record MovieResponseDto(
         List<ActorResponseDto> actors,
         List<DirectorResponseDto> directors
 ) {
-    public static MovieResponseDto toMovieDto(Movie movie) {
+    public static MovieResponseDto toResponseDto(Movie movie) {
         return new MovieResponseDto(
                 movie.getId(),
                 movie.getTitle(),
@@ -25,10 +25,10 @@ public record MovieResponseDto(
                 movie.getSynopsis(),
                 movie.getPoster(),
                 movie.getActors().stream()
-                        .map(ActorResponseDto::toActorDto)
+                        .map(ActorResponseDto::toResponseDto)
                         .toList(),
                 movie.getDirectors().stream()
-                        .map(DirectorResponseDto::toDirectorDto)
+                        .map(DirectorResponseDto::toResponseDto)
                         .toList()
         );
     }

@@ -9,7 +9,6 @@ import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DirectorServiceImpl implements DirectorService {
@@ -22,13 +21,13 @@ public class DirectorServiceImpl implements DirectorService {
     public List<DirectorResponseDto> getAll() {
         List<Director> directorList = directorRepository.findAll();
         return directorList.stream()
-                .map(DirectorResponseDto::toDirectorDto)
+                .map(DirectorResponseDto::toResponseDto)
                 .toList();
     }
 
     public DirectorResponseDto getById(Long id) {
         return directorRepository.findById(id)
-                .map(DirectorResponseDto::toDirectorDto)
+                .map(DirectorResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
     }
 
@@ -38,9 +37,9 @@ public class DirectorServiceImpl implements DirectorService {
             throw new ResourceNotFoundException("Director with name " + directorName + " already exists");
         }
 
-        Director director = DirectorRequestDto.toDirector(requestDto);
+        Director director = DirectorRequestDto.toEntity(requestDto);
         Director createdDirector = directorRepository.save(director);
-        return DirectorResponseDto.toDirectorDto(createdDirector);
+        return DirectorResponseDto.toResponseDto(createdDirector);
     }
 
     public DirectorResponseDto patch(Long id, DirectorRequestDto requestDto) {
@@ -52,7 +51,7 @@ public class DirectorServiceImpl implements DirectorService {
         }
 
         Director updateActor = directorRepository.save(director);
-        return DirectorResponseDto.toDirectorDto(updateActor);
+        return DirectorResponseDto.toResponseDto(updateActor);
     }
 
     public void delete(Long id) {

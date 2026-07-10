@@ -11,7 +11,7 @@ public record RequestMovieRequestDto(
         JsonNode requestBody,
         String comment
 ) {
-    public static Request toRequest(RequestMovieRequestDto requestMovieRequestDto) {
+    public static Request toEntity(RequestMovieRequestDto requestMovieRequestDto) {
         Request request = new Request();
         request.setType(requestMovieRequestDto.requestType());
         request.setComment(requestMovieRequestDto.comment());

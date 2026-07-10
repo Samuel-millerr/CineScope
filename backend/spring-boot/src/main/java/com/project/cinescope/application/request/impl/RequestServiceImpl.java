@@ -18,11 +18,9 @@ import com.project.cinescope.application.user.UserRepository;
 import com.project.cinescope.core.exception.exceptions.ConstraintViolationException;
 import com.project.cinescope.core.exception.exceptions.ForbiddenOperationException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
-import jakarta.validation.ConstraintDeclarationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.springframework.stereotype.Service;
-import tools.jackson.core.TreeNode;
 import tools.jackson.databind.ObjectMapper;
 
 import java.beans.IntrospectionException;
@@ -54,13 +52,13 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestMovieResponseDto> getAll() {
         List<Request> requestList = requestRepository.findAll();
         return requestList.stream()
-                .map(RequestMovieResponseDto::toRequestDto)
+                .map(RequestMovieResponseDto::toResponseDto)
                 .toList();
     }
 
     public RequestMovieResponseDto getById(Long id) {
         return requestRepository.findById(id)
-                .map(RequestMovieResponseDto::toRequestDto)
+                .map(RequestMovieResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
     }
 
@@ -68,7 +66,7 @@ public class RequestServiceImpl implements RequestService {
         User user = authenticatedUserService.getCurrentUser();
         List<Request> requestList = requestRepository.findByUser(user);
         return requestList.stream()
-                .map(RequestMovieResponseDto::toRequestDto)
+                .map(RequestMovieResponseDto::toResponseDto)
                 .toList();
     }
 
@@ -77,14 +75,14 @@ public class RequestServiceImpl implements RequestService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         List<Request> requestList = requestRepository.findByUser(user);
         return requestList.stream()
-                .map(RequestMovieResponseDto::toRequestDto)
+                .map(RequestMovieResponseDto::toResponseDto)
                 .toList();
     }
 
     public RequestMovieResponseDto post(RequestMovieRequestDto requestDto) {
         User user = authenticatedUserService.getCurrentUser();
 
-        Request request = RequestMovieRequestDto.toRequest(requestDto);
+        Request request = RequestMovieRequestDto.toEntity(requestDto);
         request.setUser(user);
 
         Object requestBody;
@@ -114,7 +112,7 @@ public class RequestServiceImpl implements RequestService {
         request.setRequestBody(objectMapper.writeValueAsString(requestBody));
 
         Request createdRequest = requestRepository.save(request);
-        return RequestMovieResponseDto.toRequestDto(createdRequest);
+        return RequestMovieResponseDto.toResponseDto(createdRequest);
     }
 
     public RequestMovieResponseDto updateStatus(
@@ -151,7 +149,7 @@ public class RequestServiceImpl implements RequestService {
 
         requestRepository.save(request);
 
-        return RequestMovieResponseDto.toRequestDto(request);
+        return RequestMovieResponseDto.toResponseDto(request);
     }
 
     public void delete(Long id) {

@@ -18,11 +18,11 @@ public record RequestMovieResponseDto(
         String comment,
         LocalDate requestDate
 ) {
-    public static RequestMovieResponseDto toRequestDto(Request request) {
+    public static RequestMovieResponseDto toResponseDto(Request request) {
         return new RequestMovieResponseDto(
                 request.getId(),
-                UserResponseDto.toUserDto(request.getUser()),
-                request.getMovie() != null? MovieResponseDto.toMovieDto(request.getMovie()) : null,
+                UserResponseDto.toResponseDto(request.getUser()),
+                request.getMovie() != null? MovieResponseDto.toResponseDto(request.getMovie()) : null,
                 request.getType(),
                 request.getStatus(),
                 request.getRequestBody(),

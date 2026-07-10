@@ -9,7 +9,7 @@ public record UserRequestRegisterDto(
         String lastName,
         String email
 ) {
-    public static User toUser(UserRequestRegisterDto userRequestRegisterDto) {
+    public static User toEntity(UserRequestRegisterDto userRequestRegisterDto) {
         User user = new User();
         user.setUsername(userRequestRegisterDto.username());
         user.setHashedPassword(userRequestRegisterDto.password());

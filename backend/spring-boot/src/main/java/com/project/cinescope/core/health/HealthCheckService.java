@@ -26,12 +26,13 @@ public class HealthCheckService {
             HandlerMethod handlerMethod = entry.getValue();
 
             if (handlerMethod.getBeanType().equals(myClass) && !handlerMethod.getMethod().getName().equals("health")) {
-                String url = mappingInfo.getDirectPaths().toString();
+                assert mappingInfo.getPathPatternsCondition() != null;
+                String url = mappingInfo.getPathPatternsCondition().toString();
                 String httpMethod = mappingInfo.getMethodsCondition().getMethods().toString();
 
                 routes.add(Map.of(
-                        "url", url,
-                        "httpMethod", httpMethod,
+                        "url", url.substring(1, url.length()-1),
+                        "httpMethod", httpMethod.substring(1, httpMethod.length()-1),
                         "methodName", handlerMethod.getMethod().getName()
                 ));
             }

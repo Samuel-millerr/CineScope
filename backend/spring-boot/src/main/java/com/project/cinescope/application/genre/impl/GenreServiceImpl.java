@@ -22,13 +22,13 @@ public class GenreServiceImpl implements GenreService {
     public List<GenreResponseDto> getAll() {
         List<Genre> genreList = genreRepository.findAll();
         return genreList.stream()
-                .map(GenreResponseDto::toGenreDto)
+                .map(GenreResponseDto::toResponseDto)
                 .toList();
     }
 
     public GenreResponseDto getById(Long id) {
         return genreRepository.findById(id)
-                .map(GenreResponseDto::toGenreDto)
+                .map(GenreResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Genre not found with id: " + id));
     }
 
@@ -38,9 +38,9 @@ public class GenreServiceImpl implements GenreService {
             throw new DuplicateResourceException("This genre already exists");
         }
 
-        Genre genre = GenreRequestDto.toGenre(requestDto);
+        Genre genre = GenreRequestDto.toEntity(requestDto);
         Genre createdGenre = genreRepository.save(genre);
-        return GenreResponseDto.toGenreDto(createdGenre);
+        return GenreResponseDto.toResponseDto(createdGenre);
     }
 
     public void delete(Long id) {

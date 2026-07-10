@@ -33,13 +33,13 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewResponseDto> getAll() {
         List<Review> reviewList = reviewRepository.findAll();
         return reviewList.stream()
-                .map(ReviewResponseDto::toReviewDto)
+                .map(ReviewResponseDto::toResponseDto)
                 .toList();
     }
 
     public ReviewResponseDto getById(Long id) {
         return reviewRepository.findById(id)
-                .map(ReviewResponseDto::toReviewDto)
+                .map(ReviewResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Review not found with id " + id));
     }
 
@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
         User user = authenticatedUserService.getCurrentUser();
         List<Review> reviewList = reviewRepository.findByUser(user);
         return reviewList.stream()
-                .map(ReviewResponseDto::toReviewDto)
+                .map(ReviewResponseDto::toResponseDto)
                 .toList();
     }
 
@@ -56,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         List<Review> reviewList = reviewRepository.findByUser(user);
         return reviewList.stream()
-                .map(ReviewResponseDto::toReviewDto)
+                .map(ReviewResponseDto::toResponseDto)
                 .toList();
     }
 
@@ -66,11 +66,11 @@ public class ReviewServiceImpl implements ReviewService {
         Movie movie = movieRepository.findById(requestDto.movieId())
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + requestDto.movieId()));
 
-        Review review = ReviewRequestDto.toReview(requestDto);
+        Review review = ReviewRequestDto.toEntity(requestDto);
         review.setUser(user);
         review.setMovie(movie);
         Review createdReview = reviewRepository.save(review);
-        return ReviewResponseDto.toReviewDto(createdReview);
+        return ReviewResponseDto.toResponseDto(createdReview);
     }
 
     public void delete(Long id) {

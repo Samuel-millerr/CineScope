@@ -10,7 +10,6 @@ import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ActorServiceImpl implements ActorService {
@@ -23,13 +22,13 @@ public class ActorServiceImpl implements ActorService {
     public List<ActorResponseDto> getAll() {
         List<Actor> actorList = actorRepository.findAll();
         return actorList.stream()
-                .map(ActorResponseDto::toActorDto)
+                .map(ActorResponseDto::toResponseDto)
                 .toList();
     }
 
     public ActorResponseDto getById(Long id) {
         return actorRepository.findById(id)
-                .map(ActorResponseDto::toActorDto)
+                .map(ActorResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
     }
 
@@ -39,9 +38,9 @@ public class ActorServiceImpl implements ActorService {
             throw new DuplicateResourceException("Actor with name " + actorName + " already exists");
         }
 
-        Actor actor = ActorRequestDto.toActor(requestDto);
+        Actor actor = ActorRequestDto.toEntity(requestDto);
         Actor createdActor = actorRepository.save(actor);
-        return ActorResponseDto.toActorDto(createdActor);
+        return ActorResponseDto.toResponseDto(createdActor);
     }
 
     public ActorResponseDto patch(Long id, ActorRequestDto requestDto) {
@@ -57,7 +56,7 @@ public class ActorServiceImpl implements ActorService {
         }
 
         Actor updateActor = actorRepository.save(actor);
-        return ActorResponseDto.toActorDto(updateActor);
+        return ActorResponseDto.toResponseDto(updateActor);
     }
 
     public void delete(Long id) {

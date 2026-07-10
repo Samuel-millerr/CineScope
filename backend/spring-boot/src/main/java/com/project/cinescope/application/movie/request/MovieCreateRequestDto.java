@@ -11,7 +11,7 @@ public record MovieCreateRequestDto(
         String synopsis,
         String poster
 ) {
-    public static Movie toMovie(MovieCreateRequestDto movieRequestDto) {
+    public static Movie toEntity(MovieCreateRequestDto movieRequestDto) {
         Movie movie = new Movie();
         movie.setTitle(movieRequestDto.title());
         movie.setDuration(movieRequestDto.duration());
