@@ -73,6 +73,11 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
     public @Nullable String getPassword() {
         return hashedPassword;
     }
