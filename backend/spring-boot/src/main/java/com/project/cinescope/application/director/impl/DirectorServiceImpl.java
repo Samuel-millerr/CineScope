@@ -5,6 +5,7 @@ import com.project.cinescope.application.director.DirectorRepository;
 import com.project.cinescope.application.director.DirectorService;
 import com.project.cinescope.application.director.request.DirectorRequestDto;
 import com.project.cinescope.application.director.response.DirectorResponseDto;
+import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class DirectorServiceImpl implements DirectorService {
     public DirectorResponseDto post(DirectorRequestDto requestDto) {
         String directorName = requestDto.name();
         if (directorRepository.existsByName(directorName)) {
-            throw new ResourceNotFoundException("Director with name " + directorName + " already exists");
+            throw new DuplicateResourceException("Director with name " + directorName + " already exists");
         }
 
         Director director = DirectorRequestDto.toEntity(requestDto);

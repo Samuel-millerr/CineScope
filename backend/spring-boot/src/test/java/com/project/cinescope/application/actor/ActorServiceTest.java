@@ -14,13 +14,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.tuple;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -39,9 +36,9 @@ class ActorServiceTest {
 
     @BeforeEach
     void setUp() {
-        actor1 = new Actor(1L, "Tom Hanks", "photo1.jpg", true, Collections.emptyList());
-        actor2 = new Actor(2L, "Meryl Streep", "photo2.jpg", true, Collections.emptyList());
-        actor3 = new Actor(3L, "Leonardo DiCaprio", "photo3.jpg", true, Collections.emptyList());
+        actor1 = new Actor(1L, "Tom Hanks", "photo1.jpg", true, null);
+        actor2 = new Actor(2L, "Meryl Streep", "photo2.jpg", true, null);
+        actor3 = new Actor(3L, "Leonardo DiCaprio", "photo3.jpg", true, null);
     }
 
     @Test
@@ -92,7 +89,7 @@ class ActorServiceTest {
     @DisplayName("Should create a new actor")
     void shouldCreateNewActor() {
         ActorRequestDto requestDto = new ActorRequestDto("Tom Cruise", "photo_cruise.jpg");
-        Actor newActor = new Actor(4L, "Tom Cruise", "photo_cruise.jpg", true, Collections.emptyList());
+        Actor newActor = new Actor(4L, "Tom Cruise", "photo_cruise.jpg", true,null);
 
         when(actorRepository.existsByName("Tom Cruise")).thenReturn(false);
         when(actorRepository.save(any(Actor.class))).thenReturn(newActor);
@@ -127,8 +124,8 @@ class ActorServiceTest {
     @DisplayName("Should update an existing actor")
     void shouldUpdateExistingActor() {
         ActorRequestDto updateDto = new ActorRequestDto("Tom Hanks Updated", "updated_photo.jpg");
-        Actor existingActor = new Actor(1L, "Tom Hanks", "photo1.jpg", true, Collections.emptyList());
-        Actor updatedActor = new Actor(1L, "Tom Hanks Updated", "updated_photo.jpg", true, Collections.emptyList());
+        Actor existingActor = new Actor(1L, "Tom Hanks", "photo1.jpg", true, null);
+        Actor updatedActor = new Actor(1L, "Tom Hanks Updated", "updated_photo.jpg", true, null);
 
         when(actorRepository.findById(1L)).thenReturn(Optional.of(existingActor));
         when(actorRepository.save(any(Actor.class))).thenReturn(updatedActor);
