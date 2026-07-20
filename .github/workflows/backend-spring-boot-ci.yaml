@@ -32,13 +32,13 @@ jobs:
 
       - name: Ambientar PostgreSQL
         run: |
-          docker compose up -d --wait
+          docker compose up -d --wait postgres
           docker compose logs postgres
 
       - name: Aguardar infraestrutura ficar saudável
         run: |
           echo "Aguardando o banco de dados PostgreSQL"
-          until [ "$(docker inspect --format='{{.State.Health.Status}}' cinescope-database)" = "healthy"]; do
+          until [ "$(docker inspect --format='{{.State.Health.Status}}' cinescope-database)" = "healthy" ]; do
             sleep 3
           done
           echo "PostgreSQL ready"
