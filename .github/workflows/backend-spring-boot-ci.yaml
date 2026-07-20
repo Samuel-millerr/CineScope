@@ -11,9 +11,13 @@ permissions:
 
 jobs:
   build-and-test:
-    name: Build e testes
+    name: Build and tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
+    defaults:
+      run:
+        working-directory: backend/spring-boot
 
     steps:
       - name: Checkout do repositório
@@ -46,4 +50,3 @@ jobs:
       - name: Encerrar infraestrutura
         if: always()
         run: docker compose down -v
-        
