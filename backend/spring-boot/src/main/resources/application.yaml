@@ -13,12 +13,12 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         format-sql: false
 
-    flyaway:
+    flyway:
       enabled: true
       baseline-on-migrate: true
 

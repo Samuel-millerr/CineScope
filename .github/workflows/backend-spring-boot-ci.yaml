@@ -1,14 +1,25 @@
-name: Backend SpringBoot Pipeline
+name: Backend Spring Boot CI
+
+on:
+  push:
+    branches: [main]
+  pull-request:
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
-  build-and=run:
-    runs-on: ubunto-latest
+  build-and-test:
+    name: Build e testes
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
   steps:
-    - name: Checkout geral
+    - name: Checkout do repositório
       uses: actions/checkout@v4
 
-    - name: Configuração do ambiente Java
+    - name: Configurar Java 21
       uses: actions/setup-java@v4
       with:
         java-version: 21
@@ -17,8 +28,9 @@ jobs:
 
     - name: Ambientar PostgreSQL
       run: |
-        docker compose up -d \
-        cinescope-database
+        docker compose up -d cinescope-database
+        docker compose logs cinescope-database
+        exit 1
 
     - name: Aguardar infraestrutura ficar saudável
       run: |
@@ -28,10 +40,10 @@ jobs:
         done
         echo "PostgreSQL ready"
     
-    - name: Rodar testes unitários
-      run: mvn test -B
+    - name: Executar testes e build
+      run: ./mvnw --batch-mode verify
     
-    - name: Derrubar containers
+    - name: Encerrar infraestrutura
       if: always()
       run: docker compose down -v
 
