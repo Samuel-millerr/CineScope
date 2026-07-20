@@ -32,7 +32,7 @@ jobs:
 
       - name: Ambientar PostgreSQL
         run: |
-          docker compose up -d cinescope-database
+          docker compose up -d --wait
           docker compose logs cinescope-database
           exit 1
 
