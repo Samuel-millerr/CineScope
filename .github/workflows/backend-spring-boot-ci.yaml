@@ -1,0 +1,39 @@
+name: Backend SpringBoot Pipeline
+
+jobs:
+  build-and=run:
+    runs-on: ubunto-latest
+
+  steps:
+    - name: Checkout geral
+      uses: actions/checkout@v4
+
+    - name: Configuração do ambiente Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: 21
+        distribution: temurin
+        cache: maven
+
+    - name: Ambientar PostgreSQL
+      run: |
+        docker compose up -d \
+        cinescope-database
+
+    - name: Aguardar infraestrutura ficar saudável
+      run: |
+        echo "Aguardando o banco de dados PostgreSQL"
+        until [ "$(docker inspect --format='{{.State.Health.Status}}' cinescope-database)" = "healthy"]; do
+          sleep 3
+        done
+        echo "PostgreSQL ready"
+    
+    - name: Rodar testes unitários
+      run: mvn test -B
+    
+    - name: Derrubar containers
+      if: always()
+      run: docker compose down -v
+
+    
+    
