@@ -33,8 +33,7 @@ jobs:
       - name: Ambientar PostgreSQL
         run: |
           docker compose up -d --wait
-          docker compose logs cinescope-database
-          exit 1
+          docker compose logs postgres
 
       - name: Aguardar infraestrutura ficar saudável
         run: |
