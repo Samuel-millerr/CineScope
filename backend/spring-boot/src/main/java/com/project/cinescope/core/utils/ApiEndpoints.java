@@ -1,4 +1,4 @@
-package com.project.cinescope.core.config;
+package com.project.cinescope.core.utils;
 
 import lombok.NoArgsConstructor;
 

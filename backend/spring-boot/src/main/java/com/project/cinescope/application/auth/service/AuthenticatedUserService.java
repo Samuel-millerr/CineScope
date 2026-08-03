@@ -5,7 +5,6 @@ import com.project.cinescope.application.user.UserRepository;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component

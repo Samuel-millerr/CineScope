@@ -5,7 +5,7 @@ import com.project.cinescope.application.request.response.RequestMovieResponseDt
 import com.project.cinescope.application.review.ReviewService;
 import com.project.cinescope.application.review.response.ReviewResponseDto;
 import com.project.cinescope.application.user.response.UserResponseDto;
-import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.utils.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import org.springframework.http.HttpStatus;

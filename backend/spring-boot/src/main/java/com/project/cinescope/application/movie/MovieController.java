@@ -3,7 +3,7 @@ package com.project.cinescope.application.movie;
 import com.project.cinescope.application.movie.request.MovieCreateRequestDto;
 import com.project.cinescope.application.movie.request.MovieUpdateRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
-import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.utils.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;

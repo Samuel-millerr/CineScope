@@ -1,9 +1,8 @@
 package com.project.cinescope.application.review;
 
-import com.project.cinescope.application.request.response.RequestMovieResponseDto;
 import com.project.cinescope.application.review.request.ReviewRequestDto;
 import com.project.cinescope.application.review.response.ReviewResponseDto;
-import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.utils.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
