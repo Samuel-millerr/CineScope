@@ -5,8 +5,10 @@ import com.project.cinescope.application.genre.GenreRepository;
 import com.project.cinescope.application.genre.GenreService;
 import com.project.cinescope.application.genre.request.GenreRequestDto;
 import com.project.cinescope.application.genre.response.GenreResponseDto;
-import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.utils.message.ErrorEnum;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,14 +33,20 @@ public class GenreServiceImpl implements GenreService {
     public GenreResponseDto getById(Long id) {
         return genreRepository.findById(id)
                 .map(GenreResponseDto::toResponseDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Genre not found with id: " + id));
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND, ErrorEnum.NOT_FOUND.formatDetailedTemplate("Genre", "id", id)
+                        )
+                );
     }
 
     @Override
     public GenreResponseDto post(GenreRequestDto requestDto) {
         String genreName = requestDto.genre();
         if (genreRepository.existsByGenre(genreName)) {
-            throw new DuplicateResourceException("This genre already exists");
+            throw new DefaultException(
+                    HttpStatus.CONFLICT,
+                    ErrorEnum.DUPLICATE.formatDetailedTemplate("Genre", "genre", genreName)
+            );
         }
 
         Genre genre = GenreRequestDto.toEntity(requestDto);

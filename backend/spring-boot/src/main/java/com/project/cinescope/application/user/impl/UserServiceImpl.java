@@ -6,8 +6,9 @@ import com.project.cinescope.application.user.UserRepository;
 import com.project.cinescope.application.user.UserService;
 import com.project.cinescope.application.user.request.UserRequestRegisterDto;
 import com.project.cinescope.application.user.response.UserResponseDto;
-import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.exception.DefaultException;
+import com.project.cinescope.core.utils.message.ErrorEnum;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,11 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto getById(Long id) {
         return userRepository.findById(id)
                 .map(UserResponseDto::toResponseDto)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("User", "id", id)
+                        )
+                );
     }
 
     @Override
@@ -44,7 +49,10 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getByUsername(username);
 
         if (user == null) {
-            throw new ResourceNotFoundException("User not found with username: " + username);
+            throw new DefaultException(
+                    HttpStatus.NOT_FOUND,
+                    ErrorEnum.NOT_FOUND.formatDetailedTemplate("User", "username", username)
+            );
         }
 
         return UserResponseDto.toResponseDto(user);
@@ -65,12 +73,16 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto post(UserRequestRegisterDto registerDto) {
         String username = registerDto.username();
         if (userRepository.existsByUsername(username)) {
-            throw new DuplicateResourceException("User with username " + username + " already exists");
+            throw new DefaultException(HttpStatus.CONFLICT,
+                    ErrorEnum.DUPLICATE.formatDetailedTemplate("User", "username", username)
+            );
         }
 
         String userEmail = registerDto.email();
         if (userRepository.existsByEmail(userEmail)) {
-            throw new DuplicateResourceException("User with email " + userEmail + " already exists");
+            throw new DefaultException(HttpStatus.CONFLICT,
+                    ErrorEnum.DUPLICATE.formatDetailedTemplate("User", "email", userEmail)
+            );
         }
 
         User user = UserRequestRegisterDto.toEntity(registerDto);

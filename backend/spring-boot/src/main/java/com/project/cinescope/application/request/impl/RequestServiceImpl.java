@@ -15,11 +15,12 @@ import com.project.cinescope.application.request.request.RequestMovieRequestDto;
 import com.project.cinescope.application.request.response.RequestMovieResponseDto;
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.ConstraintViolationException;
-import com.project.cinescope.core.exception.exceptions.ForbiddenOperationException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
 
@@ -174,7 +175,10 @@ public class RequestServiceImpl implements RequestService {
         User user = authenticatedUserService.getCurrentUser();
 
         if (user != request.getUser()) {
-            throw new ForbiddenOperationException("You don't have permission to delete another user's requests.");
+            throw new DefaultException(
+                    HttpStatus.FORBIDDEN,
+                    "You don't have permission to delete another user's requests."
+            );
         }
         requestRepository.delete(request);
     }

@@ -10,8 +10,10 @@ import com.project.cinescope.application.review.request.ReviewRequestDto;
 import com.project.cinescope.application.review.response.ReviewResponseDto;
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
-import com.project.cinescope.core.exception.exceptions.ForbiddenOperationException;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.utils.message.ErrorEnum;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +44,10 @@ public class ReviewServiceImpl implements ReviewService {
     public ReviewResponseDto getById(Long id) {
         return reviewRepository.findById(id)
                 .map(ReviewResponseDto::toResponseDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Review not found with id " + id));
+                .orElseThrow(() -> new DefaultException(HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Review", "id", id)
+                        )
+                );
     }
 
     @Override
@@ -94,7 +99,7 @@ public class ReviewServiceImpl implements ReviewService {
         User user = authenticatedUserService.getCurrentUser();
 
         if (user != review.getUser()) {
-            throw new ForbiddenOperationException("You don't have permission to delete another user's reviews.");
+            throw new DefaultException(HttpStatus.FORBIDDEN, "You don't have permission to delete another user's reviews.");
         }
         reviewRepository.delete(review);
     }

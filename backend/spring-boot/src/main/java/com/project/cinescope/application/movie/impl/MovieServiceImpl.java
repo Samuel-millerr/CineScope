@@ -6,8 +6,10 @@ import com.project.cinescope.application.movie.MovieService;
 import com.project.cinescope.application.movie.request.MovieCreateRequestDto;
 import com.project.cinescope.application.movie.request.MovieUpdateRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
-import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.utils.message.ErrorEnum;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.beans.IntrospectionException;
@@ -38,14 +40,20 @@ public class MovieServiceImpl implements MovieService {
     public MovieResponseDto getById(Long id) {
         return movieRepository.findById(id)
                 .map(MovieResponseDto::toResponseDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id " + id));
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND, ErrorEnum.NOT_FOUND.formatDetailedTemplate("Movie", "id", id)
+                        )
+                );
     }
 
     @Override
     public MovieResponseDto post(MovieCreateRequestDto requestDto) {
         String movieTitle = requestDto.title();
         if (movieRepository.existsByTitle(movieTitle)) {
-            throw new DuplicateResourceException("Movie with title " + movieTitle + " already exists");
+            throw new DefaultException(
+                    HttpStatus.CONFLICT,
+                    ErrorEnum.DUPLICATE.formatDetailedTemplate("Movie", "title", movieTitle)
+            );
         }
 
         Movie movie = MovieCreateRequestDto.toEntity(requestDto);

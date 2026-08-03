@@ -2,15 +2,15 @@ package com.project.cinescope.application.auth;
 
 import com.project.cinescope.application.auth.response.TokenResponseDto;
 import com.project.cinescope.application.auth.service.TokenService;
-import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
-import com.project.cinescope.core.exception.exceptions.InvalidCredentialsException;
-import com.project.cinescope.core.health.HealthCheckService;
-import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserService;
 import com.project.cinescope.application.user.request.UserRequestLoginDto;
 import com.project.cinescope.application.user.request.UserRequestRegisterDto;
 import com.project.cinescope.application.user.response.UserResponseDto;
+import com.project.cinescope.core.exception.DefaultException;
+import com.project.cinescope.core.health.HealthCheckService;
+import com.project.cinescope.core.health.response.HealthCheckResponseDto;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +53,10 @@ public class AuthController {
 
             return ResponseEntity.ok(new TokenResponseDto(token));
         } catch (InternalAuthenticationServiceException | BadCredentialsException e) {
-            throw new InvalidCredentialsException("Username or password incorrect");
+            throw new DefaultException(
+                    HttpStatus.FORBIDDEN,
+                    "Username or password incorrect"
+            );
         }
     }
 
