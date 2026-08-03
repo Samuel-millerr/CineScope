@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
         this.authenticatedUserService = authenticatedUserService;
     }
 
+    @Override
     public List<UserResponseDto> getAll() {
         List<User> userList = userRepository.findAll();
         return userList.stream()
@@ -31,12 +32,14 @@ public class UserServiceImpl implements UserService {
                 .toList();
     }
 
+    @Override
     public UserResponseDto getById(Long id) {
         return userRepository.findById(id)
                 .map(UserResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
+    @Override
     public UserResponseDto getByUsername(String username) {
         User user = userRepository.getByUsername(username);
 
@@ -47,15 +50,18 @@ public class UserServiceImpl implements UserService {
         return UserResponseDto.toResponseDto(user);
     }
 
+    @Override
     public UserDetails findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
+    @Override
     public UserResponseDto findCurrentUser() {
         User user = authenticatedUserService.getCurrentUser();
         return UserResponseDto.toResponseDto(user);
     }
 
+    @Override
     public UserResponseDto post(UserRequestRegisterDto registerDto) {
         String username = registerDto.username();
         if (userRepository.existsByUsername(username)) {

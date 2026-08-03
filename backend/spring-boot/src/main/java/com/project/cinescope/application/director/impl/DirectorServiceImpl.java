@@ -19,6 +19,7 @@ public class DirectorServiceImpl implements DirectorService {
         this.directorRepository = directorRepository;
     }
 
+    @Override
     public List<DirectorResponseDto> getAll() {
         List<Director> directorList = directorRepository.findAll();
         return directorList.stream()
@@ -26,12 +27,14 @@ public class DirectorServiceImpl implements DirectorService {
                 .toList();
     }
 
+    @Override
     public DirectorResponseDto getById(Long id) {
         return directorRepository.findById(id)
                 .map(DirectorResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
     }
 
+    @Override
     public DirectorResponseDto post(DirectorRequestDto requestDto) {
         String directorName = requestDto.name();
         if (directorRepository.existsByName(directorName)) {
@@ -43,6 +46,7 @@ public class DirectorServiceImpl implements DirectorService {
         return DirectorResponseDto.toResponseDto(createdDirector);
     }
 
+    @Override
     public DirectorResponseDto patch(Long id, DirectorRequestDto requestDto) {
         Director director = directorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
@@ -55,6 +59,7 @@ public class DirectorServiceImpl implements DirectorService {
         return DirectorResponseDto.toResponseDto(updateActor);
     }
 
+    @Override
     public void delete(Long id) {
         Director director = directorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));

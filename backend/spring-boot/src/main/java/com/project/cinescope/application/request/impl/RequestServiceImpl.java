@@ -49,6 +49,7 @@ public class RequestServiceImpl implements RequestService {
         this.validator = validator;
     }
 
+    @Override
     public List<RequestMovieResponseDto> getAll() {
         List<Request> requestList = requestRepository.findAll();
         return requestList.stream()
@@ -56,12 +57,14 @@ public class RequestServiceImpl implements RequestService {
                 .toList();
     }
 
+    @Override
     public RequestMovieResponseDto getById(Long id) {
         return requestRepository.findById(id)
                 .map(RequestMovieResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
     }
 
+    @Override
     public List<RequestMovieResponseDto> findRequestsByCurrentUser() {
         User user = authenticatedUserService.getCurrentUser();
         List<Request> requestList = requestRepository.findByUser(user);
@@ -70,6 +73,7 @@ public class RequestServiceImpl implements RequestService {
                 .toList();
     }
 
+    @Override
     public List<RequestMovieResponseDto> findRequestsByUserId(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
@@ -79,6 +83,7 @@ public class RequestServiceImpl implements RequestService {
                 .toList();
     }
 
+    @Override
     public RequestMovieResponseDto post(RequestMovieRequestDto requestDto) {
         User user = authenticatedUserService.getCurrentUser();
 
@@ -115,6 +120,7 @@ public class RequestServiceImpl implements RequestService {
         return RequestMovieResponseDto.toResponseDto(createdRequest);
     }
 
+    @Override
     public RequestMovieResponseDto updateStatus(
             Long id,
             RequestStatus requestStatus
@@ -152,6 +158,7 @@ public class RequestServiceImpl implements RequestService {
         return RequestMovieResponseDto.toResponseDto(request);
     }
 
+    @Override
     public void delete(Long id) {
         Request request = requestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
@@ -159,6 +166,7 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.delete(request);
     }
 
+    @Override
     public void deleteRequestByCurrentUser(Long id) {
         Request request = requestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));

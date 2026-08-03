@@ -30,6 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
         this.authenticatedUserService = authenticatedUserService;
     }
 
+    @Override
     public List<ReviewResponseDto> getAll() {
         List<Review> reviewList = reviewRepository.findAll();
         return reviewList.stream()
@@ -37,12 +38,14 @@ public class ReviewServiceImpl implements ReviewService {
                 .toList();
     }
 
+    @Override
     public ReviewResponseDto getById(Long id) {
         return reviewRepository.findById(id)
                 .map(ReviewResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Review not found with id " + id));
     }
 
+    @Override
     public List<ReviewResponseDto> findReviewsByCurrentUser() {
         User user = authenticatedUserService.getCurrentUser();
         List<Review> reviewList = reviewRepository.findByUser(user);
@@ -51,6 +54,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .toList();
     }
 
+    @Override
     public List<ReviewResponseDto> findReviewsByUserId(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
@@ -60,6 +64,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .toList();
     }
 
+    @Override
     public ReviewResponseDto post(ReviewRequestDto requestDto) {
         User user = authenticatedUserService.getCurrentUser();
 
@@ -73,6 +78,7 @@ public class ReviewServiceImpl implements ReviewService {
         return ReviewResponseDto.toResponseDto(createdReview);
     }
 
+    @Override
     public void delete(Long id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
@@ -80,6 +86,7 @@ public class ReviewServiceImpl implements ReviewService {
         reviewRepository.delete(review);
     }
 
+    @Override
     public void deleteReviewByCurrentUser(Long id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));

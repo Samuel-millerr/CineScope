@@ -26,6 +26,7 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
     }
 
+    @Override
     public List<MovieResponseDto> getAll() {
         List<Movie> movieList = movieRepository.findAll();
         return movieList.stream()
@@ -33,12 +34,14 @@ public class MovieServiceImpl implements MovieService {
                 .toList();
     }
 
+    @Override
     public MovieResponseDto getById(Long id) {
         return movieRepository.findById(id)
                 .map(MovieResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id " + id));
     }
 
+    @Override
     public MovieResponseDto post(MovieCreateRequestDto requestDto) {
         String movieTitle = requestDto.title();
         if (movieRepository.existsByTitle(movieTitle)) {
@@ -50,6 +53,7 @@ public class MovieServiceImpl implements MovieService {
         return MovieResponseDto.toResponseDto(createdMovie);
     }
 
+    @Override
     public MovieResponseDto patch(Long id, MovieUpdateRequestDto requestDto) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
@@ -77,6 +81,7 @@ public class MovieServiceImpl implements MovieService {
         return MovieResponseDto.toResponseDto(updatedMovie);
     }
 
+    @Override
     public void delete(Long id) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));

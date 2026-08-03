@@ -19,6 +19,7 @@ public class ActorServiceImpl implements ActorService {
         this.actorRepository = actorRepository;
     }
 
+    @Override
     public List<ActorResponseDto> getAll() {
         List<Actor> actorList = actorRepository.findAll();
         return actorList.stream()
@@ -26,12 +27,14 @@ public class ActorServiceImpl implements ActorService {
                 .toList();
     }
 
+    @Override
     public ActorResponseDto getById(Long id) {
         return actorRepository.findById(id)
                 .map(ActorResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
     }
 
+    @Override
     public ActorResponseDto post(ActorRequestDto requestDto) {
         String actorName = requestDto.name();
         if (actorRepository.existsByName(actorName)) {
@@ -43,6 +46,7 @@ public class ActorServiceImpl implements ActorService {
         return ActorResponseDto.toResponseDto(createdActor);
     }
 
+    @Override
     public ActorResponseDto patch(Long id, ActorRequestDto requestDto) {
         Actor actor = actorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
@@ -59,6 +63,7 @@ public class ActorServiceImpl implements ActorService {
         return ActorResponseDto.toResponseDto(updateActor);
     }
 
+    @Override
     public void delete(Long id) {
         Actor actor = actorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));

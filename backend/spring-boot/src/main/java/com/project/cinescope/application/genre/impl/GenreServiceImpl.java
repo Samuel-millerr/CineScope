@@ -19,6 +19,7 @@ public class GenreServiceImpl implements GenreService {
         this.genreRepository = genreRepository;
     }
 
+    @Override
     public List<GenreResponseDto> getAll() {
         List<Genre> genreList = genreRepository.findAll();
         return genreList.stream()
@@ -26,12 +27,14 @@ public class GenreServiceImpl implements GenreService {
                 .toList();
     }
 
+    @Override
     public GenreResponseDto getById(Long id) {
         return genreRepository.findById(id)
                 .map(GenreResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Genre not found with id: " + id));
     }
 
+    @Override
     public GenreResponseDto post(GenreRequestDto requestDto) {
         String genreName = requestDto.genre();
         if (genreRepository.existsByGenre(genreName)) {
@@ -43,6 +46,7 @@ public class GenreServiceImpl implements GenreService {
         return GenreResponseDto.toResponseDto(createdGenre);
     }
 
+    @Override
     public void delete(Long id) {
         Genre genre = genreRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Genre not found with id: " + id));
