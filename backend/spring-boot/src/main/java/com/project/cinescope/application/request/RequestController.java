@@ -4,7 +4,7 @@ import com.project.cinescope.application.auth.service.AuthenticatedUserService;
 import com.project.cinescope.application.request.enums.RequestStatus;
 import com.project.cinescope.application.request.request.RequestMovieRequestDto;
 import com.project.cinescope.application.request.response.RequestMovieResponseDto;
-import com.project.cinescope.core.utils.ApiEndpoints;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;

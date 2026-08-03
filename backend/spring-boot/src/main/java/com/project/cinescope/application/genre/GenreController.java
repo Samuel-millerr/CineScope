@@ -2,7 +2,7 @@ package com.project.cinescope.application.genre;
 
 import com.project.cinescope.application.genre.request.GenreRequestDto;
 import com.project.cinescope.application.genre.response.GenreResponseDto;
-import com.project.cinescope.core.utils.ApiEndpoints;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;

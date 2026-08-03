@@ -1,4 +1,4 @@
-package com.project.cinescope.core.utils;
+package com.project.cinescope.core.utils.endpoints;
 
 import org.springframework.http.HttpMethod;
 

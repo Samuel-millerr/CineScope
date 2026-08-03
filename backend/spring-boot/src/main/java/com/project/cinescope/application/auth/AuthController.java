@@ -2,7 +2,7 @@ package com.project.cinescope.application.auth;
 
 import com.project.cinescope.application.auth.response.TokenResponseDto;
 import com.project.cinescope.application.auth.service.TokenService;
-import com.project.cinescope.core.utils.ApiEndpoints;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.exception.exceptions.InvalidCredentialsException;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
