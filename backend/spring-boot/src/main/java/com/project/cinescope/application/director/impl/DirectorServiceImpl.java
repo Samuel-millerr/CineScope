@@ -30,7 +30,7 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public DirectorResponseDto getById(Long id) {
+    public DirectorResponseDto getById(Integer id) {
         return directorRepository.findById(id)
                 .map(DirectorResponseDto::toResponseDto)
                 .orElseThrow(() -> new DefaultException(
@@ -56,7 +56,7 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public DirectorResponseDto patch(Long id, DirectorRequestDto requestDto) {
+    public DirectorResponseDto patch(Integer id, DirectorRequestDto requestDto) {
         Director director = directorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
 
@@ -69,10 +69,11 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         Director director = directorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
 
-        directorRepository.delete(director);
+        director.setActive(false);
+        directorRepository.save(director);
     }
 }

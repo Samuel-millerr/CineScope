@@ -26,7 +26,7 @@ import java.util.List;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(length = 100, nullable = false, unique = true)
     private String title;
@@ -52,10 +52,10 @@ public class Movie {
     @ManyToMany(mappedBy = "movies", targetEntity = Genre.class)
     private List<Genre> genres = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "movie", targetEntity = Review.class)
+    @OneToMany(mappedBy = "movie", targetEntity = Review.class)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "movie", targetEntity = Request.class)
+    @OneToMany(mappedBy = "movie", targetEntity = Request.class)
     private List<Request> requests = new ArrayList<>();
 
     @JsonIgnore

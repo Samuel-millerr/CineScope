@@ -3,9 +3,9 @@ package com.project.cinescope.application.review.request;
 import com.project.cinescope.application.review.Review;
 
 public record ReviewRequestDto(
-        Long movieId,
+        Integer movieId,
         String reviewText,
-        Float reviewRating
+        Double reviewRating
 ) {
     public static Review toEntity(ReviewRequestDto reviewRequestDto) {
         Review review = new Review();

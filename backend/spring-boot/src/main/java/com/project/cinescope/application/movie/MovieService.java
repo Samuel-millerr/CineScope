@@ -11,11 +11,11 @@ import java.util.List;
 public interface MovieService {
     List<MovieResponseDto> getAll();
 
-    MovieResponseDto getById(Long id);
+    MovieResponseDto getById(Integer id);
 
     MovieResponseDto post(MovieCreateRequestDto requestDto);
 
-    MovieResponseDto patch(Long id, MovieUpdateRequestDto requestDto) throws IllegalAccessException, IntrospectionException, InvocationTargetException;
+    MovieResponseDto patch(Integer id, MovieUpdateRequestDto requestDto) throws IllegalAccessException, IntrospectionException, InvocationTargetException;
 
-    void delete(Long id);
+    void delete(Integer id);
 }

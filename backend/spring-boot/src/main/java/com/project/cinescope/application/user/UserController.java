@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<UserResponseDto> getById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDto> getById(@PathVariable Integer id) {
         UserResponseDto responseDto = userService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
@@ -72,25 +72,25 @@ public class UserController {
     }
 
     @GetMapping("/{id}/requests")
-    public ResponseEntity<List<RequestMovieResponseDto>> findRequestsByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<RequestMovieResponseDto>> findRequestsByUserId(@PathVariable Integer id) {
         List<RequestMovieResponseDto> responseDtoList = requestService.findRequestsByUserId(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
     @GetMapping("/{id}/reviews")
-    public ResponseEntity<List<ReviewResponseDto>> findReviewsByUserId(@PathVariable Long id) {
+    public ResponseEntity<List<ReviewResponseDto>> findReviewsByUserId(@PathVariable Integer id) {
         List<ReviewResponseDto> responseDtoList = reviewService.findReviewsByUserId(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
     @DeleteMapping("/me/requests/{requestId}")
-    public ResponseEntity<Void> deleteRequestByCurrentUser(@PathVariable Long requestId) {
+    public ResponseEntity<Void> deleteRequestByCurrentUser(@PathVariable Integer requestId) {
         requestService.deleteRequestByCurrentUser(requestId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @DeleteMapping("/me/reviews/{reviewId}")
-    public ResponseEntity<Void> deleteReviewByCurrentUser(@PathVariable Long reviewId) {
+    public ResponseEntity<Void> deleteReviewByCurrentUser(@PathVariable Integer reviewId) {
         reviewService.deleteReviewByCurrentUser(reviewId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

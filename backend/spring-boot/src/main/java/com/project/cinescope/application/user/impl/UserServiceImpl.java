@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto getById(Long id) {
+    public UserResponseDto getById(Integer id) {
         return userRepository.findById(id)
                 .map(UserResponseDto::toResponseDto)
                 .orElseThrow(() -> new DefaultException(

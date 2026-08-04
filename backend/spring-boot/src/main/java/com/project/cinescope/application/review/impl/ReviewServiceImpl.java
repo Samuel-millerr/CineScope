@@ -41,7 +41,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewResponseDto getById(Long id) {
+    public ReviewResponseDto getById(Integer id) {
         return reviewRepository.findById(id)
                 .map(ReviewResponseDto::toResponseDto)
                 .orElseThrow(() -> new DefaultException(HttpStatus.NOT_FOUND,
@@ -60,7 +60,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ReviewResponseDto> findReviewsByUserId(Long userId) {
+    public List<ReviewResponseDto> findReviewsByUserId(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         List<Review> reviewList = reviewRepository.findByUser(user);
@@ -84,15 +84,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
 
-        reviewRepository.delete(review);
+        review.setActive(false);
+        reviewRepository.save(review);
     }
 
     @Override
-    public void deleteReviewByCurrentUser(Long id) {
+    public void deleteReviewByCurrentUser(Integer id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
 
@@ -101,6 +102,8 @@ public class ReviewServiceImpl implements ReviewService {
         if (user != review.getUser()) {
             throw new DefaultException(HttpStatus.FORBIDDEN, "You don't have permission to delete another user's reviews.");
         }
-        reviewRepository.delete(review);
+
+        review.setActive(false);
+        reviewRepository.save(review);
     }
 }

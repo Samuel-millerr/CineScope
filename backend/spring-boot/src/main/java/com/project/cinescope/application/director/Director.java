@@ -22,7 +22,7 @@ import java.util.List;
 public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(length = 100, nullable = false, unique = true)
     private String name;
@@ -30,7 +30,7 @@ public class Director {
     @JsonIgnore
     private Boolean active = true;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(
             name = "movie_director",
             joinColumns = @JoinColumn(name = "id_director", table = "director", referencedColumnName = "id"),

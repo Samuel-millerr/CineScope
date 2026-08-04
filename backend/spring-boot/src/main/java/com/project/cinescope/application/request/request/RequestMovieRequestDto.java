@@ -5,8 +5,8 @@ import com.project.cinescope.application.request.enums.RequestType;
 import tools.jackson.databind.JsonNode;
 
 public record RequestMovieRequestDto(
-        Long userId,
-        Long movieId,
+        Integer userId,
+        Integer movieId,
         RequestType requestType,
         JsonNode requestBody,
         String comment

@@ -38,7 +38,7 @@ public class ReviewController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ReviewResponseDto> getById(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         ReviewResponseDto responseDto = reviewService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -61,7 +61,7 @@ public class ReviewController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         reviewService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -59,7 +59,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public RequestMovieResponseDto getById(Long id) {
+    public RequestMovieResponseDto getById(Integer id) {
         return requestRepository.findById(id)
                 .map(RequestMovieResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
@@ -75,7 +75,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestMovieResponseDto> findRequestsByUserId(Long userId) {
+    public List<RequestMovieResponseDto> findRequestsByUserId(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         List<Request> requestList = requestRepository.findByUser(user);
@@ -123,7 +123,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestMovieResponseDto updateStatus(
-            Long id,
+            Integer id,
             RequestStatus requestStatus
     ) {
         Request request = requestRepository.findById(id)
@@ -160,15 +160,16 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         Request request = requestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
 
-        requestRepository.delete(request);
+        request.setActive(false);
+        requestRepository.save(request);
     }
 
     @Override
-    public void deleteRequestByCurrentUser(Long id) {
+    public void deleteRequestByCurrentUser(Integer id) {
         Request request = requestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
 
@@ -180,6 +181,8 @@ public class RequestServiceImpl implements RequestService {
                     "You don't have permission to delete another user's requests."
             );
         }
-        requestRepository.delete(request);
+
+        request.setActive(false);
+        requestRepository.save(request);
     }
 }

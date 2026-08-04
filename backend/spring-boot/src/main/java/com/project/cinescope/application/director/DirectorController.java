@@ -39,7 +39,7 @@ public class DirectorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DirectorResponseDto> getById(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         DirectorResponseDto responseDto = directorService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -62,7 +62,7 @@ public class DirectorController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<DirectorResponseDto> patch(
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestBody @Valid DirectorRequestDto requestDto
     ) {
         DirectorResponseDto responseDto = directorService.patch(id, requestDto);
@@ -71,7 +71,7 @@ public class DirectorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         directorService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

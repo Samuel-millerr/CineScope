@@ -36,7 +36,7 @@ public class GenreController {
 
     @GetMapping("/{id}")
     public ResponseEntity<GenreResponseDto> getById(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         GenreResponseDto responseDto = genreService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -51,7 +51,7 @@ public class GenreController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         genreService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

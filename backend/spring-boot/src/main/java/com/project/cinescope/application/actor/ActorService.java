@@ -8,11 +8,11 @@ import java.util.List;
 public interface ActorService {
     List<ActorResponseDto> getAll();
 
-    ActorResponseDto getById(Long id);
+    ActorResponseDto getById(Integer id);
 
     ActorResponseDto post(ActorRequestDto requestDto);
 
-    ActorResponseDto patch(Long id, ActorRequestDto requestDto);
+    ActorResponseDto patch(Integer id, ActorRequestDto requestDto);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

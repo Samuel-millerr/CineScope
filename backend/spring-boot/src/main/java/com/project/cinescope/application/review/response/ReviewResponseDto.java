@@ -4,15 +4,15 @@ import com.project.cinescope.application.movie.response.MovieResponseDto;
 import com.project.cinescope.application.review.Review;
 import com.project.cinescope.application.user.response.UserResponseDto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record ReviewResponseDto(
-        Long id,
+        Integer id,
         UserResponseDto user,
         MovieResponseDto movie,
         String reviewText,
-        Float reviewRating,
-        LocalDateTime reviewDate
+        Double reviewRating,
+        LocalDate reviewDate
 ) {
     public static ReviewResponseDto toResponseDto(Review review) {
         return new ReviewResponseDto(

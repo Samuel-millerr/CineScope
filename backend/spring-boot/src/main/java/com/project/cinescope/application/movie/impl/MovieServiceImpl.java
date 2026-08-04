@@ -37,7 +37,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieResponseDto getById(Long id) {
+    public MovieResponseDto getById(Integer id) {
         return movieRepository.findById(id)
                 .map(MovieResponseDto::toResponseDto)
                 .orElseThrow(() -> new DefaultException(
@@ -62,7 +62,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieResponseDto patch(Long id, MovieUpdateRequestDto requestDto) {
+    public MovieResponseDto patch(Integer id, MovieUpdateRequestDto requestDto) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
 
@@ -90,10 +90,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
 
-        movieRepository.delete(movie);
+        movie.setActive(false);
+        movieRepository.save(movie);
     }
 }

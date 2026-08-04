@@ -30,7 +30,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public ActorResponseDto getById(Long id) {
+    public ActorResponseDto getById(Integer id) {
         return actorRepository.findById(id)
                 .map(ActorResponseDto::toResponseDto)
                 .orElseThrow(() -> new DefaultException(
@@ -56,7 +56,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public ActorResponseDto patch(Long id, ActorRequestDto requestDto) {
+    public ActorResponseDto patch(Integer id, ActorRequestDto requestDto) {
         Actor actor = actorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
 
@@ -73,10 +73,11 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         Actor actor = actorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
 
-        actorRepository.delete(actor);
+        actor.setActive(false);
+        actorRepository.save(actor);
     }
 }

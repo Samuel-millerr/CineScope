@@ -40,7 +40,7 @@ public class RequestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RequestMovieResponseDto> getById(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         RequestMovieResponseDto responseDto = requestService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -63,7 +63,7 @@ public class RequestController {
 
     @PostMapping("/{id}/approve")
     public ResponseEntity<RequestMovieResponseDto> approveRequest(
-        @PathVariable Long id,
+        @PathVariable Integer id,
         @RequestParam(required = false, defaultValue = "APROVADO") RequestStatus requestStatus
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(requestService.updateStatus(id, requestStatus));
@@ -71,7 +71,7 @@ public class RequestController {
 
     @PostMapping("/{id}/reject")
     public ResponseEntity<RequestMovieResponseDto> rejectionRequest(
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestParam(required = false, defaultValue = "REPROVADO") RequestStatus requestStatus
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(requestService.updateStatus(id, requestStatus));
@@ -79,7 +79,7 @@ public class RequestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         requestService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -8,11 +8,11 @@ import java.util.List;
 public interface DirectorService {
     List<DirectorResponseDto> getAll();
 
-    DirectorResponseDto getById(Long id);
+    DirectorResponseDto getById(Integer id);
 
     DirectorResponseDto post(DirectorRequestDto requestDto);
 
-    DirectorResponseDto patch(Long id, DirectorRequestDto requestDto);
+    DirectorResponseDto patch(Integer id, DirectorRequestDto requestDto);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

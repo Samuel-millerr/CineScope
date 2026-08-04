@@ -8,15 +8,15 @@ import java.util.List;
 public interface ReviewService {
     List<ReviewResponseDto> getAll();
 
-    ReviewResponseDto getById(Long id);
+    ReviewResponseDto getById(Integer id);
 
     List<ReviewResponseDto> findReviewsByCurrentUser();
 
-    List<ReviewResponseDto> findReviewsByUserId(Long userId);
+    List<ReviewResponseDto> findReviewsByUserId(Integer userId);
 
     ReviewResponseDto post(ReviewRequestDto requestDto);
 
-    void delete(Long id);
+    void delete(Integer id);
 
-    void deleteReviewByCurrentUser(Long id);
+    void deleteReviewByCurrentUser(Integer id);
 }

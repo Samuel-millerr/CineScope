@@ -3,6 +3,7 @@ package com.project.cinescope.application.director;
 import com.project.cinescope.application.director.impl.DirectorServiceImpl;
 import com.project.cinescope.application.director.request.DirectorRequestDto;
 import com.project.cinescope.application.director.response.DirectorResponseDto;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,9 +38,9 @@ public class DirectorServiceTest {
 
     @BeforeEach
     void setUp() {
-        director1 = new Director(1L, "Steven Spielberg", true, null);
-        director2 = new Director(2L, "Christopher Nolan", true, null);
-        director3 = new Director(3L, "Quentin Tarantino", true, null);
+        director1 = new Director(1, "Steven Spielberg", true, null);
+        director2 = new Director(2, "Christopher Nolan", true, null);
+        director3 = new Director(3, "Quentin Tarantino", true, null);
     }
 
     @Test
@@ -53,44 +54,44 @@ public class DirectorServiceTest {
                 .hasSize(3)
                 .extracting(DirectorResponseDto::id, DirectorResponseDto::name)
                 .containsExactly(
-                        tuple(1L, "Steven Spielberg"),
-                        tuple(2L, "Christopher Nolan"),
-                        tuple(3L, "Quentin Tarantino")
+                        tuple(1, "Steven Spielberg"),
+                        tuple(2, "Christopher Nolan"),
+                        tuple(3, "Quentin Tarantino")
                 );
     }
 
     @Test
     @DisplayName("Should return an director by ID")
     void shouldReturnDirectorById() {
-        when(directorRepository.findById(1L)).thenReturn(Optional.of(director1));
+        when(directorRepository.findById(1)).thenReturn(Optional.of(director1));
 
-        DirectorResponseDto result = directorService.getById(1L);
+        DirectorResponseDto result = directorService.getById(1);
 
         assertThat(result)
                 .isNotNull()
                 .extracting(DirectorResponseDto::id, DirectorResponseDto::name)
-                .containsExactly(1L, "Steven Spielberg");
+                .containsExactly(1, "Steven Spielberg");
 
-        verify(directorRepository, times(1)).findById(1L);
+        verify(directorRepository, times(1)).findById(1);
     }
 
     @Test
     @DisplayName("Should throw ResourceNotFoundException when director not found by ID")
     void shouldThrowNotFoundExceptionWhenDirectorDoesNotExist() {
-        when(directorRepository.findById(999L)).thenReturn(Optional.empty());
+        when(directorRepository.findById(999)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> directorService.getById(999L))
-                .isInstanceOf(ResourceNotFoundException.class)
+        assertThatThrownBy(() -> directorService.getById(999))
+                .isInstanceOf(DefaultException.class)
                 .hasMessage("Director not found with id: 999");
 
-        verify(directorRepository, times(1)).findById(999L);
+        verify(directorRepository, times(1)).findById(999);
     }
 
     @Test
     @DisplayName("Should create a new director")
     void shouldCreateNewDirector() {
         DirectorRequestDto requestDto = new DirectorRequestDto("James Cameron");
-        Director newDirector = new Director(4L, "James Cameron", true, null);
+        Director newDirector = new Director(4, "James Cameron", true, null);
 
         when(directorRepository.existsByName("James Cameron")).thenReturn(false);
         when(directorRepository.save(any(Director.class))).thenReturn(newDirector);
@@ -100,7 +101,7 @@ public class DirectorServiceTest {
         assertThat(result)
                 .isNotNull()
                 .extracting(DirectorResponseDto::id, DirectorResponseDto::name)
-                .containsExactly(4L, "James Cameron");
+                .containsExactly(4, "James Cameron");
 
         verify(directorRepository, times(1)).existsByName("James Cameron");
         verify(directorRepository, times(1)).save(any(Director.class));
@@ -114,8 +115,8 @@ public class DirectorServiceTest {
         when(directorRepository.existsByName("Steven Spielberg")).thenReturn(true);
 
         assertThatThrownBy(() -> directorService.post(requestDto))
-                .isInstanceOf(DuplicateResourceException.class)
-                .hasMessage("Director with name Steven Spielberg already exists");
+                .isInstanceOf(DefaultException.class)
+                .hasMessage("Director already exists with name: Steven Spielberg");
 
         verify(directorRepository, times(1)).existsByName("Steven Spielberg");
         verify(directorRepository, never()).save(any(Director.class));
@@ -125,20 +126,20 @@ public class DirectorServiceTest {
     @DisplayName("Should update an existing director")
     void shouldUpdateExistingDirector() {
         DirectorRequestDto updateDirector = new DirectorRequestDto("Steven Spielberg Updated");
-        Director existingDirector = new Director(1L, "Steven Spielberg", true, null);
-        Director updatedDirector = new Director(1L, "Steven Spielberg Updated", true, null);
+        Director existingDirector = new Director(1, "Steven Spielberg", true, null);
+        Director updatedDirector = new Director(1, "Steven Spielberg Updated", true, null);
 
-        when(directorRepository.findById(1L)).thenReturn(Optional.of(existingDirector));
+        when(directorRepository.findById(1)).thenReturn(Optional.of(existingDirector));
         when(directorRepository.save(any(Director.class))).thenReturn(updatedDirector);
 
-        DirectorResponseDto result = directorService.patch(1L, updateDirector);
+        DirectorResponseDto result = directorService.patch(1, updateDirector);
 
         assertThat(result)
                 .isNotNull()
                 .extracting(DirectorResponseDto::id, DirectorResponseDto::name)
-                .containsExactly(1L, "Steven Spielberg Updated");
+                .containsExactly(1, "Steven Spielberg Updated");
 
-        verify(directorRepository, times(1)).findById(1L);
+        verify(directorRepository, times(1)).findById(1);
         verify(directorRepository, times(1)).save(any(Director.class));
     }
 
@@ -147,37 +148,38 @@ public class DirectorServiceTest {
     void shouldThrowNotFoundWhenPatchingExistentDirector() {
         DirectorRequestDto updateDto = new DirectorRequestDto("Non-Existent Director");
 
-        when(directorRepository.findById(999L)).thenReturn(Optional.empty());
+        when(directorRepository.findById(999)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> directorService.patch(999L, updateDto))
+        assertThatThrownBy(() -> directorService.patch(999, updateDto))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Director not found with id: 999");
 
-        verify(directorRepository, times(1)).findById(999L);
+        verify(directorRepository, times(1)).findById(999);
         verify(directorRepository, never()).save(any(Director.class));
     }
 
     @Test
     @DisplayName("Should delete an existing director")
     void shouldDeleteDirector() {
-        when(directorRepository.findById(1L)).thenReturn(Optional.of(director1));
+        when(directorRepository.findById(1)).thenReturn(Optional.of(director1));
 
-        directorService.delete(1L);
+        directorService.delete(1);
 
-        verify(directorRepository, times(1)).findById(1L);
-        verify(directorRepository, times(1)).delete(director1);
+        verify(directorRepository, times(1)).findById(1);
+        assertThat(director1.getActive()).isFalse();
+        verify(directorRepository, times(1)).save(director1);
     }
 
     @Test
     @DisplayName("Should throw ResourceNotFoundException when deleting non-existent director")
     void shouldThrowNotFoundWhenDeletingNonExistentDirector() {
-        when(directorRepository.findById(999L)).thenReturn(Optional.empty());
+        when(directorRepository.findById(999)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> directorService.delete(999L))
+        assertThatThrownBy(() -> directorService.delete(999))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Director not found with id: 999");
 
-        verify(directorRepository, times(1)).findById(999L);
-        verify(directorRepository, never()).delete(any(Director.class));
+        verify(directorRepository, times(1)).findById(999);
+        verify(directorRepository, never()).save(any(Director.class));
     }
 }

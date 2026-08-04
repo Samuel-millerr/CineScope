@@ -22,7 +22,7 @@ import java.util.List;
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(length = 100, nullable = false)
     public String genre;
@@ -30,9 +30,9 @@ public class Genre {
     @JsonIgnore
     private Boolean active = true;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(
-            name = "genre_movie",
+            name = "movie_genre",
             joinColumns = @JoinColumn(name = "id_genre", table = "genre", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_movie", table = "movie", referencedColumnName = "id")
     )
