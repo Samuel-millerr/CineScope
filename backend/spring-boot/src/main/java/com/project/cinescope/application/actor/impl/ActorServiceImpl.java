@@ -5,8 +5,10 @@ import com.project.cinescope.application.actor.ActorRepository;
 import com.project.cinescope.application.actor.ActorService;
 import com.project.cinescope.application.actor.request.ActorRequestDto;
 import com.project.cinescope.application.actor.response.ActorResponseDto;
-import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.utils.message.ErrorEnum;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class ActorServiceImpl implements ActorService {
         this.actorRepository = actorRepository;
     }
 
+    @Override
     public List<ActorResponseDto> getAll() {
         List<Actor> actorList = actorRepository.findAll();
         return actorList.stream()
@@ -26,16 +29,25 @@ public class ActorServiceImpl implements ActorService {
                 .toList();
     }
 
-    public ActorResponseDto getById(Long id) {
+    @Override
+    public ActorResponseDto getById(Integer id) {
         return actorRepository.findById(id)
                 .map(ActorResponseDto::toResponseDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Actor", "id", id)
+                        )
+                );
     }
 
+    @Override
     public ActorResponseDto post(ActorRequestDto requestDto) {
         String actorName = requestDto.name();
         if (actorRepository.existsByName(actorName)) {
-            throw new DuplicateResourceException("Actor with name " + actorName + " already exists");
+            throw new DefaultException(
+                    HttpStatus.CONFLICT,
+                    ErrorEnum.DUPLICATE.formatDetailedTemplate("Actor", "name", actorName)
+            );
         }
 
         Actor actor = ActorRequestDto.toEntity(requestDto);
@@ -43,7 +55,8 @@ public class ActorServiceImpl implements ActorService {
         return ActorResponseDto.toResponseDto(createdActor);
     }
 
-    public ActorResponseDto patch(Long id, ActorRequestDto requestDto) {
+    @Override
+    public ActorResponseDto patch(Integer id, ActorRequestDto requestDto) {
         Actor actor = actorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
 
@@ -59,10 +72,12 @@ public class ActorServiceImpl implements ActorService {
         return ActorResponseDto.toResponseDto(updateActor);
     }
 
-    public void delete(Long id) {
+    @Override
+    public void delete(Integer id) {
         Actor actor = actorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
 
-        actorRepository.delete(actor);
+        actor.setActive(false);
+        actorRepository.save(actor);
     }
 }

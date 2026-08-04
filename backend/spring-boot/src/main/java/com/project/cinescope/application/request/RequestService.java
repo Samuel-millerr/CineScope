@@ -9,17 +9,17 @@ import java.util.List;
 public interface RequestService {
     List<RequestMovieResponseDto> getAll();
 
-    RequestMovieResponseDto getById(Long id);
+    RequestMovieResponseDto getById(Integer id);
 
     List<RequestMovieResponseDto> findRequestsByCurrentUser();
 
-    List<RequestMovieResponseDto> findRequestsByUserId(Long userId);
+    List<RequestMovieResponseDto> findRequestsByUserId(Integer userId);
 
     RequestMovieResponseDto post(RequestMovieRequestDto requestDto);
 
-    RequestMovieResponseDto updateStatus(Long id, RequestStatus requestStatus);
+    RequestMovieResponseDto updateStatus(Integer id, RequestStatus requestStatus);
 
-    void delete(Long id);
+    void delete(Integer id);
 
-    void deleteRequestByCurrentUser(Long id);
+    void deleteRequestByCurrentUser(Integer id);
 }

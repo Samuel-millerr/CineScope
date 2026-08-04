@@ -8,9 +8,9 @@ import java.util.List;
 public interface GenreService {
     List<GenreResponseDto> getAll();
 
-    GenreResponseDto getById(Long id);
+    GenreResponseDto getById(Integer id);
 
     GenreResponseDto post(GenreRequestDto requestDto);
 
-    void delete(Long id);
+    void delete(Integer id);
 }

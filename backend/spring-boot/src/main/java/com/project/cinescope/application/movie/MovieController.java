@@ -3,7 +3,7 @@ package com.project.cinescope.application.movie;
 import com.project.cinescope.application.movie.request.MovieCreateRequestDto;
 import com.project.cinescope.application.movie.request.MovieUpdateRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
-import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
@@ -40,7 +40,7 @@ public class MovieController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MovieResponseDto> getById(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         MovieResponseDto responseDto = movieService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -64,7 +64,7 @@ public class MovieController {
     @SneakyThrows
     @PatchMapping("/{id}")
     public ResponseEntity<MovieResponseDto> patch(
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestBody @Valid MovieUpdateRequestDto requestDto
     ) {
         MovieResponseDto movieResponseDto = movieService.patch(id, requestDto);
@@ -73,7 +73,7 @@ public class MovieController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         movieService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     List<UserResponseDto> getAll();
 
-    UserResponseDto getById(Long id);
+    UserResponseDto getById(Integer id);
 
     UserResponseDto getByUsername(String username);
 

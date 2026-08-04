@@ -2,7 +2,7 @@ package com.project.cinescope.application.actor;
 
 import com.project.cinescope.application.actor.request.ActorRequestDto;
 import com.project.cinescope.application.actor.response.ActorResponseDto;
-import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
@@ -39,7 +39,7 @@ public class ActorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ActorResponseDto> getById(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         ActorResponseDto responseDto = actorService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -62,7 +62,7 @@ public class ActorController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<ActorResponseDto> patch(
-        @PathVariable Long id,
+        @PathVariable Integer id,
         @RequestBody @Valid ActorRequestDto requestDto
     ) {
         ActorResponseDto responseDto = actorService.patch(id, requestDto);
@@ -71,7 +71,7 @@ public class ActorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         actorService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

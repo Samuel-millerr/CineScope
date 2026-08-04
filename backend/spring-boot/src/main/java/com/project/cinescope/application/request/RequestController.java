@@ -2,10 +2,9 @@ package com.project.cinescope.application.request;
 
 import com.project.cinescope.application.auth.service.AuthenticatedUserService;
 import com.project.cinescope.application.request.enums.RequestStatus;
-import com.project.cinescope.application.request.enums.RequestType;
 import com.project.cinescope.application.request.request.RequestMovieRequestDto;
 import com.project.cinescope.application.request.response.RequestMovieResponseDto;
-import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
@@ -41,7 +40,7 @@ public class RequestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RequestMovieResponseDto> getById(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         RequestMovieResponseDto responseDto = requestService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -64,7 +63,7 @@ public class RequestController {
 
     @PostMapping("/{id}/approve")
     public ResponseEntity<RequestMovieResponseDto> approveRequest(
-        @PathVariable Long id,
+        @PathVariable Integer id,
         @RequestParam(required = false, defaultValue = "APROVADO") RequestStatus requestStatus
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(requestService.updateStatus(id, requestStatus));
@@ -72,7 +71,7 @@ public class RequestController {
 
     @PostMapping("/{id}/reject")
     public ResponseEntity<RequestMovieResponseDto> rejectionRequest(
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestParam(required = false, defaultValue = "REPROVADO") RequestStatus requestStatus
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(requestService.updateStatus(id, requestStatus));
@@ -80,7 +79,7 @@ public class RequestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         requestService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

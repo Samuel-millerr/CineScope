@@ -9,7 +9,7 @@ import com.project.cinescope.application.user.response.UserResponseDto;
 import java.time.LocalDate;
 
 public record RequestMovieResponseDto(
-        Long id,
+        Integer id,
         UserResponseDto user,
         MovieResponseDto movie,
         RequestType requestType,

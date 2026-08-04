@@ -7,7 +7,7 @@ import com.project.cinescope.application.movie.Movie;
 import java.util.List;
 
 public record MovieResponseDto(
-        Long id,
+        Integer id,
         String title,
         Integer duration,
         Integer publicationYear,

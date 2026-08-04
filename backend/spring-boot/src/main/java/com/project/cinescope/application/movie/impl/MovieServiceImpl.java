@@ -6,8 +6,10 @@ import com.project.cinescope.application.movie.MovieService;
 import com.project.cinescope.application.movie.request.MovieCreateRequestDto;
 import com.project.cinescope.application.movie.request.MovieUpdateRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
-import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.utils.message.ErrorEnum;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.beans.IntrospectionException;
@@ -26,6 +28,7 @@ public class MovieServiceImpl implements MovieService {
         this.movieRepository = movieRepository;
     }
 
+    @Override
     public List<MovieResponseDto> getAll() {
         List<Movie> movieList = movieRepository.findAll();
         return movieList.stream()
@@ -33,16 +36,24 @@ public class MovieServiceImpl implements MovieService {
                 .toList();
     }
 
-    public MovieResponseDto getById(Long id) {
+    @Override
+    public MovieResponseDto getById(Integer id) {
         return movieRepository.findById(id)
                 .map(MovieResponseDto::toResponseDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id " + id));
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND, ErrorEnum.NOT_FOUND.formatDetailedTemplate("Movie", "id", id)
+                        )
+                );
     }
 
+    @Override
     public MovieResponseDto post(MovieCreateRequestDto requestDto) {
         String movieTitle = requestDto.title();
         if (movieRepository.existsByTitle(movieTitle)) {
-            throw new DuplicateResourceException("Movie with title " + movieTitle + " already exists");
+            throw new DefaultException(
+                    HttpStatus.CONFLICT,
+                    ErrorEnum.DUPLICATE.formatDetailedTemplate("Movie", "title", movieTitle)
+            );
         }
 
         Movie movie = MovieCreateRequestDto.toEntity(requestDto);
@@ -50,7 +61,8 @@ public class MovieServiceImpl implements MovieService {
         return MovieResponseDto.toResponseDto(createdMovie);
     }
 
-    public MovieResponseDto patch(Long id, MovieUpdateRequestDto requestDto) {
+    @Override
+    public MovieResponseDto patch(Integer id, MovieUpdateRequestDto requestDto) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
 
@@ -77,10 +89,12 @@ public class MovieServiceImpl implements MovieService {
         return MovieResponseDto.toResponseDto(updatedMovie);
     }
 
-    public void delete(Long id) {
+    @Override
+    public void delete(Integer id) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
 
-        movieRepository.delete(movie);
+        movie.setActive(false);
+        movieRepository.save(movie);
     }
 }

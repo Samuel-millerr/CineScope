@@ -15,7 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(length = 100, nullable = false, unique = true)
     private String username;
@@ -52,12 +52,12 @@ public class User implements UserDetails {
     private UserRole role = UserRole.COMUM;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDate createdAt = LocalDate.now();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = Review.class)
+    @OneToMany(mappedBy = "user", targetEntity = Review.class)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = Request.class)
+    @OneToMany(mappedBy = "user", targetEntity = Request.class)
     private List<Request> requests = new ArrayList<>();
 
     @JsonIgnore

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "review")
@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id")
@@ -36,10 +36,10 @@ public class Review {
     private String reviewText;
 
     @Column(name = "review_rating", nullable = false)
-    private Float reviewRating;
+    private Double reviewRating;
 
     @Column(name = "review_date", nullable = false)
-    private LocalDateTime reviewDate = LocalDateTime.now();
+    private LocalDate reviewDate = LocalDate.now();
 
     @JsonIgnore
     private Boolean active = true;

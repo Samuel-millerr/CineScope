@@ -10,8 +10,10 @@ import com.project.cinescope.application.review.request.ReviewRequestDto;
 import com.project.cinescope.application.review.response.ReviewResponseDto;
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
-import com.project.cinescope.core.exception.exceptions.ForbiddenOperationException;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.utils.message.ErrorEnum;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +32,7 @@ public class ReviewServiceImpl implements ReviewService {
         this.authenticatedUserService = authenticatedUserService;
     }
 
+    @Override
     public List<ReviewResponseDto> getAll() {
         List<Review> reviewList = reviewRepository.findAll();
         return reviewList.stream()
@@ -37,12 +40,17 @@ public class ReviewServiceImpl implements ReviewService {
                 .toList();
     }
 
-    public ReviewResponseDto getById(Long id) {
+    @Override
+    public ReviewResponseDto getById(Integer id) {
         return reviewRepository.findById(id)
                 .map(ReviewResponseDto::toResponseDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Review not found with id " + id));
+                .orElseThrow(() -> new DefaultException(HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Review", "id", id)
+                        )
+                );
     }
 
+    @Override
     public List<ReviewResponseDto> findReviewsByCurrentUser() {
         User user = authenticatedUserService.getCurrentUser();
         List<Review> reviewList = reviewRepository.findByUser(user);
@@ -51,7 +59,8 @@ public class ReviewServiceImpl implements ReviewService {
                 .toList();
     }
 
-    public List<ReviewResponseDto> findReviewsByUserId(Long userId) {
+    @Override
+    public List<ReviewResponseDto> findReviewsByUserId(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         List<Review> reviewList = reviewRepository.findByUser(user);
@@ -60,6 +69,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .toList();
     }
 
+    @Override
     public ReviewResponseDto post(ReviewRequestDto requestDto) {
         User user = authenticatedUserService.getCurrentUser();
 
@@ -73,22 +83,27 @@ public class ReviewServiceImpl implements ReviewService {
         return ReviewResponseDto.toResponseDto(createdReview);
     }
 
-    public void delete(Long id) {
+    @Override
+    public void delete(Integer id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
 
-        reviewRepository.delete(review);
+        review.setActive(false);
+        reviewRepository.save(review);
     }
 
-    public void deleteReviewByCurrentUser(Long id) {
+    @Override
+    public void deleteReviewByCurrentUser(Integer id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
 
         User user = authenticatedUserService.getCurrentUser();
 
         if (user != review.getUser()) {
-            throw new ForbiddenOperationException("You don't have permission to delete another user's reviews.");
+            throw new DefaultException(HttpStatus.FORBIDDEN, "You don't have permission to delete another user's reviews.");
         }
-        reviewRepository.delete(review);
+
+        review.setActive(false);
+        reviewRepository.save(review);
     }
 }

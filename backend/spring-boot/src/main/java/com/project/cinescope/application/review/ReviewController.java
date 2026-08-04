@@ -1,9 +1,8 @@
 package com.project.cinescope.application.review;
 
-import com.project.cinescope.application.request.response.RequestMovieResponseDto;
 import com.project.cinescope.application.review.request.ReviewRequestDto;
 import com.project.cinescope.application.review.response.ReviewResponseDto;
-import com.project.cinescope.core.config.ApiEndpoints;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
 import jakarta.validation.Valid;
@@ -39,7 +38,7 @@ public class ReviewController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ReviewResponseDto> getById(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         ReviewResponseDto responseDto = reviewService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
@@ -62,7 +61,7 @@ public class ReviewController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
-            @PathVariable Long id
+            @PathVariable Integer id
     ) {
         reviewService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

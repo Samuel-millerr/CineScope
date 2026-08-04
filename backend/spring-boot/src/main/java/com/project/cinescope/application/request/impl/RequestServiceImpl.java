@@ -15,11 +15,12 @@ import com.project.cinescope.application.request.request.RequestMovieRequestDto;
 import com.project.cinescope.application.request.response.RequestMovieResponseDto;
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
+import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.exception.exceptions.ConstraintViolationException;
-import com.project.cinescope.core.exception.exceptions.ForbiddenOperationException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
 
@@ -49,6 +50,7 @@ public class RequestServiceImpl implements RequestService {
         this.validator = validator;
     }
 
+    @Override
     public List<RequestMovieResponseDto> getAll() {
         List<Request> requestList = requestRepository.findAll();
         return requestList.stream()
@@ -56,12 +58,14 @@ public class RequestServiceImpl implements RequestService {
                 .toList();
     }
 
-    public RequestMovieResponseDto getById(Long id) {
+    @Override
+    public RequestMovieResponseDto getById(Integer id) {
         return requestRepository.findById(id)
                 .map(RequestMovieResponseDto::toResponseDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
     }
 
+    @Override
     public List<RequestMovieResponseDto> findRequestsByCurrentUser() {
         User user = authenticatedUserService.getCurrentUser();
         List<Request> requestList = requestRepository.findByUser(user);
@@ -70,7 +74,8 @@ public class RequestServiceImpl implements RequestService {
                 .toList();
     }
 
-    public List<RequestMovieResponseDto> findRequestsByUserId(Long userId) {
+    @Override
+    public List<RequestMovieResponseDto> findRequestsByUserId(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         List<Request> requestList = requestRepository.findByUser(user);
@@ -79,6 +84,7 @@ public class RequestServiceImpl implements RequestService {
                 .toList();
     }
 
+    @Override
     public RequestMovieResponseDto post(RequestMovieRequestDto requestDto) {
         User user = authenticatedUserService.getCurrentUser();
 
@@ -115,8 +121,9 @@ public class RequestServiceImpl implements RequestService {
         return RequestMovieResponseDto.toResponseDto(createdRequest);
     }
 
+    @Override
     public RequestMovieResponseDto updateStatus(
-            Long id,
+            Integer id,
             RequestStatus requestStatus
     ) {
         Request request = requestRepository.findById(id)
@@ -152,22 +159,30 @@ public class RequestServiceImpl implements RequestService {
         return RequestMovieResponseDto.toResponseDto(request);
     }
 
-    public void delete(Long id) {
+    @Override
+    public void delete(Integer id) {
         Request request = requestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
 
-        requestRepository.delete(request);
+        request.setActive(false);
+        requestRepository.save(request);
     }
 
-    public void deleteRequestByCurrentUser(Long id) {
+    @Override
+    public void deleteRequestByCurrentUser(Integer id) {
         Request request = requestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
 
         User user = authenticatedUserService.getCurrentUser();
 
         if (user != request.getUser()) {
-            throw new ForbiddenOperationException("You don't have permission to delete another user's requests.");
+            throw new DefaultException(
+                    HttpStatus.FORBIDDEN,
+                    "You don't have permission to delete another user's requests."
+            );
         }
-        requestRepository.delete(request);
+
+        request.setActive(false);
+        requestRepository.save(request);
     }
 }

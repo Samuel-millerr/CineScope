@@ -11,63 +11,15 @@ import java.time.Instant;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+    @ExceptionHandler(DefaultException.class)
+    public ResponseEntity<StandardError> handleDefaultException(DefaultException e, HttpServletRequest request) {
         StandardError error = new StandardError(
                 Instant.now(),
-                HttpStatus.NOT_FOUND.value(),
-                "Resource not found",
+                e.getStatus().value(),
+                "Default Exception",
                 e.getMessage(),
                 request.getRequestURI()
         );
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-    }
-
-    @ExceptionHandler(DuplicateResourceException.class)
-    public ResponseEntity<StandardError> entityDuplicate(DuplicateResourceException e, HttpServletRequest request) {
-        StandardError error = new StandardError(
-                Instant.now(),
-                HttpStatus.CONFLICT.value(),
-                "Resource already exists",
-                e.getMessage(),
-                request.getRequestURI()
-        );
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
-    }
-
-    @ExceptionHandler(InvalidCredentialsException.class)
-    public ResponseEntity<StandardError> invalidCredentials(InvalidCredentialsException e, HttpServletRequest request) {
-        StandardError error = new StandardError(
-                Instant.now(),
-                HttpStatus.FORBIDDEN.value(),
-                "Invalid credentials",
-                e.getMessage(),
-                request.getRequestURI()
-        );
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
-    }
-
-    @ExceptionHandler(ForbiddenOperationException.class)
-    public ResponseEntity<StandardError> forbiddenOperation(ForbiddenOperationException e, HttpServletRequest request) {
-        StandardError error = new StandardError(
-                Instant.now(),
-                HttpStatus.FORBIDDEN.value(),
-                "Forbidden operation",
-                e.getMessage(),
-                request.getRequestURI()
-        );
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<StandardError> constraintViolation(ConstraintViolationException e, HttpServletRequest request){
-        StandardError error = new StandardError(
-            Instant.now(),
-            HttpStatus.FORBIDDEN.value(),
-            "Constrain Violation",
-            e.getMessage(),
-            request.getRequestURI()
-        );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        return ResponseEntity.status(e.getStatus()).body(error);
     }
 }
