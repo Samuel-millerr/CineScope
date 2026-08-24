@@ -6,7 +6,6 @@ import com.project.cinescope.application.actor.ActorService;
 import com.project.cinescope.application.actor.request.ActorRequestDto;
 import com.project.cinescope.application.actor.response.ActorResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.core.utils.message.ErrorEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,13 +30,8 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public ActorResponseDto getById(Integer id) {
-        return actorRepository.findById(id)
-                .map(ActorResponseDto::toResponseDto)
-                .orElseThrow(() -> new DefaultException(
-                                HttpStatus.NOT_FOUND,
-                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Actor", "id", id)
-                        )
-                );
+        Actor actor = getActorById(id);
+        return ActorResponseDto.toResponseDto(actor);
     }
 
     @Override
@@ -57,8 +51,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public ActorResponseDto patch(Integer id, ActorRequestDto requestDto) {
-        Actor actor = actorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
+        Actor actor = getActorById(id);
 
         if (requestDto.name() != null) {
             actor.setName(requestDto.name());
@@ -74,10 +67,18 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public void delete(Integer id) {
-        Actor actor = actorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Actor not found with id: " + id));
+        Actor actor = getActorById(id);
 
         actor.setActive(false);
         actorRepository.save(actor);
+    }
+
+    private Actor getActorById(Integer id) {
+        return actorRepository.findById(id)
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Actor", "id", id)
+                        )
+                );
     }
 }

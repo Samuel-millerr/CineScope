@@ -16,7 +16,6 @@ import com.project.cinescope.application.request.response.RequestMovieResponseDt
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ConstraintViolationException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
@@ -99,7 +98,10 @@ public class RequestServiceImpl implements RequestService {
                 Set<ConstraintViolation<MovieCreateRequestDto>> violations = validator.validate(movieCreateRequestDto);
 
                 if (!violations.isEmpty()) {
-                    throw new ConstraintViolationException(violations.toString());
+                    throw new DefaultException(
+                            HttpStatus.CONFLICT,
+                            "Validation failed for request body: " + violations
+                    );
                 }
 
                 requestBody = objectMapper.treeToValue(requestDto.requestBody(), MovieCreateRequestDto.class);

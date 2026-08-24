@@ -31,13 +31,8 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public DirectorResponseDto getById(Integer id) {
-        return directorRepository.findById(id)
-                .map(DirectorResponseDto::toResponseDto)
-                .orElseThrow(() -> new DefaultException(
-                                HttpStatus.NOT_FOUND,
-                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Director", "id", id)
-                        )
-                );
+        Director director = getDirectorById(id);
+        return DirectorResponseDto.toResponseDto(director);
     }
 
     @Override
@@ -57,8 +52,7 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public DirectorResponseDto patch(Integer id, DirectorRequestDto requestDto) {
-        Director director = directorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
+        Director director = getDirectorById(id);
 
         if (requestDto.name() != null) {
             director.setName(requestDto.name());
@@ -70,10 +64,18 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public void delete(Integer id) {
-        Director director = directorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Director not found with id: " + id));
+        Director director = getDirectorById(id);
 
         director.setActive(false);
         directorRepository.save(director);
+    }
+
+    private Director getDirectorById(Integer id) {
+        return directorRepository.findById(id)
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Director", "id", id)
+                        )
+                );
     }
 }
