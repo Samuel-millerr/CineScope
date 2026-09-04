@@ -4,7 +4,6 @@ import com.project.cinescope.application.actor.impl.ActorServiceImpl;
 import com.project.cinescope.application.actor.request.ActorRequestDto;
 import com.project.cinescope.application.actor.response.ActorResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,8 +41,8 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should return all actors mapped to response DTOs")
-    void shouldReturnMultipleActors() {
+    @DisplayName("Should return all actors")
+    void shouldReturnAllActors() {
         when(actorRepository.findAll()).thenReturn(Arrays.asList(actor1, actor2, actor3));
 
         List<ActorResponseDto> result = actorService.getAll();
@@ -74,7 +73,7 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw ResourceNotFoundException when actor not found by ID")
+    @DisplayName("Should throw DefaultException when actor not found by ID")
     void shouldThrowNotFoundExceptionWhenActorDoesNotExist() {
         when(actorRepository.findById(999)).thenReturn(Optional.empty());
 
@@ -89,7 +88,7 @@ class ActorServiceTest {
     @DisplayName("Should create a new actor")
     void shouldCreateNewActor() {
         ActorRequestDto requestDto = new ActorRequestDto("Tom Cruise", "photo_cruise.jpg");
-        Actor newActor = new Actor(4, "Tom Cruise", "photo_cruise.jpg", true,null);
+        Actor newActor = new Actor(4, "Tom Cruise", "photo_cruise.jpg", true, null);
 
         when(actorRepository.existsByName("Tom Cruise")).thenReturn(false);
         when(actorRepository.save(any(Actor.class))).thenReturn(newActor);
@@ -106,7 +105,7 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DuplicateResourceException when actor name already exists")
+    @DisplayName("Should throw DefaultException when actor name already exists")
     void shouldThrowDuplicateExceptionWhenActorAlreadyExists() {
         ActorRequestDto requestDto = new ActorRequestDto("Tom Hanks", "photo.jpg");
 
@@ -142,14 +141,14 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw ResourceNotFoundException when updating non-existent actor")
+    @DisplayName("Should throw DefaultException when updating non-existent actor")
     void shouldThrowNotFoundWhenPatchingNonExistentActor() {
         ActorRequestDto updateDto = new ActorRequestDto("Updated Name", "updated_photo.jpg");
 
         when(actorRepository.findById(999)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> actorService.patch(999, updateDto))
-                .isInstanceOf(ResourceNotFoundException.class)
+                .isInstanceOf(DefaultException.class)
                 .hasMessage("Actor not found with id: 999");
 
         verify(actorRepository, times(1)).findById(999);
@@ -169,12 +168,12 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw ResourceNotFoundException when deleting non-existent actor")
+    @DisplayName("Should throw DefaultException when deleting non-existent actor")
     void shouldThrowNotFoundWhenDeletingNonExistentActor() {
         when(actorRepository.findById(999)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> actorService.delete(999))
-                .isInstanceOf(ResourceNotFoundException.class)
+                .isInstanceOf(DefaultException.class)
                 .hasMessage("Actor not found with id: 999");
 
         verify(actorRepository, times(1)).findById(999);

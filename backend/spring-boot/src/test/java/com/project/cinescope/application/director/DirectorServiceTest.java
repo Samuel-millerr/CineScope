@@ -43,8 +43,8 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should return all directors mapped to response DTOs")
-    void shouldReturnMultipleDirectors() {
+    @DisplayName("Should return all directors")
+    void shouldReturnAllDirectors() {
         when(directorRepository.findAll()).thenReturn(Arrays.asList(director1, director2, director3));
 
         List<DirectorResponseDto> result = directorService.getAll();
@@ -75,7 +75,7 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw ResourceNotFoundException when director not found by ID")
+    @DisplayName("Should throw DefaultException when director not found by ID")
     void shouldThrowNotFoundExceptionWhenDirectorDoesNotExist() {
         when(directorRepository.findById(999)).thenReturn(Optional.empty());
 
@@ -107,7 +107,7 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DuplicateResourceException when director name already exists")
+    @DisplayName("Should throw DefaultException when director name already exists")
     void shouldThrowDuplicateExceptionWhenDirectorAlreadyExists() {
         DirectorRequestDto requestDto = new DirectorRequestDto("Steven Spielberg");
 
@@ -143,14 +143,14 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw ResourceNotFoundException when updating a non-existing director")
+    @DisplayName("Should throw DefaultException when updating a non-existing director")
     void shouldThrowNotFoundWhenPatchingExistentDirector() {
         DirectorRequestDto updateDto = new DirectorRequestDto("Non-Existent Director");
 
         when(directorRepository.findById(999)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> directorService.patch(999, updateDto))
-                .isInstanceOf(ResourceNotFoundException.class)
+                .isInstanceOf(DefaultException.class)
                 .hasMessage("Director not found with id: 999");
 
         verify(directorRepository, times(1)).findById(999);
@@ -170,12 +170,12 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw ResourceNotFoundException when deleting non-existent director")
+    @DisplayName("Should throw DefaultException when deleting non-existent director")
     void shouldThrowNotFoundWhenDeletingNonExistentDirector() {
         when(directorRepository.findById(999)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> directorService.delete(999))
-                .isInstanceOf(ResourceNotFoundException.class)
+                .isInstanceOf(DefaultException.class)
                 .hasMessage("Director not found with id: 999");
 
         verify(directorRepository, times(1)).findById(999);
