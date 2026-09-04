@@ -1,4 +1,4 @@
-name: Backend Spring Boot CI
+name: CineScope Backend Spring Boot CI
 
 on:
   push:
@@ -30,22 +30,24 @@ jobs:
           distribution: temurin
           cache: maven
 
-      - name: Ambientar PostgreSQL
+      - name: Criar arquivo .env para CI
+        run: |
+          cat > .env <<EOF
+          DATABASE_HOST=localhost
+          DATABASE_PORT=5432
+          DATABASE_NAME=cinescope
+          DATABASE_USERNAME=postgres
+          DATABASE_PASSWORD=root
+          EOF
+
+      - name: Iniciar PostgreSQL
         run: |
           docker compose up -d --wait postgres
           docker compose logs postgres
 
-      - name: Aguardar infraestrutura ficar saudável
-        run: |
-          echo "Aguardando o banco de dados PostgreSQL"
-          until [ "$(docker inspect --format='{{.State.Health.Status}}' cinescope-database)" = "healthy" ]; do
-            sleep 3
-          done
-          echo "PostgreSQL ready"
-      
       - name: Executar testes e build
         run: ./mvnw --batch-mode verify
-      
+
       - name: Encerrar infraestrutura
         if: always()
         run: docker compose down -v
