@@ -4,7 +4,6 @@ import com.project.cinescope.application.actor.impl.ActorServiceImpl;
 import com.project.cinescope.application.actor.request.ActorRequestDto;
 import com.project.cinescope.application.actor.response.ActorResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.DuplicateResourceException;
 import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

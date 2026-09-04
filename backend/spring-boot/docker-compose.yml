@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres:17-alpine
@@ -20,6 +22,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cinescope-app
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    ports:
+      - "${SERVER_PORT:-8000}:8000"
+    depends_on:
+      - postgres
 
 volumes:
   postgres_data:
