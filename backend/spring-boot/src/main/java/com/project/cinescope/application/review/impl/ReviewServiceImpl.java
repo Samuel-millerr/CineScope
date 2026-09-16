@@ -11,7 +11,6 @@ import com.project.cinescope.application.review.response.ReviewResponseDto;
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.core.utils.message.ErrorEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -42,12 +41,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewResponseDto getById(Integer id) {
-        return reviewRepository.findById(id)
-                .map(ReviewResponseDto::toResponseDto)
-                .orElseThrow(() -> new DefaultException(HttpStatus.NOT_FOUND,
-                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Review", "id", id)
-                        )
-                );
+        Review review = getReviewById(id);
+        return ReviewResponseDto.toResponseDto(review);
     }
 
     @Override
@@ -62,7 +57,12 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<ReviewResponseDto> findReviewsByUserId(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("User", "id", userId)
+                        )
+                );
+
         List<Review> reviewList = reviewRepository.findByUser(user);
         return reviewList.stream()
                 .map(ReviewResponseDto::toResponseDto)
@@ -74,7 +74,11 @@ public class ReviewServiceImpl implements ReviewService {
         User user = authenticatedUserService.getCurrentUser();
 
         Movie movie = movieRepository.findById(requestDto.movieId())
-                .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + requestDto.movieId()));
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Movie", "id", requestDto.movieId())
+                        )
+                );
 
         Review review = ReviewRequestDto.toEntity(requestDto);
         review.setUser(user);
@@ -85,8 +89,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void delete(Integer id) {
-        Review review = reviewRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
+        Review review = getReviewById(id);
 
         review.setActive(false);
         reviewRepository.save(review);
@@ -94,8 +97,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void deleteReviewByCurrentUser(Integer id) {
-        Review review = reviewRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Review not found with id: " + id));
+        Review review = getReviewById(id);
 
         User user = authenticatedUserService.getCurrentUser();
 
@@ -105,5 +107,14 @@ public class ReviewServiceImpl implements ReviewService {
 
         review.setActive(false);
         reviewRepository.save(review);
+    }
+
+    private Review getReviewById(Integer id) {
+        return reviewRepository.findById(id)
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Review", "id", id)
+                        )
+                );
     }
 }

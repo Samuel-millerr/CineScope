@@ -4,7 +4,6 @@ import com.project.cinescope.application.director.impl.DirectorServiceImpl;
 import com.project.cinescope.application.director.request.DirectorRequestDto;
 import com.project.cinescope.application.director.response.DirectorResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

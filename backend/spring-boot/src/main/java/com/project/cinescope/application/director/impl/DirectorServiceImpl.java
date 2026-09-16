@@ -6,7 +6,6 @@ import com.project.cinescope.application.director.DirectorService;
 import com.project.cinescope.application.director.request.DirectorRequestDto;
 import com.project.cinescope.application.director.response.DirectorResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.core.utils.message.ErrorEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,6 +37,7 @@ public class DirectorServiceImpl implements DirectorService {
     @Override
     public DirectorResponseDto post(DirectorRequestDto requestDto) {
         String directorName = requestDto.name();
+
         if (directorRepository.existsByName(directorName)) {
             throw new DefaultException(
                     HttpStatus.CONFLICT,

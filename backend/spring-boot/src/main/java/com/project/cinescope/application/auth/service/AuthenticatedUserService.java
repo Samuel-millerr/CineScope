@@ -27,6 +27,7 @@ public class AuthenticatedUserService {
         if (user != null) {
             return user;
         }
+
         throw new DefaultException(HttpStatus.NOT_FOUND, ErrorEnum.NOT_FOUND.formatSimpleTemplate("User"));
     }
 }

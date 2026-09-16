@@ -16,7 +16,7 @@ import com.project.cinescope.application.request.response.RequestMovieResponseDt
 import com.project.cinescope.application.user.User;
 import com.project.cinescope.application.user.UserRepository;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
+import com.project.cinescope.core.utils.message.ErrorEnum;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.springframework.http.HttpStatus;
@@ -32,17 +32,23 @@ import java.util.Set;
 public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository requestRepository;
-    private final MovieRepository movieRepository;
     private final UserRepository userRepository;
+    private final MovieRepository movieRepository;
     private final MovieService movieService;
     private final AuthenticatedUserService authenticatedUserService;
     private final ObjectMapper objectMapper;
     private final Validator validator;
 
-    public RequestServiceImpl(RequestRepository requestRepository, MovieRepository movieRepository, UserRepository userRepository, MovieService movieService, AuthenticatedUserService authenticatedUserService, ObjectMapper objectMapper, Validator validator) {
+    public RequestServiceImpl(RequestRepository requestRepository,
+                              UserRepository userRepository,
+                              MovieRepository movieRepository,
+                              MovieService movieService,
+                              AuthenticatedUserService authenticatedUserService,
+                              ObjectMapper objectMapper,
+                              Validator validator) {
         this.requestRepository = requestRepository;
-        this.movieRepository = movieRepository;
         this.userRepository = userRepository;
+        this.movieRepository = movieRepository;
         this.movieService = movieService;
         this.authenticatedUserService = authenticatedUserService;
         this.objectMapper = objectMapper;
@@ -59,9 +65,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestMovieResponseDto getById(Integer id) {
-        return requestRepository.findById(id)
-                .map(RequestMovieResponseDto::toResponseDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
+        Request request = getRequestById(id);
+        return RequestMovieResponseDto.toResponseDto(request);
     }
 
     @Override
@@ -76,7 +81,12 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<RequestMovieResponseDto> findRequestsByUserId(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("User", "id", userId)
+                        )
+                );
+
         List<Request> requestList = requestRepository.findByUser(user);
         return requestList.stream()
                 .map(RequestMovieResponseDto::toResponseDto)
@@ -108,7 +118,11 @@ public class RequestServiceImpl implements RequestService {
             }
             case EDIÇÃO -> {
                 Movie movie = movieRepository.findById(requestDto.movieId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + requestDto.movieId()));
+                        .orElseThrow(() -> new DefaultException(
+                                        HttpStatus.NOT_FOUND,
+                                        ErrorEnum.NOT_FOUND.formatDetailedTemplate("Movie", "id", requestDto.movieId())
+                                )
+                        );
 
                 request.setMovie(movie);
 
@@ -128,8 +142,8 @@ public class RequestServiceImpl implements RequestService {
             Integer id,
             RequestStatus requestStatus
     ) {
-        Request request = requestRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
+
+        Request request = getRequestById(id);
 
         switch (requestStatus) {
             case RequestStatus.APROVADO -> {
@@ -163,8 +177,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void delete(Integer id) {
-        Request request = requestRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
+        Request request = getRequestById(id);
 
         request.setActive(false);
         requestRepository.save(request);
@@ -172,8 +185,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void deleteRequestByCurrentUser(Integer id) {
-        Request request = requestRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Request not found with id: " + id));
+        Request request = getRequestById(id);
 
         User user = authenticatedUserService.getCurrentUser();
 
@@ -186,5 +198,14 @@ public class RequestServiceImpl implements RequestService {
 
         request.setActive(false);
         requestRepository.save(request);
+    }
+
+    private Request getRequestById(Integer id) {
+        return requestRepository.findById(id)
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Request", "id", id)
+                        )
+                );
     }
 }

@@ -7,7 +7,6 @@ import com.project.cinescope.application.movie.request.MovieCreateRequestDto;
 import com.project.cinescope.application.movie.request.MovieUpdateRequestDto;
 import com.project.cinescope.application.movie.response.MovieResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.core.utils.message.ErrorEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,17 +37,14 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieResponseDto getById(Integer id) {
-        return movieRepository.findById(id)
-                .map(MovieResponseDto::toResponseDto)
-                .orElseThrow(() -> new DefaultException(
-                                HttpStatus.NOT_FOUND, ErrorEnum.NOT_FOUND.formatDetailedTemplate("Movie", "id", id)
-                        )
-                );
+        Movie movie = getMovieById(id);
+        return MovieResponseDto.toResponseDto(movie);
     }
 
     @Override
     public MovieResponseDto post(MovieCreateRequestDto requestDto) {
         String movieTitle = requestDto.title();
+
         if (movieRepository.existsByTitle(movieTitle)) {
             throw new DefaultException(
                     HttpStatus.CONFLICT,
@@ -58,13 +54,13 @@ public class MovieServiceImpl implements MovieService {
 
         Movie movie = MovieCreateRequestDto.toEntity(requestDto);
         Movie createdMovie = movieRepository.save(movie);
+
         return MovieResponseDto.toResponseDto(createdMovie);
     }
 
     @Override
     public MovieResponseDto patch(Integer id, MovieUpdateRequestDto requestDto) {
-        Movie movie = movieRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
+        Movie movie = getMovieById(id);
 
         try {
             Field[] fields = requestDto.getClass().getDeclaredFields();
@@ -86,15 +82,26 @@ public class MovieServiceImpl implements MovieService {
         }
 
         Movie updatedMovie = movieRepository.save(movie);
+
         return MovieResponseDto.toResponseDto(updatedMovie);
     }
 
     @Override
     public void delete(Integer id) {
-        Movie movie = movieRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + id));
+        Movie movie = getMovieById(id);
 
         movie.setActive(false);
         movieRepository.save(movie);
+    }
+
+    private Movie getMovieById(Integer id) {
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new DefaultException(
+                                HttpStatus.NOT_FOUND,
+                                ErrorEnum.NOT_FOUND.formatDetailedTemplate("Movie", "id", id)
+                        )
+                );
+
+
     }
 }

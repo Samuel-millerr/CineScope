@@ -6,7 +6,6 @@ import com.project.cinescope.application.genre.GenreService;
 import com.project.cinescope.application.genre.request.GenreRequestDto;
 import com.project.cinescope.application.genre.response.GenreResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
-import com.project.cinescope.core.exception.exceptions.ResourceNotFoundException;
 import com.project.cinescope.core.utils.message.ErrorEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
