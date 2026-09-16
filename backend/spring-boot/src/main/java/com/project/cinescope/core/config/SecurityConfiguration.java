@@ -41,6 +41,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> {
                             authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                             authorize.requestMatchers(HttpMethod.GET, "/api").permitAll();
+                            authorize.requestMatchers(
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
+                            ).permitAll();
 
                             for (EndpointsPermissions permission : EndpointsPermissions.values()) {
                                 switch (permission.access) {
