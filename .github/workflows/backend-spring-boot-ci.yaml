@@ -40,7 +40,7 @@ jobs:
           DATABASE_PASSWORD=root
           EOF
 
-      - name: Iniciar PostgreSQL
+      - name: Iniciar banco de dados PostgreSQL
         run: |
           docker compose up -d --wait postgres
           docker compose logs postgres
