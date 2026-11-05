@@ -59,7 +59,7 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should return an director by ID")
+    @DisplayName("Should return a director by ID")
     void shouldReturnDirectorById() {
         when(directorRepository.findById(1)).thenReturn(Optional.of(director1));
 
@@ -74,8 +74,8 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DefaultException when director not found by ID")
-    void shouldThrowNotFoundExceptionWhenDirectorDoesNotExist() {
+    @DisplayName("Should throw NOT_FOUND exception when try get director by ID that not exists")
+    void shouldThrowNotFoundExceptionWhenTryGetDirectorByIdThatNotExists() {
         when(directorRepository.findById(999)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> directorService.getById(999))
@@ -106,8 +106,8 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DefaultException when director name already exists")
-    void shouldThrowDuplicateExceptionWhenDirectorAlreadyExists() {
+    @DisplayName("Should throw CONFLICT exception when try save director with director name already exists")
+    void shouldThrowConflictExceptionWhenTrySaveDirectorWithDirectorNameAlreadyExists() {
         DirectorRequestDto requestDto = new DirectorRequestDto("Steven Spielberg");
 
         when(directorRepository.existsByName("Steven Spielberg")).thenReturn(true);
@@ -142,8 +142,8 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DefaultException when updating a non-existing director")
-    void shouldThrowNotFoundWhenPatchingExistentDirector() {
+    @DisplayName("Should throw NOT_FOUND exception when try patch director by ID that not exists")
+    void shouldThrowNotFoundExceptionWhenTryPatchDirectorByIdThatNotExists() {
         DirectorRequestDto updateDto = new DirectorRequestDto("Non-Existent Director");
 
         when(directorRepository.findById(999)).thenReturn(Optional.empty());
@@ -169,8 +169,8 @@ public class DirectorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DefaultException when deleting non-existent director")
-    void shouldThrowNotFoundWhenDeletingNonExistentDirector() {
+    @DisplayName("Should throw NOT_FOUND exception when try delete director by ID that not exists")
+    void shouldThrowNotFoundExceptionWhenTryDeleteDirectorByIdThatNotExists() {
         when(directorRepository.findById(999)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> directorService.delete(999))

@@ -73,8 +73,8 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DefaultException when actor not found by ID")
-    void shouldThrowNotFoundExceptionWhenActorDoesNotExist() {
+    @DisplayName("Should throw NOT_FOUND exception when try get actor by ID that not exists")
+    void shouldThrowNotFoundExceptionWhenTryGetActorByIdThatNotExists() {
         when(actorRepository.findById(999)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> actorService.getById(999))
@@ -105,8 +105,8 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DefaultException when actor name already exists")
-    void shouldThrowDuplicateExceptionWhenActorAlreadyExists() {
+    @DisplayName("Should throw CONFLICT exception when try save actor with actor name already exists")
+    void shouldThrowConflictExceptionWhenTrySaveActorWithActorNameAlreadyExists() {
         ActorRequestDto requestDto = new ActorRequestDto("Tom Hanks", "photo.jpg");
 
         when(actorRepository.existsByName("Tom Hanks")).thenReturn(true);
@@ -141,8 +141,8 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DefaultException when updating non-existent actor")
-    void shouldThrowNotFoundWhenPatchingNonExistentActor() {
+    @DisplayName("Should throw NOT_FOUND exception when try patch actor by ID that not exists")
+    void shouldThrowNotFoundExceptionWhenTryPatchActorByIdThatNotExists() {
         ActorRequestDto updateDto = new ActorRequestDto("Updated Name", "updated_photo.jpg");
 
         when(actorRepository.findById(999)).thenReturn(Optional.empty());
@@ -168,8 +168,8 @@ class ActorServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw DefaultException when deleting non-existent actor")
-    void shouldThrowNotFoundWhenDeletingNonExistentActor() {
+    @DisplayName("Should throw NOT_FOUND exception when try delete actor by ID that not exists")
+    void shouldThrowNotFoundExceptionWhenTryDeleteActorByIdThatNotExists() {
         when(actorRepository.findById(999)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> actorService.delete(999))
