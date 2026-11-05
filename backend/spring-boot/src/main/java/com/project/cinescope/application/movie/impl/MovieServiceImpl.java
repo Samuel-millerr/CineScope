@@ -37,7 +37,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieResponseDto getById(Integer id) {
-        Movie movie = getMovieById(id);
+        Movie movie = findMovieById(id);
         return MovieResponseDto.toResponseDto(movie);
     }
 
@@ -60,7 +60,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieResponseDto patch(Integer id, MovieUpdateRequestDto requestDto) {
-        Movie movie = getMovieById(id);
+        Movie movie = findMovieById(id);
 
         try {
             Field[] fields = requestDto.getClass().getDeclaredFields();
@@ -88,13 +88,13 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void delete(Integer id) {
-        Movie movie = getMovieById(id);
+        Movie movie = findMovieById(id);
 
         movie.setActive(false);
         movieRepository.save(movie);
     }
 
-    private Movie getMovieById(Integer id) {
+    private Movie findMovieById(Integer id) {
         return movieRepository.findById(id)
                 .orElseThrow(() -> new DefaultException(
                                 HttpStatus.NOT_FOUND,

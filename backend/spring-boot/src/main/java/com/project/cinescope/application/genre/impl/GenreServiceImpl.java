@@ -30,7 +30,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreResponseDto getById(Integer id) {
-        Genre genre = getGenreById(id);
+        Genre genre = findGenreById(id);
         return GenreResponseDto.toResponseDto(genre);
     }
 
@@ -51,13 +51,13 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public void delete(Integer id) {
-        Genre genre = getGenreById(id);
+        Genre genre = findGenreById(id);
 
         genre.setActive(false);
         genreRepository.save(genre);
     }
 
-    private Genre getGenreById(Integer id) {
+    private Genre findGenreById(Integer id) {
         return genreRepository.findById(id)
                 .orElseThrow(() -> new DefaultException(
                                 HttpStatus.NOT_FOUND,

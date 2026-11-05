@@ -30,7 +30,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public ActorResponseDto getById(Integer id) {
-        Actor actor = getActorById(id);
+        Actor actor = findActorById(id);
         return ActorResponseDto.toResponseDto(actor);
     }
 
@@ -51,7 +51,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public ActorResponseDto patch(Integer id, ActorRequestDto requestDto) {
-        Actor actor = getActorById(id);
+        Actor actor = findActorById(id);
 
         if (requestDto.name() != null) {
             actor.setName(requestDto.name());
@@ -67,13 +67,13 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public void delete(Integer id) {
-        Actor actor = getActorById(id);
+        Actor actor = findActorById(id);
 
         actor.setActive(false);
         actorRepository.save(actor);
     }
 
-    private Actor getActorById(Integer id) {
+    private Actor findActorById(Integer id) {
         return actorRepository.findById(id)
                 .orElseThrow(() -> new DefaultException(
                                 HttpStatus.NOT_FOUND,

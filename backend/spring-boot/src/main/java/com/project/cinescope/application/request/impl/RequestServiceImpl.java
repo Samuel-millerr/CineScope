@@ -65,7 +65,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestMovieResponseDto getById(Integer id) {
-        Request request = getRequestById(id);
+        Request request = findRequestById(id);
         return RequestMovieResponseDto.toResponseDto(request);
     }
 
@@ -143,7 +143,7 @@ public class RequestServiceImpl implements RequestService {
             RequestStatus requestStatus
     ) {
 
-        Request request = getRequestById(id);
+        Request request = findRequestById(id);
 
         switch (requestStatus) {
             case RequestStatus.APROVADO -> {
@@ -177,7 +177,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void delete(Integer id) {
-        Request request = getRequestById(id);
+        Request request = findRequestById(id);
 
         request.setActive(false);
         requestRepository.save(request);
@@ -185,7 +185,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void deleteRequestByCurrentUser(Integer id) {
-        Request request = getRequestById(id);
+        Request request = findRequestById(id);
 
         User user = authenticatedUserService.getCurrentUser();
 
@@ -200,7 +200,7 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.save(request);
     }
 
-    private Request getRequestById(Integer id) {
+    private Request findRequestById(Integer id) {
         return requestRepository.findById(id)
                 .orElseThrow(() -> new DefaultException(
                                 HttpStatus.NOT_FOUND,

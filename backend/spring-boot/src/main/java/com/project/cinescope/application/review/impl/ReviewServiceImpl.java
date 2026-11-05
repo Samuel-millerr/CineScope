@@ -41,7 +41,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ReviewResponseDto getById(Integer id) {
-        Review review = getReviewById(id);
+        Review review = findReviewById(id);
         return ReviewResponseDto.toResponseDto(review);
     }
 
@@ -89,7 +89,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void delete(Integer id) {
-        Review review = getReviewById(id);
+        Review review = findReviewById(id);
 
         review.setActive(false);
         reviewRepository.save(review);
@@ -97,7 +97,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void deleteReviewByCurrentUser(Integer id) {
-        Review review = getReviewById(id);
+        Review review = findReviewById(id);
 
         User user = authenticatedUserService.getCurrentUser();
 
@@ -109,7 +109,7 @@ public class ReviewServiceImpl implements ReviewService {
         reviewRepository.save(review);
     }
 
-    private Review getReviewById(Integer id) {
+    private Review findReviewById(Integer id) {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new DefaultException(
                                 HttpStatus.NOT_FOUND,

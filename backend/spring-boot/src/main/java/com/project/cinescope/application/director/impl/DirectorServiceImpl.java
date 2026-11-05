@@ -30,7 +30,7 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public DirectorResponseDto getById(Integer id) {
-        Director director = getDirectorById(id);
+        Director director = findDirectorById(id);
         return DirectorResponseDto.toResponseDto(director);
     }
 
@@ -52,7 +52,7 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public DirectorResponseDto patch(Integer id, DirectorRequestDto requestDto) {
-        Director director = getDirectorById(id);
+        Director director = findDirectorById(id);
 
         if (requestDto.name() != null) {
             director.setName(requestDto.name());
@@ -64,13 +64,13 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public void delete(Integer id) {
-        Director director = getDirectorById(id);
+        Director director = findDirectorById(id);
 
         director.setActive(false);
         directorRepository.save(director);
     }
 
-    private Director getDirectorById(Integer id) {
+    private Director findDirectorById(Integer id) {
         return directorRepository.findById(id)
                 .orElseThrow(() -> new DefaultException(
                                 HttpStatus.NOT_FOUND,
