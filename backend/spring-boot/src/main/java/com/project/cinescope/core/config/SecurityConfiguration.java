@@ -1,6 +1,6 @@
 package com.project.cinescope.core.config;
 
-import com.project.cinescope.application.auth.jwt.JwtAuthenticationFilter;
+import com.project.cinescope.features.auth.jwt.JwtAuthenticationFilter;
 import com.project.cinescope.core.utils.endpoints.EndpointsPermissions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

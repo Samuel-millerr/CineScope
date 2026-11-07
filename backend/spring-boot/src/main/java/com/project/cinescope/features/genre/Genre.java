@@ -1,0 +1,40 @@
+package com.project.cinescope.features.genre;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.cinescope.features.movie.Movie;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "genre")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@SQLRestriction("active = true")
+public class Genre {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(length = 100, nullable = false)
+    public String genre;
+
+    @JsonIgnore
+    private Boolean active = true;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_genre",
+            joinColumns = @JoinColumn(name = "id_genre", table = "genre", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_movie", table = "movie", referencedColumnName = "id")
+    )
+    private List<Movie> movies = new ArrayList<>();
+}
