@@ -1,7 +1,7 @@
 package com.project.cinescope.core.config;
 
-import com.project.cinescope.features.auth.jwt.JwtAuthenticationFilter;
 import com.project.cinescope.core.utils.endpoints.EndpointsPermissions;
+import com.project.cinescope.features.auth.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -42,15 +42,16 @@ public class SecurityConfiguration {
                             authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                             authorize.requestMatchers(HttpMethod.GET, "/api").permitAll();
                             authorize.requestMatchers(
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/v3/api-docs/**"
+                                    "/swagger-ui/**",
+                                    "/swagger-ui.html",
+                                    "/v3/api-docs/**"
                             ).permitAll();
 
                             for (EndpointsPermissions permission : EndpointsPermissions.values()) {
                                 switch (permission.access) {
                                     case PUBLIC -> authorize.requestMatchers(permission.method, permission.path).permitAll();
-                                    case AUTHENTICATED -> authorize.requestMatchers(permission.method, permission.path).authenticated();
+                                    case AUTHENTICATED ->
+                                            authorize.requestMatchers(permission.method, permission.path).authenticated();
                                     case ADMIN ->
                                             authorize.requestMatchers(permission.method, permission.path).hasRole("ADMIN");
                                 }

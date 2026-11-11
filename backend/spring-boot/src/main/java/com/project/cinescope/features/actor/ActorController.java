@@ -1,10 +1,10 @@
 package com.project.cinescope.features.actor;
 
-import com.project.cinescope.features.actor.request.ActorRequestDto;
-import com.project.cinescope.features.actor.response.ActorResponseDto;
-import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
+import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
+import com.project.cinescope.features.actor.request.ActorRequestDTO;
+import com.project.cinescope.features.actor.response.ActorResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,41 +32,41 @@ public class ActorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ActorResponseDto>> getAll() {
-        List<ActorResponseDto> responseDtoList = actorService.getAll();
+    public ResponseEntity<List<ActorResponseDTO>> getAll() {
+        List<ActorResponseDTO> responseDtoList = actorService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ActorResponseDto> getById(
+    public ResponseEntity<ActorResponseDTO> getById(
             @PathVariable Integer id
     ) {
-        ActorResponseDto responseDto = actorService.getById(id);
+        ActorResponseDTO responseDto = actorService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
     @PostMapping
-    public ResponseEntity<ActorResponseDto> post(
-            @RequestBody @Valid ActorRequestDto requestDto
+    public ResponseEntity<ActorResponseDTO> post(
+            @RequestBody @Valid ActorRequestDTO request
     ) {
-        ActorResponseDto responseDto = actorService.post(requestDto);
+        ActorResponseDTO response = actorService.post(request);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(responseDto.id())
+                .buildAndExpand(response.id())
                 .toUri();
 
-        return ResponseEntity.created(uri).body(responseDto);
+        return ResponseEntity.created(uri).body(response);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ActorResponseDto> patch(
-        @PathVariable Integer id,
-        @RequestBody @Valid ActorRequestDto requestDto
+    public ResponseEntity<ActorResponseDTO> patch(
+            @PathVariable Integer id,
+            @RequestBody @Valid ActorRequestDTO request
     ) {
-        ActorResponseDto responseDto = actorService.patch(id, requestDto);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        ActorResponseDTO response = actorService.patch(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{id}")

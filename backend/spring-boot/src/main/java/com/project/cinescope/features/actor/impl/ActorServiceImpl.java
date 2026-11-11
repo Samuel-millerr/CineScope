@@ -1,12 +1,13 @@
 package com.project.cinescope.features.actor.impl;
 
-import com.project.cinescope.features.actor.Actor;
-import com.project.cinescope.features.actor.ActorRepository;
-import com.project.cinescope.features.actor.ActorService;
-import com.project.cinescope.features.actor.request.ActorRequestDto;
-import com.project.cinescope.features.actor.response.ActorResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.utils.message.ErrorEnum;
+import com.project.cinescope.features.actor.Actor;
+import com.project.cinescope.features.actor.ActorMapper;
+import com.project.cinescope.features.actor.ActorRepository;
+import com.project.cinescope.features.actor.ActorService;
+import com.project.cinescope.features.actor.request.ActorRequestDTO;
+import com.project.cinescope.features.actor.response.ActorResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,29 +15,32 @@ import java.util.List;
 
 @Service
 public class ActorServiceImpl implements ActorService {
-    private final ActorRepository actorRepository;
 
-    public ActorServiceImpl(ActorRepository actorRepository) {
+    private final ActorRepository actorRepository;
+    private final ActorMapper actorMapper;
+
+    public ActorServiceImpl(ActorRepository actorRepository, ActorMapper actorMapper) {
         this.actorRepository = actorRepository;
+        this.actorMapper = actorMapper;
     }
 
     @Override
-    public List<ActorResponseDto> getAll() {
-        List<Actor> actorList = actorRepository.findAll();
-        return actorList.stream()
-                .map(ActorResponseDto::toResponseDto)
+    public List<ActorResponseDTO> getAll() {
+        List<Actor> actors = actorRepository.findAll();
+        return actors.stream()
+                .map(actorMapper::toResponse)
                 .toList();
     }
 
     @Override
-    public ActorResponseDto getById(Integer id) {
+    public ActorResponseDTO getById(Integer id) {
         Actor actor = findActorById(id);
-        return ActorResponseDto.toResponseDto(actor);
+        return actorMapper.toResponse(actor);
     }
 
     @Override
-    public ActorResponseDto post(ActorRequestDto requestDto) {
-        String actorName = requestDto.name();
+    public ActorResponseDTO post(ActorRequestDTO request) {
+        String actorName = request.name();
         if (actorRepository.existsByName(actorName)) {
             throw new DefaultException(
                     HttpStatus.CONFLICT,
@@ -44,25 +48,19 @@ public class ActorServiceImpl implements ActorService {
             );
         }
 
-        Actor actor = ActorRequestDto.toEntity(requestDto);
+        Actor actor = actorMapper.toEntity(request);
         Actor createdActor = actorRepository.save(actor);
-        return ActorResponseDto.toResponseDto(createdActor);
+        return actorMapper.toResponse(createdActor);
     }
 
     @Override
-    public ActorResponseDto patch(Integer id, ActorRequestDto requestDto) {
+    public ActorResponseDTO patch(Integer id, ActorRequestDTO request) {
         Actor actor = findActorById(id);
 
-        if (requestDto.name() != null) {
-            actor.setName(requestDto.name());
-        }
-
-        if (requestDto.photo() != null) {
-            actor.setPhoto(requestDto.photo());
-        }
+        actorMapper.updateEntity(request, actor);
 
         Actor updateActor = actorRepository.save(actor);
-        return ActorResponseDto.toResponseDto(updateActor);
+        return actorMapper.toResponse(updateActor);
     }
 
     @Override
@@ -81,4 +79,5 @@ public class ActorServiceImpl implements ActorService {
                         )
                 );
     }
+
 }

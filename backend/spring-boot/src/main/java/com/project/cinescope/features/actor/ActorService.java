@@ -1,18 +1,18 @@
 package com.project.cinescope.features.actor;
 
-import com.project.cinescope.features.actor.request.ActorRequestDto;
-import com.project.cinescope.features.actor.response.ActorResponseDto;
+import com.project.cinescope.features.actor.request.ActorRequestDTO;
+import com.project.cinescope.features.actor.response.ActorResponseDTO;
 
 import java.util.List;
 
 public interface ActorService {
-    List<ActorResponseDto> getAll();
+    List<ActorResponseDTO> getAll();
 
-    ActorResponseDto getById(Integer id);
+    ActorResponseDTO getById(Integer id);
 
-    ActorResponseDto post(ActorRequestDto requestDto);
+    ActorResponseDTO post(ActorRequestDTO request);
 
-    ActorResponseDto patch(Integer id, ActorRequestDto requestDto);
+    ActorResponseDTO patch(Integer id, ActorRequestDTO request);
 
     void delete(Integer id);
 }

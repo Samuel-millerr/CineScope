@@ -1,8 +1,8 @@
 package com.project.cinescope.features.actor;
 
 import com.project.cinescope.features.actor.impl.ActorServiceImpl;
-import com.project.cinescope.features.actor.request.ActorRequestDto;
-import com.project.cinescope.features.actor.response.ActorResponseDto;
+import com.project.cinescope.features.actor.request.ActorRequestDTO;
+import com.project.cinescope.features.actor.response.ActorResponseDTO;
 import com.project.cinescope.core.exception.DefaultException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,6 +26,9 @@ class ActorServiceTest {
     @Mock
     private ActorRepository actorRepository;
 
+    @Mock
+    private ActorMapper actorMapper;
+
     @InjectMocks
     private ActorServiceImpl actorService;
 
@@ -44,12 +47,16 @@ class ActorServiceTest {
     @DisplayName("Should return all actors")
     void shouldReturnAllActors() {
         when(actorRepository.findAll()).thenReturn(Arrays.asList(actor1, actor2, actor3));
+        when(actorMapper.toResponse(any(Actor.class))).thenAnswer(invocation -> {
+            Actor actor = invocation.getArgument(0);
+            return new ActorResponseDTO(actor.getId(), actor.getName(), actor.getPhoto());
+        });
 
-        List<ActorResponseDto> result = actorService.getAll();
+        List<ActorResponseDTO> result = actorService.getAll();
 
         assertThat(result)
                 .hasSize(3)
-                .extracting(ActorResponseDto::id, ActorResponseDto::name)
+                .extracting(ActorResponseDTO::id, ActorResponseDTO::name)
                 .containsExactly(
                         tuple(1, "Tom Hanks"),
                         tuple(2, "Meryl Streep"),
@@ -61,12 +68,13 @@ class ActorServiceTest {
     @DisplayName("Should return an actor by ID")
     void shouldReturnActorById() {
         when(actorRepository.findById(1)).thenReturn(Optional.of(actor1));
+        when(actorMapper.toResponse(actor1)).thenReturn(new ActorResponseDTO(1, "Tom Hanks", "photo1.jpg"));
 
-        ActorResponseDto result = actorService.getById(1);
+        ActorResponseDTO result = actorService.getById(1);
 
         assertThat(result)
                 .isNotNull()
-                .extracting(ActorResponseDto::id, ActorResponseDto::name, ActorResponseDto::photo)
+                .extracting(ActorResponseDTO::id, ActorResponseDTO::name, ActorResponseDTO::photo)
                 .containsExactly(1, "Tom Hanks", "photo1.jpg");
 
         verify(actorRepository, times(1)).findById(1);
@@ -87,17 +95,19 @@ class ActorServiceTest {
     @Test
     @DisplayName("Should create a new actor")
     void shouldCreateNewActor() {
-        ActorRequestDto requestDto = new ActorRequestDto("Tom Cruise", "photo_cruise.jpg");
+        ActorRequestDTO requestDto = new ActorRequestDTO("Tom Cruise", "photo_cruise.jpg");
         Actor newActor = new Actor(4, "Tom Cruise", "photo_cruise.jpg", true, null);
 
         when(actorRepository.existsByName("Tom Cruise")).thenReturn(false);
+        when(actorMapper.toEntity(requestDto)).thenReturn(newActor);
+        when(actorMapper.toResponse(newActor)).thenReturn(new ActorResponseDTO(4, "Tom Cruise", "photo_cruise.jpg"));
         when(actorRepository.save(any(Actor.class))).thenReturn(newActor);
 
-        ActorResponseDto result = actorService.post(requestDto);
+        ActorResponseDTO result = actorService.post(requestDto);
 
         assertThat(result)
                 .isNotNull()
-                .extracting(ActorResponseDto::id, ActorResponseDto::name, ActorResponseDto::photo)
+                .extracting(ActorResponseDTO::id, ActorResponseDTO::name, ActorResponseDTO::photo)
                 .containsExactly(4, "Tom Cruise", "photo_cruise.jpg");
 
         verify(actorRepository, times(1)).existsByName("Tom Cruise");
@@ -107,7 +117,7 @@ class ActorServiceTest {
     @Test
     @DisplayName("Should throw CONFLICT exception when try save actor with actor name already exists")
     void shouldThrowConflictExceptionWhenTrySaveActorWithActorNameAlreadyExists() {
-        ActorRequestDto requestDto = new ActorRequestDto("Tom Hanks", "photo.jpg");
+        ActorRequestDTO requestDto = new ActorRequestDTO("Tom Hanks", "photo.jpg");
 
         when(actorRepository.existsByName("Tom Hanks")).thenReturn(true);
 
@@ -122,18 +132,26 @@ class ActorServiceTest {
     @Test
     @DisplayName("Should update an existing actor")
     void shouldUpdateExistingActor() {
-        ActorRequestDto updateDto = new ActorRequestDto("Tom Hanks Updated", "updated_photo.jpg");
+        ActorRequestDTO updateDto = new ActorRequestDTO("Tom Hanks Updated", "updated_photo.jpg");
         Actor existingActor = new Actor(1, "Tom Hanks", "photo1.jpg", true, null);
         Actor updatedActor = new Actor(1, "Tom Hanks Updated", "updated_photo.jpg", true, null);
 
         when(actorRepository.findById(1)).thenReturn(Optional.of(existingActor));
+        doAnswer(invocation -> {
+            ActorRequestDTO request = invocation.getArgument(0);
+            Actor actor = invocation.getArgument(1);
+            actor.setName(request.name());
+            actor.setPhoto(request.photo());
+            return null;
+        }).when(actorMapper).updateEntity(any(ActorRequestDTO.class), any(Actor.class));
         when(actorRepository.save(any(Actor.class))).thenReturn(updatedActor);
+        when(actorMapper.toResponse(updatedActor)).thenReturn(new ActorResponseDTO(1, "Tom Hanks Updated", "updated_photo.jpg"));
 
-        ActorResponseDto result = actorService.patch(1, updateDto);
+        ActorResponseDTO result = actorService.patch(1, updateDto);
 
         assertThat(result)
                 .isNotNull()
-                .extracting(ActorResponseDto::id, ActorResponseDto::name, ActorResponseDto::photo)
+                .extracting(ActorResponseDTO::id, ActorResponseDTO::name, ActorResponseDTO::photo)
                 .containsExactly(1, "Tom Hanks Updated", "updated_photo.jpg");
 
         verify(actorRepository, times(1)).findById(1);
@@ -143,7 +161,7 @@ class ActorServiceTest {
     @Test
     @DisplayName("Should throw NOT_FOUND exception when try patch actor by ID that not exists")
     void shouldThrowNotFoundExceptionWhenTryPatchActorByIdThatNotExists() {
-        ActorRequestDto updateDto = new ActorRequestDto("Updated Name", "updated_photo.jpg");
+        ActorRequestDTO updateDto = new ActorRequestDTO("Updated Name", "updated_photo.jpg");
 
         when(actorRepository.findById(999)).thenReturn(Optional.empty());
 
