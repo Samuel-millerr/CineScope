@@ -1,10 +1,11 @@
 package com.project.cinescope.features.director.impl;
 
 import com.project.cinescope.features.director.Director;
+import com.project.cinescope.features.director.DirectorMapper;
 import com.project.cinescope.features.director.DirectorRepository;
 import com.project.cinescope.features.director.DirectorService;
-import com.project.cinescope.features.director.request.DirectorRequestDto;
-import com.project.cinescope.features.director.response.DirectorResponseDto;
+import com.project.cinescope.features.director.request.DirectorRequestDTO;
+import com.project.cinescope.features.director.response.DirectorResponseDTO;
 import com.project.cinescope.core.exception.DefaultException;
 import com.project.cinescope.core.utils.message.ErrorEnum;
 import org.springframework.http.HttpStatus;
@@ -14,29 +15,32 @@ import java.util.List;
 
 @Service
 public class DirectorServiceImpl implements DirectorService {
-    private final DirectorRepository directorRepository;
 
-    public DirectorServiceImpl(DirectorRepository directorRepository) {
+    private final DirectorRepository directorRepository;
+    private final DirectorMapper directorMapper;
+
+    public DirectorServiceImpl(DirectorRepository directorRepository, DirectorMapper directorMapper) {
         this.directorRepository = directorRepository;
+        this.directorMapper = directorMapper;
     }
 
     @Override
-    public List<DirectorResponseDto> getAll() {
+    public List<DirectorResponseDTO> getAll() {
         List<Director> directorList = directorRepository.findAll();
         return directorList.stream()
-                .map(DirectorResponseDto::toResponseDto)
+                .map(directorMapper::toResponse)
                 .toList();
     }
 
     @Override
-    public DirectorResponseDto getById(Integer id) {
+    public DirectorResponseDTO getById(Integer id) {
         Director director = findDirectorById(id);
-        return DirectorResponseDto.toResponseDto(director);
+        return directorMapper.toResponse(director);
     }
 
     @Override
-    public DirectorResponseDto post(DirectorRequestDto requestDto) {
-        String directorName = requestDto.name();
+    public DirectorResponseDTO post(DirectorRequestDTO request) {
+        String directorName = request.name();
 
         if (directorRepository.existsByName(directorName)) {
             throw new DefaultException(
@@ -45,21 +49,19 @@ public class DirectorServiceImpl implements DirectorService {
             );
         }
 
-        Director director = DirectorRequestDto.toEntity(requestDto);
+        Director director = directorMapper.toEntity(request);
         Director createdDirector = directorRepository.save(director);
-        return DirectorResponseDto.toResponseDto(createdDirector);
+        return directorMapper.toResponse(createdDirector);
     }
 
     @Override
-    public DirectorResponseDto patch(Integer id, DirectorRequestDto requestDto) {
+    public DirectorResponseDTO patch(Integer id, DirectorRequestDTO request) {
         Director director = findDirectorById(id);
 
-        if (requestDto.name() != null) {
-            director.setName(requestDto.name());
-        }
+        directorMapper.updateEntity(request, director);
 
         Director updateActor = directorRepository.save(director);
-        return DirectorResponseDto.toResponseDto(updateActor);
+        return directorMapper.toResponse(updateActor);
     }
 
     @Override

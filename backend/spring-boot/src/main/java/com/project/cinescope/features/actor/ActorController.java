@@ -33,16 +33,16 @@ public class ActorController {
 
     @GetMapping
     public ResponseEntity<List<ActorResponseDTO>> getAll() {
-        List<ActorResponseDTO> responseDtoList = actorService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
+        List<ActorResponseDTO> response = actorService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ActorResponseDTO> getById(
             @PathVariable Integer id
     ) {
-        ActorResponseDTO responseDto = actorService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        ActorResponseDTO response = actorService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping

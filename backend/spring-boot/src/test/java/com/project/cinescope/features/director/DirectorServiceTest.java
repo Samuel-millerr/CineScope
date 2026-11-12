@@ -1,9 +1,9 @@
 package com.project.cinescope.features.director;
 
-import com.project.cinescope.features.director.impl.DirectorServiceImpl;
-import com.project.cinescope.features.director.request.DirectorRequestDto;
-import com.project.cinescope.features.director.response.DirectorResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
+import com.project.cinescope.features.director.impl.DirectorServiceImpl;
+import com.project.cinescope.features.director.request.DirectorRequestDTO;
+import com.project.cinescope.features.director.response.DirectorResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +19,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.groups.Tuple.tuple;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,6 +27,9 @@ public class DirectorServiceTest {
 
     @Mock
     private DirectorRepository directorRepository;
+
+    @Mock
+    private DirectorMapper directorMapper;
 
     @InjectMocks
     private DirectorServiceImpl directorService;
@@ -45,12 +49,16 @@ public class DirectorServiceTest {
     @DisplayName("Should return all directors")
     void shouldReturnAllDirectors() {
         when(directorRepository.findAll()).thenReturn(Arrays.asList(director1, director2, director3));
+        when(directorMapper.toResponse(any(Director.class))).thenAnswer(invocation -> {
+            Director director = invocation.getArgument(0);
+            return new DirectorResponseDTO(director.getId(), director.getName());
+        });
 
-        List<DirectorResponseDto> result = directorService.getAll();
+        List<DirectorResponseDTO> result = directorService.getAll();
 
         assertThat(result)
                 .hasSize(3)
-                .extracting(DirectorResponseDto::id, DirectorResponseDto::name)
+                .extracting(DirectorResponseDTO::id, DirectorResponseDTO::name)
                 .containsExactly(
                         tuple(1, "Steven Spielberg"),
                         tuple(2, "Christopher Nolan"),
@@ -62,12 +70,13 @@ public class DirectorServiceTest {
     @DisplayName("Should return a director by ID")
     void shouldReturnDirectorById() {
         when(directorRepository.findById(1)).thenReturn(Optional.of(director1));
+        when(directorMapper.toResponse(director1)).thenReturn(new DirectorResponseDTO(1, "Steven Spielberg"));
 
-        DirectorResponseDto result = directorService.getById(1);
+        DirectorResponseDTO result = directorService.getById(1);
 
         assertThat(result)
                 .isNotNull()
-                .extracting(DirectorResponseDto::id, DirectorResponseDto::name)
+                .extracting(DirectorResponseDTO::id, DirectorResponseDTO::name)
                 .containsExactly(1, "Steven Spielberg");
 
         verify(directorRepository, times(1)).findById(1);
@@ -88,17 +97,19 @@ public class DirectorServiceTest {
     @Test
     @DisplayName("Should create a new director")
     void shouldCreateNewDirector() {
-        DirectorRequestDto requestDto = new DirectorRequestDto("James Cameron");
+        DirectorRequestDTO requestDto = new DirectorRequestDTO("James Cameron");
         Director newDirector = new Director(4, "James Cameron", true, null);
 
         when(directorRepository.existsByName("James Cameron")).thenReturn(false);
+        when(directorMapper.toEntity(requestDto)).thenReturn(newDirector);
+        when(directorMapper.toResponse(newDirector)).thenReturn(new DirectorResponseDTO(4, "James Cameron"));
         when(directorRepository.save(any(Director.class))).thenReturn(newDirector);
 
-        DirectorResponseDto result = directorService.post(requestDto);
+        DirectorResponseDTO result = directorService.post(requestDto);
 
         assertThat(result)
                 .isNotNull()
-                .extracting(DirectorResponseDto::id, DirectorResponseDto::name)
+                .extracting(DirectorResponseDTO::id, DirectorResponseDTO::name)
                 .containsExactly(4, "James Cameron");
 
         verify(directorRepository, times(1)).existsByName("James Cameron");
@@ -108,7 +119,7 @@ public class DirectorServiceTest {
     @Test
     @DisplayName("Should throw CONFLICT exception when try save director with director name already exists")
     void shouldThrowConflictExceptionWhenTrySaveDirectorWithDirectorNameAlreadyExists() {
-        DirectorRequestDto requestDto = new DirectorRequestDto("Steven Spielberg");
+        DirectorRequestDTO requestDto = new DirectorRequestDTO("Steven Spielberg");
 
         when(directorRepository.existsByName("Steven Spielberg")).thenReturn(true);
 
@@ -123,18 +134,25 @@ public class DirectorServiceTest {
     @Test
     @DisplayName("Should update an existing director")
     void shouldUpdateExistingDirector() {
-        DirectorRequestDto updateDirector = new DirectorRequestDto("Steven Spielberg Updated");
+        DirectorRequestDTO updateDirector = new DirectorRequestDTO("Steven Spielberg Updated");
         Director existingDirector = new Director(1, "Steven Spielberg", true, null);
         Director updatedDirector = new Director(1, "Steven Spielberg Updated", true, null);
 
         when(directorRepository.findById(1)).thenReturn(Optional.of(existingDirector));
+        doAnswer(invocation -> {
+            DirectorRequestDTO request = invocation.getArgument(0);
+            Director director = invocation.getArgument(1);
+            director.setName(request.name());
+            return null;
+        }).when(directorMapper).updateEntity(any(DirectorRequestDTO.class), any(Director.class));
         when(directorRepository.save(any(Director.class))).thenReturn(updatedDirector);
+        when(directorMapper.toResponse(updatedDirector)).thenReturn(new DirectorResponseDTO(1, "Steven Spielberg Updated"));
 
-        DirectorResponseDto result = directorService.patch(1, updateDirector);
+        DirectorResponseDTO result = directorService.patch(1, updateDirector);
 
         assertThat(result)
                 .isNotNull()
-                .extracting(DirectorResponseDto::id, DirectorResponseDto::name)
+                .extracting(DirectorResponseDTO::id, DirectorResponseDTO::name)
                 .containsExactly(1, "Steven Spielberg Updated");
 
         verify(directorRepository, times(1)).findById(1);
@@ -144,7 +162,7 @@ public class DirectorServiceTest {
     @Test
     @DisplayName("Should throw NOT_FOUND exception when try patch director by ID that not exists")
     void shouldThrowNotFoundExceptionWhenTryPatchDirectorByIdThatNotExists() {
-        DirectorRequestDto updateDto = new DirectorRequestDto("Non-Existent Director");
+        DirectorRequestDTO updateDto = new DirectorRequestDTO("Non-Existent Director");
 
         when(directorRepository.findById(999)).thenReturn(Optional.empty());
 

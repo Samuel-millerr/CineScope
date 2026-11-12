@@ -1,18 +1,18 @@
 package com.project.cinescope.features.director;
 
-import com.project.cinescope.features.director.request.DirectorRequestDto;
-import com.project.cinescope.features.director.response.DirectorResponseDto;
+import com.project.cinescope.features.director.request.DirectorRequestDTO;
+import com.project.cinescope.features.director.response.DirectorResponseDTO;
 
 import java.util.List;
 
 public interface DirectorService {
-    List<DirectorResponseDto> getAll();
+    List<DirectorResponseDTO> getAll();
 
-    DirectorResponseDto getById(Integer id);
+    DirectorResponseDTO getById(Integer id);
 
-    DirectorResponseDto post(DirectorRequestDto requestDto);
+    DirectorResponseDTO post(DirectorRequestDTO request);
 
-    DirectorResponseDto patch(Integer id, DirectorRequestDto requestDto);
+    DirectorResponseDTO patch(Integer id, DirectorRequestDTO request);
 
     void delete(Integer id);
 }

@@ -1,7 +1,7 @@
 package com.project.cinescope.features.movie.response;
 
 import com.project.cinescope.features.actor.response.ActorResponseDTO;
-import com.project.cinescope.features.director.response.DirectorResponseDto;
+import com.project.cinescope.features.director.response.DirectorResponseDTO;
 import com.project.cinescope.features.movie.Movie;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public record MovieResponseDto(
         String synopsis,
         String poster,
         List<ActorResponseDTO> actors,
-        List<DirectorResponseDto> directors
+        List<DirectorResponseDTO> directors
 ) {
     public static MovieResponseDto toResponseDto(Movie movie) {
         return new MovieResponseDto(
@@ -28,7 +28,7 @@ public record MovieResponseDto(
                         .map(ActorResponseDTO::toResponseDto)
                         .toList(),
                 movie.getDirectors().stream()
-                        .map(DirectorResponseDto::toResponseDto)
+                        .map(DirectorResponseDTO::toResponseDto)
                         .toList()
         );
     }

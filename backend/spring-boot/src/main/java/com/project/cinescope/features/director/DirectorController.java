@@ -1,7 +1,7 @@
 package com.project.cinescope.features.director;
 
-import com.project.cinescope.features.director.request.DirectorRequestDto;
-import com.project.cinescope.features.director.response.DirectorResponseDto;
+import com.project.cinescope.features.director.request.DirectorRequestDTO;
+import com.project.cinescope.features.director.response.DirectorResponseDTO;
 import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
@@ -32,41 +32,41 @@ public class DirectorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DirectorResponseDto>> getAll() {
-        List<DirectorResponseDto> responseDtoList = directorService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
+    public ResponseEntity<List<DirectorResponseDTO>> getAll() {
+        List<DirectorResponseDTO> response = directorService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DirectorResponseDto> getById(
+    public ResponseEntity<DirectorResponseDTO> getById(
             @PathVariable Integer id
     ) {
-        DirectorResponseDto responseDto = directorService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        DirectorResponseDTO response = directorService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping
-    public ResponseEntity<DirectorResponseDto> post(
-            @RequestBody @Valid DirectorRequestDto requestDto
+    public ResponseEntity<DirectorResponseDTO> post(
+            @RequestBody @Valid DirectorRequestDTO request
     ) {
-        DirectorResponseDto responseDto = directorService.post(requestDto);
+        DirectorResponseDTO response = directorService.post(request);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(responseDto.id())
+                .buildAndExpand(response.id())
                 .toUri();
 
-        return ResponseEntity.created(uri).body(responseDto);
+        return ResponseEntity.created(uri).body(response);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<DirectorResponseDto> patch(
+    public ResponseEntity<DirectorResponseDTO> patch(
             @PathVariable Integer id,
-            @RequestBody @Valid DirectorRequestDto requestDto
+            @RequestBody @Valid DirectorRequestDTO request
     ) {
-        DirectorResponseDto responseDto = directorService.patch(id, requestDto);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        DirectorResponseDTO response = directorService.patch(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{id}")
