@@ -1,9 +1,9 @@
 package com.project.cinescope.features.genre;
 
-import com.project.cinescope.features.genre.impl.GenreServiceImpl;
-import com.project.cinescope.features.genre.request.GenreRequestDto;
-import com.project.cinescope.features.genre.response.GenreResponseDto;
 import com.project.cinescope.core.exception.DefaultException;
+import com.project.cinescope.features.genre.impl.GenreServiceImpl;
+import com.project.cinescope.features.genre.request.GenreRequestDTO;
+import com.project.cinescope.features.genre.response.GenreResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +28,9 @@ public class GenreServiceTest {
     @Mock
     private GenreRepository genreRepository;
 
+    @Mock
+    private GenreMapper genreMapper;
+
     @InjectMocks
     private GenreServiceImpl genreService;
 
@@ -46,12 +49,16 @@ public class GenreServiceTest {
     @DisplayName("Should return all genres")
     void shouldReturnAllGenres() {
         when(genreRepository.findAll()).thenReturn(Arrays.asList(genre1, genre2, genre3));
+        when(genreMapper.toResponse(any(Genre.class))).thenAnswer(invocation -> {
+            Genre genre = invocation.getArgument(0);
+            return new GenreResponseDTO(genre.getId(), genre.getGenre());
+        });
 
-        List<GenreResponseDto> result = genreService.getAll();
+        List<GenreResponseDTO> result = genreService.getAll();
 
         assertThat(result)
                 .hasSize(3)
-                .extracting(GenreResponseDto::id, GenreResponseDto::genre)
+                .extracting(GenreResponseDTO::id, GenreResponseDTO::genre)
                 .containsExactly(
                         tuple(1, "Action"),
                         tuple(2, "Comedy"),
@@ -63,12 +70,13 @@ public class GenreServiceTest {
     @DisplayName("Should return a genre by ID")
     void shouldReturnGenreById() {
         when(genreRepository.findById(1)).thenReturn(Optional.of(genre1));
+        when(genreMapper.toResponse(genre1)).thenReturn(new GenreResponseDTO(1, "Action"));
 
-        GenreResponseDto result = genreService.getById(1);
+        GenreResponseDTO result = genreService.getById(1);
 
         assertThat(result)
                 .isNotNull()
-                .extracting(GenreResponseDto::id, GenreResponseDto::genre)
+                .extracting(GenreResponseDTO::id, GenreResponseDTO::genre)
                 .containsExactly(1, "Action");
 
         verify(genreRepository, times(1)).findById(1);
@@ -89,17 +97,19 @@ public class GenreServiceTest {
     @Test
     @DisplayName("Should create a new genre")
     void shouldCreateNewGenre() {
-        GenreRequestDto requestDto = new GenreRequestDto("Sci-Fi");
+        GenreRequestDTO requestDto = new GenreRequestDTO("Sci-Fi");
         Genre newGenre = new Genre(4, "Sci-Fi", true, null);
 
         when(genreRepository.existsByGenre("Sci-Fi")).thenReturn(false);
+        when(genreMapper.toEntity(requestDto)).thenReturn(newGenre);
+        when(genreMapper.toResponse(newGenre)).thenReturn(new GenreResponseDTO(4, "Sci-Fi"));
         when(genreRepository.save(any(Genre.class))).thenReturn(newGenre);
 
-        GenreResponseDto result = genreService.post(requestDto);
+        GenreResponseDTO result = genreService.post(requestDto);
 
         assertThat(result)
                 .isNotNull()
-                .extracting(GenreResponseDto::id, GenreResponseDto::genre)
+                .extracting(GenreResponseDTO::id, GenreResponseDTO::genre)
                 .containsExactly(4, "Sci-Fi");
 
         verify(genreRepository, times(1)).existsByGenre("Sci-Fi");
@@ -109,7 +119,7 @@ public class GenreServiceTest {
     @Test
     @DisplayName("Should throw CONFLICT exception when try save genre with genre name already exists")
     void shouldThrowConflictExceptionWhenTrySaveGenreWithGenreNameAlreadyExists() {
-        GenreRequestDto requestDto = new GenreRequestDto("Action");
+        GenreRequestDTO requestDto = new GenreRequestDTO("Action");
 
         when(genreRepository.existsByGenre("Action")).thenReturn(true);
 

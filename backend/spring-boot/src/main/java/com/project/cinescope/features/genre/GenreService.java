@@ -1,16 +1,16 @@
 package com.project.cinescope.features.genre;
 
-import com.project.cinescope.features.genre.request.GenreRequestDto;
-import com.project.cinescope.features.genre.response.GenreResponseDto;
+import com.project.cinescope.features.genre.request.GenreRequestDTO;
+import com.project.cinescope.features.genre.response.GenreResponseDTO;
 
 import java.util.List;
 
 public interface GenreService {
-    List<GenreResponseDto> getAll();
+    List<GenreResponseDTO> getAll();
 
-    GenreResponseDto getById(Integer id);
+    GenreResponseDTO getById(Integer id);
 
-    GenreResponseDto post(GenreRequestDto requestDto);
+    GenreResponseDTO post(GenreRequestDTO request);
 
     void delete(Integer id);
 }

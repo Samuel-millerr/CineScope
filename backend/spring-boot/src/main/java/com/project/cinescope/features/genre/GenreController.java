@@ -1,7 +1,7 @@
 package com.project.cinescope.features.genre;
 
-import com.project.cinescope.features.genre.request.GenreRequestDto;
-import com.project.cinescope.features.genre.response.GenreResponseDto;
+import com.project.cinescope.features.genre.request.GenreRequestDTO;
+import com.project.cinescope.features.genre.response.GenreResponseDTO;
 import com.project.cinescope.core.utils.endpoints.ApiEndpoints;
 import com.project.cinescope.core.health.HealthCheckService;
 import com.project.cinescope.core.health.response.HealthCheckResponseDto;
@@ -29,25 +29,25 @@ public class GenreController {
     }
 
     @GetMapping
-    public ResponseEntity<List<GenreResponseDto>> getAll() {
-        List<GenreResponseDto> responseDtoList = genreService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(responseDtoList);
+    public ResponseEntity<List<GenreResponseDTO>> getAll() {
+        List<GenreResponseDTO> response = genreService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GenreResponseDto> getById(
+    public ResponseEntity<GenreResponseDTO> getById(
             @PathVariable Integer id
     ) {
-        GenreResponseDto responseDto = genreService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        GenreResponseDTO response = genreService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping
-    public ResponseEntity<GenreResponseDto> post(
-            @RequestBody @Valid GenreRequestDto requestDto
+    public ResponseEntity<GenreResponseDTO> post(
+            @RequestBody @Valid GenreRequestDTO request
     ) {
-        GenreResponseDto responseDto = genreService.post(requestDto);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        GenreResponseDTO response = genreService.post(request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{id}")
